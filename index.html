@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<!--
+  רדוד — דף נחיתה (V1)
+  ----------------------------------------------------------------------------
+  Vanilla HTML/CSS/JS. בלי framework, בלי build step. מתאים ל-GitHub Pages.
+  כל הטקסטים והנתונים שמשתנים לעיתים קרובות (טריגרים, וואטסאפ, מייל, כתובת ה-API,
+  מספר המלאי ההתחלתי) מרוכזים ב-CONFIG בראש script.js — שם עורכים, לא כאן.
+  כל מקום שדורש החלפה ידנית מסומן ב-PLACEHOLDER / TODO.
+-->
+<html lang="he" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>רדוד. — מהדורה מוגבלת</title>
+  <meta name="description" content="60 טריגרים ב-3 דרגות עומק. המים נראים רדודים, עד שמנסים לעמוד." />
+
+  <!-- Open Graph / שיתוף ברשתות (החלף את התמונה כשתהיה) -->
+  <meta property="og:title" content="רדוד." />
+  <meta property="og:description" content="מה הייתם שואלים, אם לא הייתם מפחדים מהתשובה?" />
+  <!-- PLACEHOLDER: <meta property="og:image" content="assets/og.jpg" /> -->
+
+  <!-- Google Fonts: Frank Ruhl Libre (כותרות/טריגרים/לוגו) + Heebo (UI/מיקרו-טקסט) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Frank+Ruhl+Libre:wght@400;500;700;900&family=Heebo:wght@300;400;500;700&display=swap" rel="stylesheet" />
+
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+  <!-- =========================================================================
+       NAV — מינימלי. לוגו בלבד + עוגן למחירון.
+       ========================================================================= -->
+  <header class="nav" aria-label="ניווט ראשי">
+    <a class="nav__home" href="#hero" aria-label="רדוד — לראש הדף">
+      <!-- רכיב הלוגו: מילה + קו מים + ו' צוללת. נבנה ב-buildLogo() ב-script.js -->
+      <span class="logo" data-logo aria-hidden="true"></span>
+      <span class="sr-only">רדוד</span>
+    </a>
+    <a class="nav__cta" href="#pricing">לרכישה</a>
+  </header>
+
+  <main>
+
+    <!-- =======================================================================
+         1) HERO
+         ======================================================================= -->
+    <section class="hero" id="hero">
+
+      <!-- מונה מלאי חי — הערך נמשך מ-CONFIG.apiUrl (doGet) בטעינה.
+           עד שמחברים API, מוצג CONFIG.fallbackRemaining. -->
+      <p class="hero__edition">
+        מהדורה מוגבלת:
+        <span class="hero__count" data-remaining>—</span>
+        יחידות בלבד
+      </p>
+
+      <h1 class="hero__title">מה הייתם שואלים, אם לא הייתם מפחדים מהתשובה?</h1>
+
+      <p class="hero__subtitle">
+        60 טריגרים ב-3 דרגות עומק. המים נראים רדודים, עד שמנסים לעמוד.
+      </p>
+
+      <!-- תמונת מוצר ראשית -->
+      <figure class="hero__product">
+        <!-- PLACEHOLDER: render החפיסה. החלף את ה-div ב-<img src="assets/deck.png" alt="חפיסת רדוד"> -->
+        <div class="ph ph--deck" role="img" aria-label="render של חפיסת רדוד">
+          <span class="ph__label">render החפיסה</span>
+        </div>
+      </figure>
+
+      <!-- פיצ'ר ההיפוך -->
+      <div class="flip" aria-label="הפכו קלף אחד">
+        <p class="flip__hint" data-flip-hint>בחר קלף אחד</p>
+
+        <div class="flip__row" data-flip-row>
+          <!-- שלושת הקלפים מיוצרים דינמית ב-script.js (טריגרים אקראיים, נעילה אחרי היפוך).
+               משאירים את ה-row ריק ובונים בקוד כדי שיהיה קל להחליף טריגרים ב-CONFIG. -->
+        </div>
+
+        <!-- קריאה לפעולה שמופיעה ב-fade רק אחרי היפוך -->
+        <a class="flip__more" href="#pricing" data-flip-more hidden>לשאר ה-59 הקלפים ↓</a>
+      </div>
+
+      <!-- שורת אמון -->
+      <p class="hero__trust">
+        <a class="wa" href="#" data-wa target="_blank" rel="noopener">צריכים עזרה? דברו איתנו</a>
+      </p>
+    </section>
+
+    <!-- =======================================================================
+         2) הוכחה חברתית — סליידר (scroll-snap, עובד גם בלי JS)
+         ======================================================================= -->
+    <section class="proof" id="proof" aria-label="המלצות">
+      <h2 class="section__title">מה אמרו מי שכבר צללו</h2>
+
+      <div class="proof__track" data-slider role="list">
+        <!-- PLACEHOLDER: תמונות UGC + ציטוטים אמיתיים. כרגע 3 כרטיסים לדוגמה בקול של רדוד. -->
+        <figure class="quote" role="listitem">
+          <div class="ph ph--ugc" role="img" aria-label="תמונת משתמש"><span class="ph__label">UGC</span></div>
+          <blockquote>שלפנו קלף אחד בארוחה. שעתיים אחרי, עדיין דיברנו.</blockquote>
+          <figcaption>— נועה, תל אביב</figcaption>
+        </figure>
+
+        <figure class="quote" role="listitem">
+          <div class="ph ph--ugc" role="img" aria-label="תמונת משתמש"><span class="ph__label">UGC</span></div>
+          <blockquote>קניתי כמתנה. בסוף הערב הם שאלו איפה משיגים עוד אחד.</blockquote>
+          <figcaption>— איתי, חיפה</figcaption>
+        </figure>
+
+        <figure class="quote" role="listitem">
+          <div class="ph ph--ugc" role="img" aria-label="תמונת משתמש"><span class="ph__label">UGC</span></div>
+          <blockquote>חשבתי שזה עוד גימיק. הקלף השלישי כבר נגע במשהו אמיתי.</blockquote>
+          <figcaption>— דנה, ירושלים</figcaption>
+        </figure>
+      </div>
+
+      <!-- חיצי ניווט (אופציונליים, מוסתרים במובייל) -->
+      <div class="proof__nav" aria-hidden="true">
+        <button class="proof__arrow" data-slide="prev" aria-label="הקודם">→</button>
+        <button class="proof__arrow" data-slide="next" aria-label="הבא">←</button>
+      </div>
+    </section>
+
+    <!-- =======================================================================
+         3) למי זה מתאים?
+         ======================================================================= -->
+    <section class="fit" id="fit" aria-label="למי זה מתאים">
+      <h2 class="section__title">למי זה מתאים?</h2>
+      <ul class="fit__list">
+        <li class="fit__item">
+          <span class="fit__lead">לבד, כשאתה תקוע בלופ מחשבות</span>
+          קלף אחד מנער ונותן פרספקטיבה.
+        </li>
+        <li class="fit__item">
+          <span class="fit__lead">בשולחן שישי שכבר אמר הכל</span>
+          שָׂם אותו באמצע, והשתיקות הופכות לשיחה הכי טובה של הערב.
+        </li>
+        <li class="fit__item">
+          <span class="fit__lead">בדייט שמרגיש כמו ריאיון עבודה</span>
+          דלג על "מה אתה עושה בחיים" והגע למי שמולך באמת.
+        </li>
+        <li class="fit__item">
+          <span class="fit__lead">כמתנה שאומרת "ראיתי אותך" בלי מילה</span>
+          לחבר שנמאס לו מהצפוי.
+        </li>
+        <li class="fit__item">
+          <span class="fit__lead">בנסיעה ארוכה</span>
+          כשנגמרו הנושאים אבל הכביש לא.
+        </li>
+      </ul>
+    </section>
+
+    <!-- =======================================================================
+         4) איך זה עובד? — שלוש דרגות עומק (כל דרגה עם מד-עומק)
+         ======================================================================= -->
+    <section class="depths" id="how" aria-label="איך זה עובד">
+      <h2 class="section__title">איך זה עובד?</h2>
+      <div class="depths__grid">
+
+        <article class="depth">
+          <!-- מד-עומק: המשקולת יורדת מעט -->
+          <div class="gauge gauge--shallow" aria-hidden="true"><span class="gauge__weight"></span></div>
+          <h3 class="depth__name">מים רדודים</h3>
+          <p class="depth__desc">נכנסים קליל; שאלה שמצחיקה ומשאירה שריטה.</p>
+        </article>
+
+        <article class="depth">
+          <div class="gauge gauge--deep" aria-hidden="true"><span class="gauge__weight"></span></div>
+          <h3 class="depth__name">מים עמוקים</h3>
+          <p class="depth__desc">כאן מתחילים להתווכח; דילמות שמחלקות את השולחן.</p>
+        </article>
+
+        <article class="depth">
+          <div class="gauge gauge--abyss" aria-hidden="true"><span class="gauge__weight"></span></div>
+          <h3 class="depth__name">תהום</h3>
+          <p class="depth__desc">הקלפים שאחריהם החדר שותק; שולפים רק כשמוכנים.</p>
+        </article>
+
+      </div>
+    </section>
+
+    <!-- =======================================================================
+         5) החבילות — שלושה כרטיסים. כרטיס 2 מודגש + מסומן מראש.
+         ======================================================================= -->
+    <section class="pricing" id="pricing" aria-label="חבילות">
+      <h2 class="section__title">בחר את העומק שלך</h2>
+
+      <div class="pricing__grid" data-pricing>
+
+        <!-- כרטיס 1 -->
+        <article class="pack" data-pack="single" tabindex="0" role="button" aria-pressed="false">
+          <h3 class="pack__name">לעצמי</h3>
+          <p class="pack__qty">חפיסה אחת</p>
+          <p class="pack__price"><span class="pack__amount">₪139</span></p>
+          <p class="pack__ship">+ משלוח ₪25 לנקודת איסוף</p>
+          <button class="pack__cta" type="button" data-buy="single">לרכישה</button>
+        </article>
+
+        <!-- כרטיס 2 — מודגש, פופולרי, נבחר מראש -->
+        <article class="pack pack--featured" data-pack="duo" tabindex="0" role="button" aria-pressed="true">
+          <span class="pack__tag">הבחירה הפופולרית</span>
+          <h3 class="pack__name">לעצמי + למישהו</h3>
+          <p class="pack__qty">2 חפיסות</p>
+          <p class="pack__price">
+            <span class="pack__amount">₪249</span>
+            <s class="pack__was">₪278</s>
+          </p>
+          <p class="pack__ship">משלוח לנקודת איסוף חינם</p>
+          <p class="pack__note">אחד לי, אחד למישהו שחייב להתעורר.</p>
+          <button class="pack__cta" type="button" data-buy="duo">לרכישה</button>
+        </article>
+
+        <!-- כרטיס 3 -->
+        <article class="pack" data-pack="trio" tabindex="0" role="button" aria-pressed="false">
+          <h3 class="pack__name">למעגל הקרוב</h3>
+          <p class="pack__qty">3 חפיסות</p>
+          <p class="pack__price">
+            <span class="pack__amount">₪339</span>
+            <s class="pack__was">₪417</s>
+          </p>
+          <p class="pack__ship">משלוח עד הבית חינם</p>
+          <button class="pack__cta" type="button" data-buy="trio">לרכישה</button>
+        </article>
+
+      </div>
+
+      <!-- הודעה קצרה מתחת לכפתורים (בחירה / אזל מהמלאי) -->
+      <p class="pricing__msg" data-pricing-msg role="status" aria-live="polite"></p>
+    </section>
+
+    <!-- =======================================================================
+         6) משלוחים + FAQ (אקורדיון)
+         ======================================================================= -->
+    <section class="faq" id="faq" aria-label="שאלות נפוצות">
+      <h2 class="section__title">משלוחים ושאלות</h2>
+
+      <div class="faq__list" data-faq>
+
+        <details class="faq__item">
+          <summary class="faq__q">זה עוד קלפי שאלות לזוגות?</summary>
+          <div class="faq__a">
+            לא. לא זוגי ולא טריוויה — 60 טריגרים מקוריים בשלוש דרגות עומק, לשולחן, לדייט או לבד.
+          </div>
+        </details>
+
+        <details class="faq__item">
+          <summary class="faq__q">מתי זה מגיע?</summary>
+          <div class="faq__a">
+            <!-- PLACEHOLDER: עדכן זמן אספקה אמיתי -->
+            אספקה תוך [X] ימי עסקים. לנקודות איסוף או עד הבית, לפי החבילה שבחרת.
+          </div>
+        </details>
+
+        <details class="faq__item">
+          <summary class="faq__q">לאן שולחים?</summary>
+          <div class="faq__a">
+            <!-- PLACEHOLDER: עדכן ספק/נקודות איסוף -->
+            לכל הארץ. נקודות איסוף בפריסה ארצית, או משלוח עד הבית בחבילת 3.
+          </div>
+        </details>
+
+        <details class="faq__item">
+          <summary class="faq__q">ואם זה לא בשבילי?</summary>
+          <div class="faq__a">
+            <!-- PLACEHOLDER: עדכן חלון החזרה -->
+            החזרה תוך [14] יום מקבלת המוצר, כל עוד החפיסה שלמה. פרטים מלאים במדיניות ההחזרות.
+          </div>
+        </details>
+
+      </div>
+    </section>
+
+  </main>
+
+  <!-- =========================================================================
+       7) FOOTER
+       ========================================================================= -->
+  <footer class="footer">
+    <span class="logo logo--sm" data-logo aria-hidden="true"></span>
+    <nav class="footer__links" aria-label="קישורי תחתית">
+      <a href="#">תקנון</a>
+      <a href="#">הצהרת נגישות</a>
+      <a href="#">מדיניות החזרות</a>
+      <!-- PLACEHOLDER: מייל יצירת קשר נטען מ-CONFIG.email -->
+      <a href="#" data-email>צור קשר</a>
+      <a href="#" data-wa target="_blank" rel="noopener">וואטסאפ</a>
+    </nav>
+    <p class="footer__fine">רדוד. — עד שמנסים לעמוד.</p>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
