@@ -273,37 +273,48 @@ img { max-width: 100%; display: block; }
    =========================================================================== */
 .fit__list { list-style: none; padding: 0; margin: 0; max-width: var(--reading); }
 .fit__item {
-  font-family: var(--ui); font-weight: 300; color: var(--muted);
-  padding: 1.25rem 0; border-top: 1px solid var(--hairline);
+  display: flex; gap: 1.25rem; align-items: flex-start;
+  padding: 1.5rem 0; border-top: 1px solid var(--hairline);
 }
 .fit__item:last-child { border-bottom: 1px solid var(--hairline); }
+.fit__icon {
+  width: 1.2rem; height: 1.2rem; flex-shrink: 0;
+  color: var(--brass); margin-top: 0.3rem;
+}
+.fit__text { display: flex; flex-direction: column; font-family: var(--ui); font-weight: 300; color: var(--muted); }
 .fit__lead {
   display: block; font-family: var(--display); font-weight: 500;
-  color: var(--ink); font-size: 1.15rem; margin-bottom: 0.3rem;
+  color: var(--ink); font-size: 1.2rem; margin-bottom: 0.2rem;
 }
 
 /* ===========================================================================
    איך זה עובד? — שלוש דרגות, כל אחת עם מד-עומק (המשקולת יורדת עמוק יותר)
    =========================================================================== */
-.depths__grid { display: grid; gap: clamp(2rem, 6vw, 3rem); }
+.depths__grid { display: grid; gap: clamp(1.5rem, 4vw, 2rem); }
 
-.depth { display: grid; grid-template-columns: auto 1fr; gap: 1.25rem; align-items: start; }
+.depth { 
+  position: relative; display: flex; flex-direction: column; align-items: center; text-align: center;
+  border: 1px solid var(--hairline); padding: 3rem 1.5rem 2rem;
+  background: linear-gradient(to bottom, transparent, rgba(207, 168, 106, 0.02));
+}
 
-/* מד-העומק: מסילה אנכית + משקולת פליז במיקום שונה לכל דרגה */
+/* מד-העומק: מסילה אנכית שיורדת מהתקרה במרכז הכרטיס */
 .gauge {
-  position: relative; width: 1px; height: 5rem; background: var(--muted-2);
-  margin-top: 0.4rem;
+  position: absolute; top: 0; left: 50%; transform: translateX(-50%);
+  width: 1px; background: var(--brass);
 }
 .gauge__weight {
-  position: absolute; inset-inline-start: 50%; transform: translateX(-50%);
-  width: 7px; height: 7px; border-radius: 50%; background: var(--brass);
+  position: absolute; bottom: -3px; left: 50%; transform: translateX(-50%);
+  width: 5px; height: 5px; border-radius: 50%; background: var(--brass);
 }
-.gauge--shallow .gauge__weight { top: 22%; }
-.gauge--deep    .gauge__weight { top: 58%; }
-.gauge--abyss   .gauge__weight { top: 100%; }
 
-.depth__name { font-size: 1.4rem; margin-bottom: 0.35rem; }
-.depth__desc { font-family: var(--ui); font-weight: 300; color: var(--muted); }
+/* גובה קו המים משתנה לפי העומק */
+.gauge--shallow { height: 1.5rem; opacity: 0.5; }
+.gauge--deep    { height: 3rem; opacity: 0.8; }
+.gauge--abyss   { height: 4.5rem; opacity: 1; }
+
+.depth__name { font-size: 1.5rem; margin-top: 1rem; margin-bottom: 0.5rem; color: var(--ink); }
+.depth__desc { font-family: var(--ui); font-weight: 300; color: var(--muted); line-height: 1.5; max-width: 18rem; }
 
 /* ===========================================================================
    החבילות
@@ -476,12 +487,7 @@ img { max-width: 100%; display: block; }
 @media (min-width: 48rem) {
   .depths__grid { grid-template-columns: repeat(3, 1fr); }
   .depth { grid-template-columns: 1fr; }
-  .gauge { width: 5rem; height: 1px; margin: 0 0 1.25rem; } /* אופקי בדסקטופ */
-  .gauge__weight { top: 50%; inset-inline-start: auto; transform: translateY(-50%); }
-  .gauge--shallow .gauge__weight { inset-inline-start: 22%; }
-  .gauge--deep    .gauge__weight { inset-inline-start: 58%; }
-  .gauge--abyss   .gauge__weight { inset-inline-start: 100%; }
-
+   
   .pricing__grid { grid-template-columns: repeat(3, 1fr); align-items: start; }
   .pack--featured { transform: translateY(-0.75rem); }
 
