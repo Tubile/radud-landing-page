@@ -709,5 +709,3 @@ details[open] .faq__q { color: var(--brass); }
 .quote { flex: 0 0 min(13rem, 62vw); padding: 0.9rem 0.9rem 1.1rem; }
 .ph--ugc { aspect-ratio: 9 / 16; border-radius: 6px; }
 .quote blockquote { font-size: 0.98rem; margin-top: 0.85rem; }
-
-
