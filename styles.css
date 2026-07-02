@@ -34,7 +34,7 @@
 /* --- בסיס ---------------------------------------------------------------- */
 *, *::before, *::after { box-sizing: border-box; }
 
-html { -webkit-text-size-adjust: 100%; scroll-behavior: smooth; }
+html { -webkit-text-size-adjust: 100%; scroll-behavior: smooth; overflow-x: clip; }
 
 body {
   margin: 0;
@@ -44,7 +44,7 @@ body {
   line-height: 1.6;
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
-  overflow-x: hidden;
+  overflow-x: clip;
   /* הצלילה: חם למעלה, קר למטה. הגרדיאנט נמתח על כל גובה הדף. */
   background:
     linear-gradient(to bottom,
@@ -109,51 +109,6 @@ img { max-width: 100%; display: block; }
 .reveal.in { opacity: 1; transform: none; }
 @media (prefers-reduced-motion: reduce) {
   .reveal { opacity: 1; transform: none; transition: none; }
-}
-
-/* ===========================================================================
-   מד-העומק — פס קבוע בקצה המסך, משקולת פליז שיורדת עם הגלילה
-   =========================================================================== */
-.gauge {
-  position: fixed; inset-block: 0; inset-inline-start: 0; z-index: 60;
-  width: clamp(1.4rem, 3vw, 2.6rem);
-  pointer-events: none;
-}
-.gauge__line {
-  position: absolute; inset-block: 0; inset-inline-start: 50%;
-  width: 1px; background: linear-gradient(to bottom, transparent, var(--hairline) 12%, var(--hairline) 88%, transparent);
-}
-.gauge__plumb {
-  position: absolute; inset-inline-start: 50%; top: 12%;
-  width: 7px; height: 7px; border-radius: 50%;
-  background: var(--brass);
-  box-shadow: 0 0 10px rgba(207, 168, 106, 0.55);
-  transform: translate(-50%, -50%) translateX(50%);
-  transition: top 0.15s linear;
-}
-html[dir="rtl"] .gauge__plumb { transform: translate(50%, -50%); }
-.gauge__tick {
-  position: absolute; inset-inline-start: 50%;
-  font-family: var(--ui); font-size: 0.58rem; font-weight: 500;
-  letter-spacing: 0.14em; color: var(--muted-2);
-  writing-mode: vertical-rl; text-orientation: mixed;
-  transform: translateX(50%); padding-top: 0.7rem;
-  transition: color 0.4s var(--ease);
-}
-.gauge__tick i {
-  position: absolute; top: 0; inset-inline-start: 50%;
-  width: 5px; height: 1px; background: var(--muted-2);
-  transform: translateX(50%);
-}
-.gauge__tick--1 { top: 30%; }
-.gauge__tick--2 { top: 54%; }
-.gauge__tick--3 { top: 78%; }
-.gauge__tick.lit { color: var(--brass); }
-.gauge__tick.lit i { background: var(--brass); }
-
-/* במסכים צרים מאוד — מסתירים את התוויות, משאירים קו+משקולת */
-@media (max-width: 480px) {
-  .gauge__tick { display: none; }
 }
 
 /* ===========================================================================
@@ -238,7 +193,7 @@ html[dir="rtl"] .gauge__plumb { transform: translate(50%, -50%); }
   width: min(21rem, 72vw);
 }
 .hero__halo {
-  position: absolute; inset: -34% -50%;
+  position: absolute; inset: -30% -28%;
   background: radial-gradient(ellipse 55% 48% at 50% 42%,
     rgba(207, 168, 106, 0.16), rgba(207, 168, 106, 0.05) 45%, transparent 70%);
   pointer-events: none;
@@ -711,3 +666,47 @@ details[open] .faq__q { color: var(--brass); }
   .br-desktop { display: inline; }
   .hero { text-align: center; }
 }
+
+/* ===========================================================================
+   כפתורי הירו — ראשי + משני
+   =========================================================================== */
+.hero__ctas {
+  margin-top: clamp(2rem, 6vw, 3rem);
+  display: flex; flex-wrap: wrap; justify-content: center; align-items: center;
+  gap: 0.8rem;
+}
+.btn {
+  display: inline-flex; align-items: center; justify-content: center;
+  min-height: 50px; padding: 0.85rem 1.9rem;
+  font-family: var(--ui); font-size: 1rem; letter-spacing: 0.02em;
+  border-radius: 3px;
+  transition: transform 0.2s var(--ease), background 0.25s var(--ease),
+              color 0.25s var(--ease), border-color 0.25s var(--ease);
+}
+.btn:active { transform: translateY(1px); }
+.btn--primary {
+  background: var(--brass); color: var(--bg); font-weight: 700;
+  box-shadow: 0 10px 26px rgba(207, 168, 106, 0.18);
+}
+.btn--primary:hover { background: #DDBB7E; }
+.btn--ghost {
+  color: var(--muted); border: 1px solid var(--hairline); font-weight: 400;
+  font-size: 0.9rem;
+}
+.btn--ghost:hover { color: var(--ink); border-color: var(--muted-2); }
+
+/* קלף בודד בהירו — גדול יותר, במרכז */
+.flip__row--single { justify-content: center; }
+.flip__row--single .flip-card {
+  width: clamp(9.5rem, 44vw, 11.5rem);
+}
+.flip__row--single .flip-card .flip-card__face--front,
+.flip__row--single .flip-card .flip-card__trigger {
+  font-size: clamp(0.82rem, 3.2vw, 0.98rem);
+  padding: 1rem;
+}
+
+/* UGC לאורך — כמו שמצלמים באמת (9:16) */
+.quote { flex: 0 0 min(13rem, 62vw); padding: 0.9rem 0.9rem 1.1rem; }
+.ph--ugc { aspect-ratio: 9 / 16; border-radius: 6px; }
+.quote blockquote { font-size: 0.98rem; margin-top: 0.85rem; }
