@@ -91,7 +91,7 @@ function buildFlip() {
       <span class="flip-card__inner">
         <!-- הצד שרואים לפני הלחיצה (הגב השחור) -->
         <span class="flip-card__face flip-card__face--back flip-card__cover" style="padding: 0; border: none;">
-          <img src="backfeaturecard.jpg" alt="גב הקלף" style="width: 100%; height: 100%; object-fit: cover; border-radius: 6px;" />
+          <img src="backfeaturecard.png" alt="גב הקלף" style="width: 100%; height: 100%; object-fit: cover; border-radius: 6px;" />
         </span>
         <!-- הצד שנחשף אחרי ההיפוך (המשפט) -->
         <span class="flip-card__face flip-card__face--front flip-card__trigger" style="padding: 0; border: none;">
