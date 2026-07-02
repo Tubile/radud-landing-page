@@ -225,30 +225,65 @@ img { max-width: 100%; display: block; }
   perspective: 1200px;
 }
 
-.flip-card {
-  position: relative;
-  width: clamp(6rem, 25vw, 8.4rem);
-  aspect-ratio: 2 / 3;
-  cursor: pointer;
-  background: none; border: none; padding: 0;
-  -webkit-tap-highlight-color: transparent;
-  transition: transform 0.3s var(--ease);
+/* אנימציית ריחוף למים עומדים */
+@keyframes floatCard {
+  0% { transform: translateY(0); }
+  50% { transform: translateY(-8px); }
+  100% { transform: translateY(0); }
 }
-.flip-card:not(.is-flipped):not(.is-locked):hover { transform: translateY(-6px); }
+
+/* קלף בודד — יחס 5:7 (ממסמך-האב) */
+.flip-card {
+  flex: 1 1 0; max-width: 9.5rem; min-width: 0;
+  aspect-ratio: 5 / 7;
+  perspective: 1200px;
+  background: none; border: 0; padding: 0; cursor: pointer;
+  font: inherit; color: inherit;
+  
+  /* הפעלת אנימציית הריחוף */
+  animation: floatCard 4s ease-in-out infinite; 
+  transition: transform 0.4s var(--ease);
+}
+
+/* בעצירת העכבר - האנימציה נעצרת והקלף נדרך לקראת קליק */
+.flip-card:hover {
+  animation-play-state: paused;
+  transform: scale(1.03) translateY(-2px);
+}
+.flip-card:active {
+  transform: scale(0.98);
+}
+
+.flip-card[disabled] { cursor: default; animation: none; transform: none; }
 
 .flip-card__inner {
-  position: absolute; inset: 0;
+  display: block;
+  position: relative; width: 100%; height: 100%;
   transform-style: preserve-3d;
   transition: transform 0.7s var(--ease);
 }
+
+/* מניעת הריחוף וההגדלה אחרי שהיוזר הפך את הקלף */
+.flip-card.is-flipped { animation: none; transform: none; pointer-events: none; }
 .flip-card.is-flipped .flip-card__inner { transform: rotateY(180deg); }
 
+/* שני הצדדים (כולל אפקט הזוהר מאחור) */
 .flip-card__face {
   position: absolute; inset: 0;
   backface-visibility: hidden; -webkit-backface-visibility: hidden;
-  border-radius: 8px;
   display: flex; align-items: center; justify-content: center;
-  padding: 0.7rem;
+  border: 1px solid var(--hairline);
+  padding: 0;
+  border-radius: 6px;
+  
+  /* אפקט ההילה/זוהר עדין בצבע הפליז */
+  box-shadow: 0 0 25px rgba(207, 168, 106, 0.12); 
+  transition: box-shadow 0.4s var(--ease);
+}
+
+/* הזוהר מתחזק כשהעכבר מתקרב (נותן פידבק קריאייטיבי להקליק) */
+.flip-card:hover .flip-card__face {
+  box-shadow: 0 0 38px rgba(207, 168, 106, 0.28);
 }
 
 /* גב הקלף — שחור עם מסגרת פליז פנימית, כמו הקופסה */
