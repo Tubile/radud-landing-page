@@ -88,14 +88,16 @@ function buildFlip() {
   card.setAttribute("aria-label", "הפוך את הקלף");
 
   card.innerHTML = `
-    <span class="flip-card__inner">
-      <span class="flip-card__face flip-card__face--back flip-card__cover">
-        <span class="logo" data-logo aria-hidden="true"></span>
-      </span>
-      <span class="flip-card__face flip-card__face--front flip-card__trigger">
-        <span class="trigger__text">${text}</span>
-      </span>
-    </span>`;
+      <span class="flip-card__inner">
+        <!-- הצד שרואים לפני הלחיצה (הגב השחור) -->
+        <span class="flip-card__face flip-card__face--back flip-card__cover" style="padding: 0; border: none;">
+          <img src="backfeaturecard.jpg" alt="גב הקלף" style="width: 100%; height: 100%; object-fit: cover; border-radius: 6px;" />
+        </span>
+        <!-- הצד שנחשף אחרי ההיפוך (המשפט) -->
+        <span class="flip-card__face flip-card__face--front flip-card__trigger" style="padding: 0; border: none;">
+          <img src="featurecard.jpg" alt="קלף טריגר" style="width: 100%; height: 100%; object-fit: cover; border-radius: 6px;" />
+        </span>
+      </span>`;
 
   card.addEventListener("click", () => {
     if (card.classList.contains("is-flipped")) return;
