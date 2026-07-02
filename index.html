@@ -1,39 +1,51 @@
 <!DOCTYPE html>
 <!--
-  רדוד — דף נחיתה (V1)
+  רדוד — דף נחיתה (V2)
   ----------------------------------------------------------------------------
   Vanilla HTML/CSS/JS. בלי framework, בלי build step. מתאים ל-GitHub Pages.
-  כל הטקסטים והנתונים שמשתנים לעיתים קרובות (טריגרים, וואטסאפ, מייל, כתובת ה-API,
-  מספר המלאי ההתחלתי) מרוכזים ב-CONFIG בראש script.js — שם עורכים, לא כאן.
+  כל מה שמשתנה לעיתים קרובות (טריגרים, וואטסאפ, מייל, API, מלאי) — ב-CONFIG בראש script.js.
   כל מקום שדורש החלפה ידנית מסומן ב-PLACEHOLDER / TODO.
 -->
 <html lang="he" dir="rtl">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>רדוד. — מהדורה מוגבלת</title>
-  <meta name="description" content="60 משפטים ב-3 דרגות עומק, שעושים סדק קטן במוח, ונשארים שם." />
+  <title>רדוד. — מהדורה ראשונה, 1000 עותקים ממוספרים</title>
+  <meta name="description" content="60 טריגרים בשלוש דרגות עומק. המים נראים רדודים, עד שמנסים לעמוד." />
 
   <!-- Open Graph / שיתוף ברשתות (החלף את התמונה כשתהיה) -->
   <meta property="og:title" content="רדוד." />
-  <meta property="og:description" content="מה הייתם שואלים, אם לא הייתם מפחדים מהתשובה?" />
+  <meta property="og:description" content="מה היית שואל, אם לא היית מפחד מהתשובה?" />
   <!-- PLACEHOLDER: <meta property="og:image" content="assets/og.jpg" /> -->
 
-  <!-- Google Fonts: Frank Ruhl Libre (כותרות/טריגרים/לוגו) + Heebo (UI/מיקרו-טקסט) -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Frank+Ruhl+Libre:wght@400;500;700;900&family=Heebo:wght@300;400;500;700&display=swap" rel="stylesheet" />
 
-  <link rel="stylesheet" href="styles.css?v=1.1" />
+  <link rel="stylesheet" href="styles.css?v=2.0" />
 </head>
 <body>
 
-  <!-- =========================================================================
-       NAV — מינימלי. לוגו בלבד + עוגן למחירון.
-       ========================================================================= -->
+  <!-- שכבת גרעין עדינה על כל הדף (אטמוספרה) -->
+  <div class="grain" aria-hidden="true"></div>
+
+  <!-- ========================================================================
+       מד-העומק — החתימה של הדף. פס אנכי + משקולת פליז שיורדת עם הגלילה.
+       שלוש תחנות: רדודים / עמוקים / תהום. נבנה ומונפש ב-script.js.
+       ======================================================================== -->
+  <div class="gauge" aria-hidden="true">
+    <span class="gauge__line"></span>
+    <span class="gauge__plumb" data-plumb></span>
+    <span class="gauge__tick gauge__tick--1" data-tick="1"><i></i>רדודים</span>
+    <span class="gauge__tick gauge__tick--2" data-tick="2"><i></i>עמוקים</span>
+    <span class="gauge__tick gauge__tick--3" data-tick="3"><i></i>תהום</span>
+  </div>
+
+  <!-- ========================================================================
+       NAV — מינימלי. לוגו + מונה + CTA.
+       ======================================================================== -->
   <header class="nav" aria-label="ניווט ראשי">
     <a class="nav__home" href="#hero" aria-label="רדוד — לראש הדף">
-      <!-- רכיב הלוגו: מילה + קו מים + ו' צוללת. נבנה ב-buildLogo() ב-script.js -->
       <span class="logo" data-logo aria-hidden="true"></span>
       <span class="sr-only">רדוד</span>
     </a>
@@ -42,234 +54,283 @@
 
   <main>
 
-    <!-- =======================================================================
-         1) HERO
-         ======================================================================= -->
+    <!-- ======================================================================
+         1) HERO — עומק 0
+         ====================================================================== -->
     <section class="hero" id="hero">
 
-      <!-- מונה מלאי חי — הערך נמשך מ-CONFIG.apiUrl (doGet) בטעינה.
-           עד שמחברים API, מוצג CONFIG.fallbackRemaining. -->
       <p class="hero__edition">
-        מהדורה מוגבלת:
-        <span class="hero__count" data-remaining>—</span>
-        יחידות בלבד
+        <span class="hero__edition-badge">מהדורה ראשונה</span>
+        1000 עותקים ממוספרים · נותרו <span class="hero__count" data-remaining>—</span>
       </p>
 
-      <h1 class="hero__title">מה הייתם שואלים, אם לא הייתם מפחדים מהתשובה?</h1>
+      <h1 class="hero__title">מה היית שואל,<br />אם לא היית מפחד מהתשובה?</h1>
 
       <p class="hero__subtitle">
-        60 טריגרים ב-3 דרגות עומק. המים נראים רדודים, עד שמנסים לעמוד.
+        60 טריגרים. שלוש דרגות עומק.<br />
+        <em>המים נראים רדודים, עד שמנסים לעמוד.</em>
       </p>
 
-      <!-- תמונת מוצר ראשית -->
+      <!-- תמונת מוצר ראשית — במה מוארת. -->
       <figure class="hero__product">
-        <!-- PLACEHOLDER: render החפיסה. החלף את ה-div ב-<img src="assets/deck.png" alt="חפיסת רדוד"> -->
+        <span class="hero__halo" aria-hidden="true"></span>
+        <!-- PLACEHOLDER: render החפיסה.
+             החלף את ה-div הבא ב: <img class="hero__img" src="assets/deck.png" alt="חפיסת רדוד" /> -->
         <div class="ph ph--deck" role="img" aria-label="render של חפיסת רדוד">
           <span class="ph__label">render החפיסה</span>
         </div>
+        <span class="hero__reflection" aria-hidden="true"></span>
       </figure>
 
-      <!-- פיצ'ר ההיפוך -->
+      <!-- פיצ'ר ההיפוך — קלף אחד. אחד בלבד. -->
       <div class="flip" aria-label="הפכו קלף אחד">
-        <p class="flip__hint" data-flip-hint>בחר קלף אחד</p>
+        <p class="flip__hint" data-flip-hint>בחר קלף. יש לך אחד.</p>
 
         <div class="flip__row" data-flip-row>
-          <!-- שלושת הקלפים מיוצרים דינמית ב-script.js (טריגרים אקראיים, נעילה אחרי היפוך).
-               משאירים את ה-row ריק ובונים בקוד כדי שיהיה קל להחליף טריגרים ב-CONFIG. -->
+          <!-- שלושת הקלפים נבנים ב-script.js (טריגרים אקראיים מ-CONFIG, נעילה אחרי היפוך) -->
         </div>
 
-        <!-- קריאה לפעולה שמופיעה ב-fade רק אחרי היפוך -->
-        <a class="flip__more" href="#pricing" data-flip-more hidden>לשאר ה-59 הקלפים ↓</a>
+        <a class="flip__more" href="#pricing" data-flip-more hidden>זה אחד מתוך 60 <span class="flip__arrow">↓</span></a>
       </div>
 
-      <!-- שורת אמון -->
       <p class="hero__trust">
-        <a class="wa" href="#" data-wa target="_blank" rel="noopener">צריכים עזרה? שלחו ווטסאפ :)</a>
+        <a class="wa" href="#" data-wa target="_blank" rel="noopener">שאלה? וואטסאפ, בן אדם עונה</a>
       </p>
     </section>
 
-    <!-- =======================================================================
-         2) הוכחה חברתית — סליידר (scroll-snap, עובד גם בלי JS)
-         ======================================================================= -->
+    <!-- ======================================================================
+         2) הקלפים עצמם — תקריבים + מנגנון הגב
+         ====================================================================== -->
+    <section class="cards" id="cards" aria-label="הקלפים עצמם">
+      <p class="eyebrow">המוצר, מקרוב</p>
+      <h2 class="section__title">הקלפים עצמם.</h2>
+
+      <div class="cards__gallery" data-gallery>
+        <!-- PLACEHOLDER: שלושה תקריבים אמיתיים של קלפים (צילום סטודיו, אותה תאורה של הרנדר).
+             החלף כל ph--card ב: <img src="assets/card-1.jpg" alt="קלף רדוד — תקריב" loading="lazy" /> -->
+        <figure class="cards__shot">
+          <div class="ph ph--card"><span class="ph__label">תקריב קלף · דרגה 1</span></div>
+        </figure>
+        <figure class="cards__shot cards__shot--mid">
+          <div class="ph ph--card"><span class="ph__label">תקריב קלף · דרגה 2</span></div>
+        </figure>
+        <figure class="cards__shot">
+          <div class="ph ph--card"><span class="ph__label">תקריב קלף · דרגה 3</span></div>
+        </figure>
+      </div>
+
+      <!-- מנגנון הגב — בכוונה לא לכל קלף -->
+      <div class="back">
+        <div class="back__visual" aria-hidden="true">
+          <span class="back__card back__card--front">הצד<br />הראשון</span>
+          <span class="back__card back__card--back">?</span>
+        </div>
+        <div class="back__text">
+          <h3 class="back__title">לחלק מהקלפים יש גב.</h3>
+          <p class="back__desc">
+            שאלה שממשיכה לחפור בדיוק איפה שחשבת שסיימת.
+            לא לכל קלף יש — ולא כתוב לאיזה.<br />
+            <em>מגלים רק כשהופכים.</em>
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ======================================================================
+         3) הוכחה חברתית
+         ====================================================================== -->
     <section class="proof" id="proof" aria-label="המלצות">
-      <h2 class="section__title">מה אמרו מי שכבר צללו</h2>
+      <p class="eyebrow">אחרי הקלף הראשון</p>
+      <h2 class="section__title">מי שכבר נכנס למים.</h2>
 
       <div class="proof__track" data-slider role="list">
-        <!-- PLACEHOLDER: תמונות UGC + ציטוטים אמיתיים. כרגע 3 כרטיסים לדוגמה בקול של רדוד. -->
+        <!-- PLACEHOLDER: תמונות UGC + ציטוטים אמיתיים בלבד. -->
         <figure class="quote" role="listitem">
           <div class="ph ph--ugc" role="img" aria-label="תמונת משתמש"><span class="ph__label">UGC</span></div>
           <blockquote>שלפנו קלף אחד בארוחה. שעתיים אחרי, עדיין דיברנו.</blockquote>
-          <figcaption>— נועה, תל אביב</figcaption>
+          <figcaption>— [שם אמיתי, עיר]</figcaption>
         </figure>
 
         <figure class="quote" role="listitem">
           <div class="ph ph--ugc" role="img" aria-label="תמונת משתמש"><span class="ph__label">UGC</span></div>
           <blockquote>קניתי כמתנה. בסוף הערב הם שאלו איפה משיגים עוד אחד.</blockquote>
-          <figcaption>— איתי, חיפה</figcaption>
+          <figcaption>— [שם אמיתי, עיר]</figcaption>
         </figure>
 
         <figure class="quote" role="listitem">
           <div class="ph ph--ugc" role="img" aria-label="תמונת משתמש"><span class="ph__label">UGC</span></div>
           <blockquote>חשבתי שזה עוד גימיק. הקלף השלישי כבר נגע במשהו אמיתי.</blockquote>
-          <figcaption>— דנה, ירושלים</figcaption>
+          <figcaption>— [שם אמיתי, עיר]</figcaption>
         </figure>
       </div>
 
-      <!-- חיצי ניווט (אופציונליים, מוסתרים במובייל) -->
       <div class="proof__nav" aria-hidden="true">
         <button class="proof__arrow" data-slide="prev" aria-label="הקודם">→</button>
         <button class="proof__arrow" data-slide="next" aria-label="הבא">←</button>
       </div>
     </section>
 
-    <!-- =======================================================================
-         3) למי זה מתאים?
-         ======================================================================= -->
-    <section class="fit" id="fit" aria-label="למי זה מתאים">
+    <!-- ======================================================================
+         4) מתי שולפים קלף
+         ====================================================================== -->
+    <section class="fit" id="fit" aria-label="מתי שולפים קלף">
+      <p class="eyebrow">חמישה מצבים</p>
       <h2 class="section__title">מתי שולפים קלף.</h2>
       <ul class="fit__list">
         <li class="fit__item">
-  <span class="fit__icon" aria-hidden="true">
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.25" stroke-linecap="round">
-      <circle cx="12" cy="12" r="7.5" stroke-dasharray="41 6" transform="rotate(-90 12 12)"/>
-      <circle class="dot" cx="12" cy="12" r="1.4"/>
-    </svg>
-  </span>
-  <div class="fit__text">
-    <span class="fit__lead">לבד.</span>
-    כשרוצים לגרות את החשיבה, ולנער את הפרספקטיבה
-  </div>
-</li>
+          <div class="fit__text">
+            <span class="fit__lead">לבד.</span>
+            חמש דקות מול עצמך, במקום עוד שעה של גלילה.
+          </div>
+        </li>
         <li class="fit__item">
-  <span class="fit__icon" aria-hidden="true">
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.25" stroke-linecap="round">
-      <circle cx="12" cy="12" r="7.5" stroke-dasharray="41 6" transform="rotate(-90 12 12)"/>
-      <circle class="dot" cx="12" cy="12" r="1.4"/>
-    </svg>
-  </span>
-  <div class="fit__text">
-    <span class="fit__lead">עם החבר'ה.</span>
-          שָׂם אותו באמצע, והשתיקות הופכות לשיחה הכי טובה של הערב.
-  </div>
-</li>
-<li class="fit__item">
-  <span class="fit__icon" aria-hidden="true">
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.25" stroke-linecap="round">
-      <circle cx="12" cy="12" r="7.5" stroke-dasharray="41 6" transform="rotate(-90 12 12)"/>
-      <circle class="dot" cx="12" cy="12" r="1.4"/>
-    </svg>
-  </span>
-  <div class="fit__text">
-    <span class="fit__lead">בדייט.</span>
-          לבדוק אם מי שמולך מסוגל להחזיק אמת.
-  </div>
-</li>
+          <div class="fit__text">
+            <span class="fit__lead">עם החבר'ה.</span>
+            קלף אחד באמצע השולחן. השתיקה שאחריו שווה יותר מהשיחה שלפניו.
+          </div>
+        </li>
         <li class="fit__item">
-  <span class="fit__icon" aria-hidden="true">
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.25" stroke-linecap="round">
-      <circle cx="12" cy="12" r="7.5" stroke-dasharray="41 6" transform="rotate(-90 12 12)"/>
-      <circle class="dot" cx="12" cy="12" r="1.4"/>
-    </svg>
-  </span>
-  <div class="fit__text">
-    <span class="fit__lead">כמתנה.</span>
-          לא לכולם. רק את מי שחייבים להעיר.
-  </div>
-</li>
+          <div class="fit__text">
+            <span class="fit__lead">בדייט.</span>
+            לגלות בערב הראשון מה שלוקח לאנשים שנה.
+          </div>
+        </li>
         <li class="fit__item">
-  <span class="fit__icon" aria-hidden="true">
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.25" stroke-linecap="round">
-      <circle cx="12" cy="12" r="7.5" stroke-dasharray="41 6" transform="rotate(-90 12 12)"/>
-      <circle class="dot" cx="12" cy="12" r="1.4"/>
-    </svg>
-  </span>
-  <div class="fit__text">
-    <span class="fit__lead">בנסיעה ארוכה.</span>
-          כשהנושאים נגמרו, והכביש לא.
-  </div>
-</li>
+          <div class="fit__text">
+            <span class="fit__lead">כמתנה.</span>
+            לא לכולם. למי שמסוגל.
+          </div>
+        </li>
+        <li class="fit__item">
+          <div class="fit__text">
+            <span class="fit__lead">בנסיעה ארוכה.</span>
+            הנושאים נגמרו. הכביש לא.
+          </div>
+        </li>
       </ul>
     </section>
 
-    <!-- =======================================================================
-         4) איך זה עובד? — שלוש דרגות עומק (כל דרגה עם מד-עומק)
-         ======================================================================= -->
-    <section class="depths" id="how" aria-label="איך זה עובד">
-      <h2 class="section__title">איך זה עובד?</h2>
+    <!-- ======================================================================
+         5) שלוש דרגות עומק — התחנות של מד-העומק
+         ====================================================================== -->
+    <section class="depths" id="how" aria-label="שלוש דרגות עומק">
+      <p class="eyebrow">איך זה בנוי</p>
+      <h2 class="section__title">שלוש דרגות. יורדים לפי הסדר.<br class="br-desktop" /> או שלא.</h2>
+
       <div class="depths__scale">
-
-        <article class="depth">
-          <span class="depth__node" aria-hidden="true"></span>
-          <h3 class="depth__name">מים רדודים</h3>
-          <p class="depth__desc">נכנסים קליל; שאלה שמצחיקה ומשאירה שריטה.</p>
+        <article class="depth" data-depth="1">
+          <header class="depth__head">
+            <span class="depth__node" aria-hidden="true"></span>
+            <h3 class="depth__name">מים רדודים</h3>
+            <span class="depth__count">20 קלפים</span>
+          </header>
+          <p class="depth__desc">נכנסים קליל. שאלה שמצחיקה — ומשאירה שריטה.</p>
         </article>
 
-        <article class="depth">
-          <span class="depth__node" aria-hidden="true"></span>
-          <h3 class="depth__name">מים עמוקים</h3>
-          <p class="depth__desc">כאן מתחילים להתווכח; דילמות שמחלקות את השולחן.</p>
+        <article class="depth" data-depth="2">
+          <header class="depth__head">
+            <span class="depth__node" aria-hidden="true"></span>
+            <h3 class="depth__name">מים עמוקים</h3>
+            <span class="depth__count">22 קלפים</span>
+          </header>
+          <p class="depth__desc">כאן מפסיקים להסכים. דילמות שמפצלות את השולחן.</p>
         </article>
 
-        <article class="depth">
-          <span class="depth__node" aria-hidden="true"></span>
-          <h3 class="depth__name">תהום</h3>
-          <p class="depth__desc">הקלפים שאחריהם החדר שותק; שולפים רק כשמוכנים.</p>
+        <article class="depth" data-depth="3">
+          <header class="depth__head">
+            <span class="depth__node" aria-hidden="true"></span>
+            <h3 class="depth__name">תהום</h3>
+            <span class="depth__count">18 קלפים</span>
+          </header>
+          <p class="depth__desc">שאלות ששואלים פעם אחת. לא חוזרים מהן אותו דבר.</p>
         </article>
-
       </div>
     </section>
 
-    <!-- =======================================================================
-         פתק מהיוצר
-         ======================================================================= -->
+    <!-- ======================================================================
+         6) מה בקופסה — מפרט
+         ====================================================================== -->
+    <section class="spec" id="spec" aria-label="מה בקופסה">
+      <p class="eyebrow">מפרט</p>
+      <h2 class="section__title">מה בקופסה.</h2>
+
+      <dl class="spec__grid">
+        <div class="spec__row">
+          <dt>קלפים</dt>
+          <dd>60 · כל אחד מקורי, אף אחד לא פילר</dd>
+        </div>
+        <div class="spec__row">
+          <dt>סוגים</dt>
+          <dd>אפוריזם · אמת לא נוחה · דילמה · ניסוי מחשבה · ווידוי · פתגם</dd>
+        </div>
+        <div class="spec__row">
+          <dt>גב</dt>
+          <dd>לחלק מהקלפים. לא כתוב לאיזה.</dd>
+        </div>
+        <div class="spec__row">
+          <dt>נייר</dt>
+          <!-- PLACEHOLDER: עדכן מפרט פיזי אמיתי (גרמאז', למינציה, גודל) -->
+          <dd>[גרמאז' פרימיום, למינציית מט]</dd>
+        </div>
+        <div class="spec__row">
+          <dt>מהדורה</dt>
+          <dd>ראשונה · 1000 עותקים · כל קופסה ממוספרת</dd>
+        </div>
+        <div class="spec__row">
+          <dt>שפה</dt>
+          <dd>עברית. חדה.</dd>
+        </div>
+      </dl>
+    </section>
+
+    <!-- ======================================================================
+         7) פתק מהיוצר
+         ====================================================================== -->
     <section class="creator" id="creator" aria-label="פתק מהיוצר">
       <div class="creator__inner">
-        <!-- תמונת פרופיל שלך (UGC / סטודיו, אבל אותנטית) -->
+        <!-- PLACEHOLDER: תמונת פרופיל אמיתית -->
         <div class="ph ph--creator" role="img" aria-label="תמונת היוצר"><span class="ph__label">תמונה שלך</span></div>
-        
+
         <div class="creator__content">
-          <h2 class="creator__title">למה יצרתי את רדוד?</h2>
-          <p class="creator__text">נמאס לי משיחות שטחיות וממשחקי טריוויה שלא משאירים כלום ביום שאחרי. הייתי חייב ליצור כלי שחותך את הבולשיט, שובר את הקרח, ודורש כנות מוחלטת ממי שיושב מולך – וגם מעצמך.</p>
+          <h2 class="creator__title">למה יצרתי את רדוד.</h2>
+          <p class="creator__text">נמאס לי משיחות שנגמרות בכלום ומטריוויה שלא משאירה סימן. רציתי כלי אחד שחותך את הבולשיט ודורש כנות — ממי שמולך, וממך.</p>
           <span class="creator__sig">— [השם שלך]</span>
         </div>
       </div>
     </section>
 
-    <!-- =======================================================================
-         5) החבילות — שלושה כרטיסים. כרטיס 2 מודגש + מסומן מראש.
-         ======================================================================= -->
+    <!-- ======================================================================
+         8) החבילות
+         ====================================================================== -->
     <section class="pricing" id="pricing" aria-label="חבילות">
-      <h2 class="section__title">בחר את העומק שלך</h2>
+      <p class="eyebrow">מהדורה ראשונה · 1000 עותקים ממוספרים</p>
+      <h2 class="section__title">בחר את העומק שלך.</h2>
 
       <div class="pricing__grid" data-pricing>
 
-        <!-- כרטיס 1 -->
         <article class="pack" data-pack="single" tabindex="0" role="button" aria-pressed="false">
-          <h3 class="pack__name">לעצמי</h3>
-          <p class="pack__qty">חפיסה אחת</p>
+          <h3 class="pack__name">אחד.</h3>
+          <p class="pack__qty">חפיסה אחת · בשבילך</p>
           <p class="pack__price"><span class="pack__amount">₪139</span></p>
           <p class="pack__ship">+ משלוח ₪25 לנקודת איסוף</p>
           <button class="pack__cta" type="button" data-buy="single">לרכישה</button>
         </article>
 
-        <!-- כרטיס 2 — מודגש, פופולרי, נבחר מראש -->
         <article class="pack pack--featured" data-pack="duo" tabindex="0" role="button" aria-pressed="true">
           <span class="pack__tag">הבחירה הפופולרית</span>
-          <h3 class="pack__name">לעצמי + למישהו</h3>
-          <p class="pack__qty">2 חפיסות</p>
+          <h3 class="pack__name">שניים.</h3>
+          <p class="pack__qty">אחד לך, אחד למי שחייב את זה</p>
           <p class="pack__price">
             <span class="pack__amount">₪249</span>
             <s class="pack__was">₪278</s>
           </p>
           <p class="pack__ship">משלוח לנקודת איסוף חינם</p>
-          <p class="pack__note">אחד לי, אחד למישהו שחייב להתעורר.</p>
           <button class="pack__cta" type="button" data-buy="duo">לרכישה</button>
         </article>
 
-        <!-- כרטיס 3 -->
         <article class="pack" data-pack="trio" tabindex="0" role="button" aria-pressed="false">
-          <h3 class="pack__name">למעגל הקרוב</h3>
-          <p class="pack__qty">3 חפיסות</p>
+          <h3 class="pack__name">שלושה.</h3>
+          <p class="pack__qty">לשולחן שלם</p>
           <p class="pack__price">
             <span class="pack__amount">₪339</span>
             <s class="pack__was">₪417</s>
@@ -280,22 +341,30 @@
 
       </div>
 
-      <!-- הודעה קצרה מתחת לכפתורים (בחירה / אזל מהמלאי) -->
+      <p class="pricing__assure">קופסה ממוספרת · 14 יום החזרה · תשלום מאובטח — ביט או אשראי</p>
       <p class="pricing__msg" data-pricing-msg role="status" aria-live="polite"></p>
     </section>
 
-    <!-- =======================================================================
-         6) משלוחים + FAQ (אקורדיון)
-         ======================================================================= -->
+    <!-- ======================================================================
+         9) משלוחים + FAQ
+         ====================================================================== -->
     <section class="faq" id="faq" aria-label="שאלות נפוצות">
-      <h2 class="section__title">משלוחים ושאלות</h2>
+      <p class="eyebrow">לפני שצוללים</p>
+      <h2 class="section__title">משלוחים ושאלות.</h2>
 
       <div class="faq__list" data-faq>
 
         <details class="faq__item">
           <summary class="faq__q">זה עוד קלפי שאלות לזוגות?</summary>
           <div class="faq__a">
-            לא. לא זוגי ולא טריוויה — 60 טריגרים מקוריים בשלוש דרגות עומק, לשולחן, לדייט או לבד.
+            לא. לא זוגי, לא נועז, לא טריוויה. 60 טריגרים מקוריים בשלוש דרגות עומק — לשולחן, לדייט, או לבד מול עצמך.
+          </div>
+        </details>
+
+        <details class="faq__item">
+          <summary class="faq__q">למה רק 60 קלפים?</summary>
+          <div class="faq__a">
+            כי כל קלף עבר עריכה עד שנשאר רק מה שעובד. יש חפיסות עם 160 קלפים — ספרו כמה מהם תזכרו למחרת.
           </div>
         </details>
 
@@ -311,15 +380,14 @@
           <summary class="faq__q">לאן שולחים?</summary>
           <div class="faq__a">
             <!-- PLACEHOLDER: עדכן ספק/נקודות איסוף -->
-            לכל הארץ. נקודות איסוף בפריסה ארצית, או משלוח עד הבית בחבילת 3.
+            לכל הארץ. נקודות איסוף בפריסה ארצית, או משלוח עד הבית בחבילת השלושה.
           </div>
         </details>
 
         <details class="faq__item">
           <summary class="faq__q">ואם זה לא בשבילי?</summary>
           <div class="faq__a">
-            <!-- PLACEHOLDER: עדכן חלון החזרה -->
-            החזרה תוך [14] יום מקבלת המוצר, כל עוד החפיסה שלמה. פרטים מלאים במדיניות ההחזרות.
+            14 יום להחזיר חפיסה שלמה. אבל בוא נהיה כנים — אם פתחת אותה, כבר מאוחר.
           </div>
         </details>
 
@@ -328,16 +396,26 @@
 
   </main>
 
-  <!-- =========================================================================
-       7) FOOTER
-       ========================================================================= -->
+  <!-- ========================================================================
+       פס רכישה צף — מובייל בלבד, מופיע אחרי שגוללים מעבר להירו
+       ======================================================================== -->
+  <div class="stickybar" data-stickybar hidden>
+    <div class="stickybar__info">
+      <span class="stickybar__price">מ-₪139</span>
+      <span class="stickybar__note">נותרו <span data-remaining>—</span> מתוך 1000</span>
+    </div>
+    <a class="stickybar__cta" href="#pricing">לרכישה</a>
+  </div>
+
+  <!-- ========================================================================
+       FOOTER
+       ======================================================================== -->
   <footer class="footer">
     <span class="logo logo--sm" data-logo aria-hidden="true"></span>
     <nav class="footer__links" aria-label="קישורי תחתית">
       <a href="#">תקנון</a>
       <a href="#">הצהרת נגישות</a>
       <a href="#">מדיניות החזרות</a>
-      <!-- PLACEHOLDER: מייל יצירת קשר נטען מ-CONFIG.email -->
       <a href="#" data-email>צור קשר</a>
       <a href="#" data-wa target="_blank" rel="noopener">וואטסאפ</a>
     </nav>
