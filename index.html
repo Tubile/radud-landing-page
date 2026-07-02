@@ -29,17 +29,6 @@
   <!-- שכבת גרעין עדינה על כל הדף (אטמוספרה) -->
   <div class="grain" aria-hidden="true"></div>
 
-  <!-- ========================================================================
-       מד-העומק — החתימה של הדף. פס אנכי + משקולת פליז שיורדת עם הגלילה.
-       שלוש תחנות: רדודים / עמוקים / תהום. נבנה ומונפש ב-script.js.
-       ======================================================================== -->
-  <div class="gauge" aria-hidden="true">
-    <span class="gauge__line"></span>
-    <span class="gauge__plumb" data-plumb></span>
-    <span class="gauge__tick gauge__tick--1" data-tick="1"><i></i>רדודים</span>
-    <span class="gauge__tick gauge__tick--2" data-tick="2"><i></i>עמוקים</span>
-    <span class="gauge__tick gauge__tick--3" data-tick="3"><i></i>תהום</span>
-  </div>
 
   <!-- ========================================================================
        NAV — מינימלי. לוגו + מונה + CTA.
@@ -82,20 +71,20 @@
         <span class="hero__reflection" aria-hidden="true"></span>
       </figure>
 
-      <!-- פיצ'ר ההיפוך — קלף אחד. אחד בלבד. -->
+      <!-- קלף אחד, על החשבון — טעימה מהמוצר בלחיצה אחת -->
       <div class="flip" aria-label="הפכו קלף אחד">
-        <p class="flip__hint" data-flip-hint>בחר קלף. יש לך אחד.</p>
-
-        <div class="flip__row" data-flip-row>
-          <!-- שלושת הקלפים נבנים ב-script.js (טריגרים אקראיים מ-CONFIG, נעילה אחרי היפוך) -->
+        <p class="flip__hint" data-flip-hint>קלף אחד, על החשבון.</p>
+        <div class="flip__row flip__row--single" data-flip-row>
+          <!-- הקלף נבנה ב-script.js (טריגר אקראי אמיתי מהחפיסה) -->
         </div>
-
-        <a class="flip__more" href="#pricing" data-flip-more hidden>זה אחד מתוך 60 <span class="flip__arrow">↓</span></a>
       </div>
 
-      <p class="hero__trust">
-        <a class="wa" href="#" data-wa target="_blank" rel="noopener">שאלה? וואטסאפ, בן אדם עונה</a>
-      </p>
+      <!-- קריאות לפעולה — ראשית + משנית -->
+      <div class="hero__ctas">
+        <a class="btn btn--primary" href="#pricing">לרכישה · מ-₪149</a>
+        <a class="btn btn--ghost" href="#" data-wa target="_blank" rel="noopener">שאלה? וואטסאפ</a>
+      </div>
+
     </section>
 
     <!-- ======================================================================
@@ -293,7 +282,7 @@
 
         <div class="creator__content">
           <h2 class="creator__title">למה יצרתי את רדוד.</h2>
-          <p class="creator__text">נמאס לי משיחות שנגמרות בכלום ומטריוויה שלא משאירה סימן. רציתי כלי אחד שחותך את הבולשיט ודורש כנות — ממי שמולך, וממך.</p>
+          <p class="creator__text">יש משפטים שעושים סדק במוח. שומעים אותם פעם אחת, ומשהו זז. לפעמים לתמיד.<br />רדוד נולד בשביל הרגעים האלה — כשהראש צריך גירוי עמוק מספיק כדי להיכנס להילוך, ולהעלות משם תשובות שלא ידעת שהיו לך.<br />והיופי? זה לא חייב להישאר בינך לבין עצמך.</p>
           <span class="creator__sig">— [השם שלך]</span>
         </div>
       </div>
@@ -311,8 +300,8 @@
         <article class="pack" data-pack="single" tabindex="0" role="button" aria-pressed="false">
           <h3 class="pack__name">אחד.</h3>
           <p class="pack__qty">חפיסה אחת · בשבילך</p>
-          <p class="pack__price"><span class="pack__amount">₪139</span></p>
-          <p class="pack__ship">+ משלוח ₪25 לנקודת איסוף</p>
+          <p class="pack__price"><span class="pack__amount">₪149</span></p>
+          <p class="pack__ship">משלוח לנקודת איסוף כלול</p>
           <button class="pack__cta" type="button" data-buy="single">לרכישה</button>
         </article>
 
@@ -401,7 +390,7 @@
        ======================================================================== -->
   <div class="stickybar" data-stickybar hidden>
     <div class="stickybar__info">
-      <span class="stickybar__price">מ-₪139</span>
+      <span class="stickybar__price">מ-₪149</span>
       <span class="stickybar__note">נותרו <span data-remaining>—</span> מתוך 1000</span>
     </div>
     <a class="stickybar__cta" href="#pricing">לרכישה</a>
