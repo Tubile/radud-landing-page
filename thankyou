@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ההזמנה הושלמה — רדוד.</title>
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Frank+Ruhl+Libre:wght@400;500;700;900&family=Heebo:wght@300;400;500;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+
+  <style>
+    /* עיצוב ייעודי לדף התודה בלבד כדי לשמור עליו נקי ודרמטי */
+    .thankyou-wrapper {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 2rem;
+      text-align: center;
+    }
+    .ty-header {
+      margin-bottom: 3rem;
+      padding-bottom: 3rem;
+      border-bottom: 1px solid var(--hairline);
+      width: 100%;
+      max-width: 32rem;
+    }
+    .ty-header__title {
+      color: var(--brass);
+      font-size: clamp(1.5rem, 5vw, 2rem);
+      margin-bottom: 0.5rem;
+    }
+    .ty-header__order {
+      font-family: var(--ui);
+      color: var(--muted);
+      font-size: 0.9rem;
+    }
+    .upsell {
+      max-width: 32rem;
+    }
+    .upsell__title {
+      font-size: clamp(2rem, 6vw, 3rem);
+      margin-bottom: 1rem;
+    }
+    .upsell__desc {
+      font-size: 1.1rem;
+      color: var(--muted);
+      margin-bottom: 2rem;
+      line-height: 1.6;
+    }
+    .upsell__btn {
+      width: 100%;
+      font-size: 1.1rem;
+      padding: 1rem;
+    }
+    .upsell__micro {
+      margin-top: 1rem;
+      font-size: 0.85rem;
+      color: var(--muted-2);
+    }
+  </style>
+</head>
+<body>
+  <div class="grain" aria-hidden="true"></div>
+  
+  <div class="thankyou-wrapper">
+    <header class="ty-header">
+      <div class="logo logo--sm" data-logo aria-hidden="true" style="margin-bottom: 1.5rem; justify-content: center;"></div>
+      <h1 class="ty-header__title">ההזמנה בפנים. הקופסה בדרך אליך.</h1>
+      <!-- מספר ההזמנה יוזרק לכאן דינמית על ידי פלטפורמת התשלום בהמשך -->
+      <p class="ty-header__order" id="order-number">אישור רכישה נשלח למייל.</p>
+    </header>
+
+    <main class="upsell">
+      <h2 class="upsell__title">אבל אתה לא חייב לחכות.</h2>
+      <p class="upsell__desc">
+        <strong>מתחת לתהום.</strong> 20 קלפים שלא נכנסו לקופסה. לא כי הם חלשים, אלא כי הם דורשים קונטקסט.<br><br>נפתח אצלך בנייד, עכשיו.
+      </p>
+      
+      <!-- הכפתור הזה יקושר למוצר של ה-29 ש"ח במערכת הסליקה שלך -->
+      <a href="#" class="btn btn--primary upsell__btn">פתח את הגנוזים · ₪29</a>
+      <p class="upsell__micro">נמכר רק למי שכבר בפנים. לא קיים בדף הראשי.</p>
+    </main>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
