@@ -158,6 +158,24 @@
       </div>
     </section>
 
+  <!-- ======================================================================
+         מגנט לידים (Inline)
+         ====================================================================== -->
+    <section class="lead-magnet" id="lead-magnet" aria-label="הרשמה לקבלת 5 קלפים">
+      <div class="lead-magnet__inner">
+        <h2 class="lead-magnet__title">קבלו עוד 5 קלפים מהחפיסה למייל, עכשיו</h2>
+        <p class="lead-magnet__desc">אחד רדוד, שניים עמוקים, אחד מהתהום.<br/>ואחד שתצטרך לשבת איתו רגע.</p>
+        
+        <form class="lead-form" id="inline-lead-form">
+          <div class="lead-form__group">
+            <input type="email" id="inline-email" name="email" class="lead-form__input" placeholder="המייל שלך." required />
+            <button type="submit" class="btn btn--primary lead-form__btn">שלחו לי את הקלפים</button>
+          </div>
+          <p class="lead-form__micro">בלי ספאם. רק הקלפים, ואז שקט.</p>
+        </form>
+      </div>
+    </section>
+    
     <!-- ======================================================================
          4) מתי שולפים קלף
          ====================================================================== -->
@@ -410,6 +428,26 @@
     <p class="footer__fine">רדוד — עד שמנסים לעמוד.</p>
   </footer>
 
+  <!-- ========================================================================
+       פופ-אפ מגנט לידים
+       ======================================================================== -->
+  <div class="popup-overlay" id="lead-popup" hidden aria-hidden="true">
+    <div class="popup-content" role="dialog" aria-labelledby="popup-title">
+      <button class="popup-close" id="popup-close" aria-label="סגור">✕</button>
+      
+      <h2 class="lead-magnet__title" id="popup-title">לפני שאתה הולך. קח 5 קלפים נוספים</h2>
+      <p class="lead-magnet__desc">אחד רדוד, שניים עמוקים, אחד מהתהום. ואחד שתצטרך לשבת איתו רגע.</p>
+      
+      <form class="lead-form" id="popup-lead-form">
+        <div class="lead-form__group lead-form__group--col">
+          <input type="email" id="popup-email" name="email" class="lead-form__input" placeholder="המייל שלך." required />
+          <button type="submit" class="btn btn--primary lead-form__btn">שלחו לי את הקלפים</button>
+        </div>
+        <p class="lead-form__micro">בלי ספאם. רק הקלפים, ואז שקט.</p>
+      </form>
+    </div>
+  </div>
+  
   <script src="script.js"></script>
 </body>
 </html>
