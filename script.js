@@ -327,3 +327,4 @@ document.addEventListener("DOMContentLoaded", () => {
   wireContacts();
   initLeadPopup(); // <--- הפעלת הפופ-אפ הוספה לכאן
 });
+
