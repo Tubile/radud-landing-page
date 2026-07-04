@@ -266,6 +266,52 @@ function wireContacts() {
 }
 
 /* ===========================================================================
+   מגנט לידים — פופ-אפ לוגיקה
+   =========================================================================== */
+function initLeadPopup() {
+  if (localStorage.getItem("radud_popup_seen") || localStorage.getItem("radud_lead")) return;
+
+  const popup = document.getElementById("lead-popup");
+  const closeBtn = document.getElementById("popup-close");
+  if (!popup) return;
+
+  let isTriggered = false;
+
+  const triggerPopup = () => {
+    if (isTriggered) return;
+    isTriggered = true;
+    
+    popup.hidden = false;
+    localStorage.setItem("radud_popup_seen", "1"); 
+    
+    window.removeEventListener("scroll", scrollCheck);
+  };
+
+  const timer = setTimeout(triggerPopup, 45000);
+
+  const scrollCheck = () => {
+    const scrollPosition = window.scrollY;
+    const documentHeight = document.documentElement.scrollHeight - window.innerHeight;
+    const scrollPercentage = scrollPosition / documentHeight;
+
+    if (scrollPercentage >= 0.6) {
+      clearTimeout(timer);
+      triggerPopup();
+    }
+  };
+
+  window.addEventListener("scroll", scrollCheck);
+
+  closeBtn.addEventListener("click", () => {
+    popup.hidden = true;
+  });
+
+  popup.addEventListener("click", (e) => {
+    if (e.target === popup) popup.hidden = true;
+  });
+}
+
+/* ===========================================================================
    אתחול
    =========================================================================== */
 document.addEventListener("DOMContentLoaded", () => {
@@ -278,4 +324,5 @@ document.addEventListener("DOMContentLoaded", () => {
   initStickyBar();
   initReveals();
   wireContacts();
+  initLeadPopup(); // <--- הפעלת הפופ-אפ הוספה לכאן
 });
