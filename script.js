@@ -313,6 +313,72 @@ function initLeadPopup() {
 }
 
 /* ===========================================================================
+   חיבור טפסים לקלאביו (AJAX שקט)
+   =========================================================================== */
+function initKlaviyoForms() {
+  // TODO: החלף את המילים פה בקוד ה-List ID שהעתקת מקלאביו
+  const LIST_ID = "UV4h7a";
+
+  const forms = [document.getElementById("inline-lead-form"), document.getElementById("popup-lead-form")];
+
+  forms.forEach(form => {
+    if (!form) return;
+
+    form.addEventListener("submit", (e) => {
+      e.preventDefault(); // מונע מהדף להתרענן
+      
+      const emailInput = form.querySelector('input[name="email"]');
+      const btn = form.querySelector('button[type="submit"]');
+      const micro = form.querySelector('.lead-form__micro');
+      
+      const email = emailInput.value.trim();
+      if (!email) return;
+
+      // שינוי מצב כפתור בזמן שליחה
+      const originalBtnText = btn.textContent;
+      btn.textContent = "שולח...";
+      btn.disabled = true;
+
+      // הכנת הנתונים לקלאביו
+      const data = new URLSearchParams();
+      data.append('g', LIST_ID);
+      data.append('email', email);
+
+      // שיגור שקט לשרתים של קלאביו
+      fetch('https://manage.klaviyo.com/ajax/subscriptions/subscribe', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+        body: data.toString()
+      })
+      .then(res => res.json())
+      .then(data => {
+        // עיצוב ההצלחה
+        btn.textContent = "נשלח.";
+        micro.textContent = "הקלפים בדרך למייל שלך.";
+        micro.style.color = "var(--brass)"; // צבע פליז כדי לאשר הצלחה
+        
+        // סימון שהליד נרשם כדי לא להציג לו את הפופ-אפ יותר לעולם
+        localStorage.setItem("radud_lead", "1");
+        
+        // אם זה הפופ-אפ, נסגור אותו באלגנטיות אחרי 2 שניות
+        if (form.id === "popup-lead-form") {
+          setTimeout(() => {
+            const popup = document.getElementById("lead-popup");
+            if (popup) popup.hidden = true;
+          }, 2000);
+        }
+      })
+      .catch(err => {
+        // במידה ויש שגיאת רשת
+        btn.textContent = originalBtnText;
+        btn.disabled = false;
+        micro.textContent = "משהו השתבש בדרך. נסה שוב.";
+      });
+    });
+  });
+}
+
+/* ===========================================================================
    אתחול
    =========================================================================== */
 document.addEventListener("DOMContentLoaded", () => {
@@ -325,6 +391,7 @@ document.addEventListener("DOMContentLoaded", () => {
   initStickyBar();
   initReveals();
   wireContacts();
-  initLeadPopup(); // <--- הפעלת הפופ-אפ הוספה לכאן
+  initLeadPopup();
+  initKlaviyoForms();
 });
 
