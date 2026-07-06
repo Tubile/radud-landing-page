@@ -167,6 +167,7 @@
     .card__face {
       position: absolute; inset: 0;
       backface-visibility: hidden; -webkit-backface-visibility: hidden;
+      transform: translateZ(0); /* <--- השורה שמונעת מהקלף להיעלם */
       border-radius: 12px; overflow: hidden;
       background: #131110;
       border: 1px solid rgba(207, 168, 106, 0.18);
