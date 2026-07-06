@@ -318,6 +318,7 @@ function initLeadPopup() {
 function initKlaviyoForms() {
   // TODO: החלף את המילים פה בקוד ה-List ID שהעתקת מקלאביו
   const LIST_ID = "UV4h7a";
+  const PUBLIC_KEY = "Y3xwhu";
 
   const forms = [document.getElementById("inline-lead-form"), document.getElementById("popup-lead-form")];
 
@@ -339,19 +340,27 @@ function initKlaviyoForms() {
       btn.textContent = "שולח...";
       btn.disabled = true;
 
-      // הכנת הנתונים לקלאביו
-      const data = new URLSearchParams();
-      data.append('g', LIST_ID);
-      data.append('email', email);
-
-      // שיגור שקט לשרתים של קלאביו
-      fetch('https://manage.klaviyo.com/ajax/subscriptions/subscribe', {
+      // שיגור ל-Klaviyo Client API (הדרך הרשמית מאתר סטטי)
+      fetch('https://a.klaviyo.com/client/subscriptions/?company_id=' + PUBLIC_KEY, {
         method: 'POST',
-        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-        body: data.toString()
+        headers: {
+          'Content-Type': 'application/json',
+          'revision': '2024-10-15'
+        },
+        body: JSON.stringify({
+          data: {
+            type: 'subscription',
+            attributes: {
+              profile: { data: { type: 'profile', attributes: { email: email } } }
+            },
+            relationships: { list: { data: { type: 'list', id: LIST_ID } } }
+          }
+        })
       })
-      .then(res => res.json())
-      .then(data => {
+      .then(res => {
+        if (!res.ok) throw new Error('klaviyo ' + res.status);
+      })
+      .then(() => {
         // עיצוב ההצלחה
         btn.textContent = "נשלח.";
         micro.textContent = "הקלפים בדרך למייל שלך.";
