@@ -357,12 +357,12 @@
       <span class="card__inner">
         <span class="card__face card__face--front">
           ${mapFront}
-          <img src="${IMG_BASE}${c.front}.png" alt="" loading="${i < 2 ? 'eager' : 'lazy'}" draggable="false" />
+          <img src="${IMG_BASE}${c.front}.png" alt="" draggable="false" />
         </span>
         ${c.back ? `
         <span class="card__face card__face--back">
           ${mapBack}
-          <img src="${IMG_BASE}${c.back}.png" alt="" loading="lazy" draggable="false" />
+          <img src="${IMG_BASE}${c.back}.png" alt="" draggable="false" />
         </span>` : ''}
       </span>`;
 
