@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>רדוד — אבחון</title>
+<meta name="robots" content="noindex, nofollow" />
+<style>
+  body { background:#0E0E0D; color:#ECE7DC; font-family:system-ui, sans-serif; padding:24px; line-height:1.7; }
+  h1 { font-size:1.3rem; }
+  .test { border:1px solid rgba(236,231,220,.15); border-radius:6px; padding:14px 16px; margin:14px 0; }
+  .test b { display:block; margin-bottom:6px; }
+  .ok { color:#6fdc8c; font-weight:700; }
+  .bad { color:#ff6b5e; font-weight:700; }
+  .mono { font-family:monospace; font-size:.85rem; color:#CFA86A; word-break:break-all; direction:ltr; text-align:left; background:rgba(0,0,0,.4); padding:8px 10px; border-radius:4px; margin-top:6px; }
+  .cardbox { height:300px; aspect-ratio:2/3; border-radius:12px; overflow:hidden; background:#131110; border:1px solid rgba(207,168,106,.3); margin-top:8px; }
+  .cardbox img { width:100%; height:100%; object-fit:cover; display:block; }
+  small { color:#9A948A; }
+</style>
+</head>
+<body>
+<h1>אבחון רדוד — צלם מסך של כל העמוד ושלח</h1>
+
+<div class="test"><b>בדיקה 1: תמונה מהדומיין (radud.com)</b><span id="t1">בודק…</span></div>
+<div class="test"><b>בדיקה 2: תמונה מגיטהאב (raw)</b><span id="t2">בודק…</span></div>
+<div class="test"><b>בדיקה 3: איזו גרסה של mitachat.html חיה באוויר</b><span id="t3">בודק…</span>
+  <div class="mono" id="t3detail"></div></div>
+<div class="test"><b>בדיקה 4: קלף אמיתי בתוך העיצוב של המוצר</b>
+  <small>אם רואים כאן קלף — הקוד והתמונות מסתדרים יחד.</small>
+  <div class="cardbox"><img id="t4img" alt="" /></div>
+  <span id="t4">בודק…</span></div>
+
+<script>
+  const ts = Date.now();
+
+  function imgTest(id, url) {
+    const el = document.getElementById(id);
+    const im = new Image();
+    im.onload  = () => { el.innerHTML = '<span class="ok">✔ נטענה (' + im.naturalWidth + '×' + im.naturalHeight + ')</span>'; };
+    im.onerror = () => { el.innerHTML = '<span class="bad">✘ נכשלה</span>'; };
+    im.src = url + '?d=' + ts;
+  }
+
+  imgTest('t1', 'https://radud.com/digital-product/1.png');
+  imgTest('t2', 'https://raw.githubusercontent.com/Tubile/radud-landing-page/main/digital-product/1.png');
+
+  /* בדיקה 3: מושכים את הקובץ החי ובודקים מה כתוב בו באמת */
+  fetch('/mitachat.html?d=' + ts)
+    .then(r => { if (!r.ok) throw new Error(r.status); return r.text(); })
+    .then(txt => {
+      const base = (txt.match(/const IMG_BASE = '([^']*)'/) || [,'לא נמצא IMG_BASE בקובץ!'])[1];
+      const firstCard = (txt.match(/\{ front: [^\}]*\}/) || ['לא נמצא CARDS'])[0];
+      const hasV1 = txt.includes('.png?v=');
+      document.getElementById('t3').innerHTML = '<span class="ok">✔ הקובץ נמשך</span>';
+      document.getElementById('t3detail').textContent =
+        'IMG_BASE = ' + base + '\n' +
+        'קלף ראשון: ' + firstCard + '\n' +
+        'תוספת ?v על תמונות: ' + (hasV1 ? 'כן' : 'לא');
+    })
+    .catch(e => {
+      document.getElementById('t3').innerHTML =
+        '<span class="bad">✘ mitachat.html לא נמצא בכתובת הזו (' + e.message + ')</span>';
+    });
+
+  /* בדיקה 4: אותה תמונה, בתוך אותו CSS כמו במוצר */
+  const t4img = document.getElementById('t4img');
+  t4img.onload  = () => { document.getElementById('t4').innerHTML = '<span class="ok">✔ הקלף מוצג בתוך העיצוב</span>'; };
+  t4img.onerror = () => { document.getElementById('t4').innerHTML = '<span class="bad">✘ נכשל בתוך העיצוב</span>'; };
+  t4img.src = 'https://radud.com/digital-product/1.png?v=1&d=' + ts;
+</script>
+</body>
+</html>
