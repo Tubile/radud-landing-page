@@ -14,7 +14,7 @@ const CONFIG = {
   /* Klaviyo — List ייעודי להשקה (לא רשימת הדף החי).
      PUBLIC_KEY נשאר כמו באתר. LIST_ID: להחליף כשיוצרים List חדש. */
   klaviyoPublicKey: "Y3xwhu",
-  klaviyoListId: "", // TODO: List ID חדש להשקה
+  klaviyoListId: "WBbhUg",
 
   /* אחרי הרשמה — כפתור מוביל לחוויית 5 הקלפים */
   hamishaUrl: "hamisha/",
