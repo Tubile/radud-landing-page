@@ -8,15 +8,18 @@ const CONFIG = {
   whatsapp: "",
   whatsappText: "היי, יש לי שאלה על רדוד",
 
+  /* שידור קלף בוקר — מילת מפתח שנשלחת בהודעה (micro-upsell אחרי הרשמה) */
+  whatsappBroadcastText: "עמוק",
+
   // מייל יצירת קשר. <PLACEHOLDER>
   email: "",
 
   /* Klaviyo — List ייעודי להשקה (לא רשימת הדף החי).
      PUBLIC_KEY נשאר כמו באתר. LIST_ID: להחליף כשיוצרים List חדש. */
   klaviyoPublicKey: "Y3xwhu",
-  klaviyoListId: "WBbhUg",
+  klaviyoListId: "", // TODO: List ID חדש להשקה
 
-  /* אחרי הרשמה — כפתור מוביל לחוויית 5 הקלפים */
+  /* אחרי הרשמה — קישור משני (escape) לחוויית 5 הקלפים */
   hamishaUrl: "hamisha/",
 
   /* localStorage */
@@ -267,10 +270,20 @@ function showFormSuccess(form) {
   form.classList.add("is-done");
   markLead();
 
-  /* עדכן כפתורי hamisha אם ה-URL ב-CONFIG שונה */
-  form.querySelectorAll(".lead-form__success a").forEach((a) => {
+  /* קישור משני בלבד — חוויית 5 הקלפים (לא לדרוס את כפתור הוואטסאפ) */
+  form.querySelectorAll("[data-hamisha]").forEach((a) => {
     a.href = CONFIG.hamishaUrl;
   });
+
+  /* CTA ראשי — שידור קלף בוקר בוואטסאפ (כשיש מספר ב-CONFIG) */
+  if (CONFIG.whatsapp) {
+    const waHref = `https://wa.me/${CONFIG.whatsapp}?text=${encodeURIComponent(
+      CONFIG.whatsappBroadcastText || "עמוק"
+    )}`;
+    form.querySelectorAll("[data-wa-broadcast]").forEach((a) => {
+      a.href = waHref;
+    });
+  }
 
   /* הסתר sticky */
   const bar = $("[data-stickybar]");
