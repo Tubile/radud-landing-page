@@ -11,7 +11,7 @@
                    ושורת "שב עם זה" (prompt)
       SHARE_URL  — הקישור שמצורף לכל שיתוף (דף ה"בקרוב")
       WHATSAPP   — מספר בפורמט בינלאומי, בלי + (לכפתור בסיום)
-      TEHOM      — קישור הרכישה של "מתחת לתהום" (ריק = הבלוק לא מוצג)
+      TEHOM      — קישור הרכישה של "מתחת לתהום" (מסך הסיום = נקודת מכירה)
 
   ✦ אימות מיפוי תמונות: לפתוח עם ?map בסוף הכתובת.
 ============================================================================ -->
@@ -329,48 +329,166 @@
     .navbtn[disabled] { opacity: 0.25; pointer-events: none; }
     .navhint { font-family: var(--ui); font-size: 0.72rem; letter-spacing: 0.14em; color: var(--muted-2); }
 
-    /* ===================== סיום ===================== */
-    .finale { flex-direction: column; text-align: center; gap: 0.9rem; padding: 2rem; overflow-y: auto; }
-    .finale__title { font-family: var(--display); font-weight: 700; font-size: clamp(1.7rem, 6.5vw, 2.4rem); margin: 0; }
-    .finale__sub { color: var(--muted); font-size: 1rem; line-height: 1.8; max-width: 26rem; margin: 0; }
-    .finale__wa {
-      display: inline-block; margin-top: 0.4rem;
+    /* ===================== סיום — נקודת מכירה (מתחת לתהום) ===================== */
+    .finale {
+      flex-direction: column; text-align: center; gap: 0.75rem;
+      padding: 1.4rem 1.4rem 1.6rem; overflow-y: auto;
+      justify-content: flex-start;
+    }
+    .finale__title {
+      font-family: var(--display); font-weight: 700;
+      font-size: clamp(1.55rem, 6.2vw, 2.15rem);
+      line-height: 1.2; margin: 0; max-width: 22rem;
+    }
+    .finale__sub {
+      color: var(--muted); font-size: clamp(0.95rem, 3.6vw, 1.05rem);
+      line-height: 1.7; max-width: 24rem; margin: 0;
+    }
+
+    /* מוקאפ מסתורי — מ-thankyou.html */
+    .mystery {
+      position: relative;
+      height: clamp(11.5rem, 42vw, 15rem);
+      width: 100%;
+      max-width: 22rem;
+      margin: 0.35rem 0 0.15rem;
+      display: flex; justify-content: center;
+      flex: 0 0 auto;
+    }
+    .mystery::before {
+      content: ""; position: absolute; inset: -12% -18%;
+      background: radial-gradient(ellipse 52% 46% at 50% 46%,
+        rgba(207, 168, 106, 0.13), rgba(207, 168, 106, 0.04) 48%, transparent 72%);
+      pointer-events: none;
+    }
+    .mcard {
+      position: absolute; top: 8%;
+      width: clamp(6.2rem, 22vw, 7.6rem); aspect-ratio: 2 / 3;
+      border-radius: 10px;
+      background:
+        radial-gradient(ellipse 90% 70% at 50% 18%, rgba(207, 168, 106, 0.07), transparent 60%),
+        linear-gradient(160deg, #17140F, #131110 55%);
+      border: 1px solid rgba(207, 168, 106, 0.28);
+      box-shadow:
+        inset 0 0 0 5px #131110,
+        inset 0 0 0 6px rgba(207, 168, 106, 0.2),
+        0 18px 36px rgba(0, 0, 0, 0.55);
+      display: flex; align-items: center; justify-content: center;
+      opacity: 0; transform: translateY(16px);
+      animation: mcardIn 0.7s cubic-bezier(0.22, 0.61, 0.36, 1) forwards;
+    }
+    .mcard--r { transform: translateY(16px) rotate(9deg) translateX(-58%); animation-delay: 0.15s; }
+    .mcard--c { z-index: 2; top: 0; animation-delay: 0.3s; }
+    .mcard--l { transform: translateY(16px) rotate(-9deg) translateX(58%); animation-delay: 0.45s; }
+    .mcard--r { --final: rotate(9deg) translateX(-58%); }
+    .mcard--c { --final: none; }
+    .mcard--l { --final: rotate(-9deg) translateX(58%); }
+    @keyframes mcardIn {
+      to { opacity: 1; transform: var(--final, none); }
+    }
+    .mcard__dot {
+      width: 7px; height: 7px; border-radius: 50%;
+      background: var(--brass); opacity: 0.85;
+      box-shadow: 0 0 12px rgba(207, 168, 106, 0.5);
+    }
+    .mcard__blur {
+      width: 72%; display: flex; flex-direction: column; gap: 9px; align-items: center;
+    }
+    .mcard__blur i {
+      display: block; height: 7px; border-radius: 3px; width: 100%;
+      background: rgba(236, 231, 220, 0.35); filter: blur(5px);
+    }
+    .mcard__blur i:nth-child(2) { width: 84%; }
+    .mcard__blur i:nth-child(3) { width: 90%; }
+    .mcard__blur i:nth-child(4) { width: 55%; background: rgba(207, 168, 106, 0.45); }
+
+    /* בלוק הצעה + CTA */
+    .finale__offer {
+      width: 100%; max-width: 22rem;
+      display: flex; flex-direction: column; align-items: center; gap: 0.55rem;
+      margin-top: 0.15rem;
+    }
+    .finale__name {
+      font-family: var(--display); font-weight: 700;
+      font-size: clamp(1.2rem, 4.5vw, 1.45rem); margin: 0; color: var(--ink);
+    }
+    .finale__cta {
+      display: inline-flex; align-items: center; justify-content: center;
+      width: 100%; max-width: 22rem;
       background: var(--brass); color: var(--bg); border-radius: 3px;
-      font-weight: 700; font-size: 1rem; text-decoration: none;
-      padding: 0.95rem 2rem;
-      box-shadow: 0 12px 30px rgba(207,168,106,0.16);
+      font-weight: 700; font-size: 1.05rem; text-decoration: none;
+      padding: 0.95rem 1.4rem; min-height: 50px;
+      box-shadow: 0 12px 30px rgba(207,168,106,0.18);
       transition: background 0.25s var(--ease), transform 0.2s var(--ease);
     }
-    .finale__wa:hover { background: #DDBB7E; }
-    .finale__wa:active { transform: translateY(1px); }
-    .finale__wamicro { font-size: 0.8rem; color: var(--muted-2); margin: 0.2rem 0 0; }
+    .finale__cta:hover { background: #DDBB7E; }
+    .finale__cta:active { transform: translateY(1px); }
 
-    .finale__tehom {
-      margin-top: 1.4rem; padding-top: 1.4rem;
-      border-top: 1px solid var(--hairline);
-      max-width: 26rem;
-      display: flex; flex-direction: column; align-items: center; gap: 0.55rem;
+    /* אמצעי תשלום — אותו מבנה כמו index.html (.pack__payments) */
+    .pack__payments {
+      list-style: none;
+      margin: 0.35rem 0 0;
+      padding: 0;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: center;
+      gap: 0.55rem 0.85rem;
+      opacity: 0.88;
     }
-    .finale__tehomtitle { font-family: var(--display); font-weight: 700; font-size: 1.15rem; margin: 0; }
-    .finale__tehomsub { color: var(--muted); font-size: 0.92rem; line-height: 1.7; margin: 0; }
-    .finale__tehombtn {
-      display: inline-block; margin-top: 0.3rem;
-      background: none; color: var(--brass); text-decoration: none;
-      border: 1px solid var(--brass-dim); border-radius: 3px;
-      font-weight: 500; font-size: 0.95rem;
-      padding: 0.7rem 1.6rem;
-      transition: border-color 0.25s var(--ease), background 0.25s var(--ease);
+    .pack__payments li {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      line-height: 0;
+      flex: 0 0 auto;
     }
-    .finale__tehombtn:hover { border-color: var(--brass); background: rgba(207,168,106,0.06); }
-    .finale__tehommicro { font-size: 0.78rem; color: var(--muted-2); margin: 0; }
+    .pack__pay-icon {
+      display: block;
+      height: 28px;
+      width: auto;
+      max-width: 72px;
+      object-fit: contain;
+      opacity: 0.95;
+    }
+    @media (max-width: 380px) {
+      .pack__pay-icon { height: 26px; max-width: 64px; }
+      .pack__payments { gap: 0.45rem 0.7rem; }
+    }
 
-    .finale__brand { margin-top: 1.2rem; font-family: var(--display); color: var(--muted-2); font-size: 0.95rem; }
+    /* זיכוי — נקודת המכירה החזקה ביותר */
+    .finale__rebate {
+      margin: 0.55rem 0 0;
+      font-family: var(--ui);
+      font-size: clamp(0.92rem, 3.4vw, 1.02rem);
+      font-weight: 500;
+      line-height: 1.5;
+      color: var(--brass);
+      letter-spacing: 0.01em;
+      max-width: 22rem;
+    }
+
+    .finale__wa {
+      display: inline-block; margin-top: 0.6rem;
+      background: none; color: var(--muted); border: 1px solid var(--hairline);
+      border-radius: 3px; font-weight: 500; font-size: 0.9rem; text-decoration: none;
+      padding: 0.7rem 1.4rem;
+      transition: border-color 0.25s var(--ease), color 0.25s var(--ease);
+    }
+    .finale__wa:hover { border-color: var(--brass); color: var(--brass); }
+    .finale__wamicro { font-size: 0.78rem; color: var(--muted-2); margin: 0.15rem 0 0; }
+
+    .finale__brand {
+      margin-top: 0.9rem;
+      font-family: var(--display); color: var(--muted-2); font-size: 0.9rem;
+    }
 
     @media (prefers-reduced-motion: reduce) {
       .card__inner,
       .flip-card__inner { transition: none; }
       .card__hint, .sit__breath, .actbtn--pulse { animation: none; }
       .sit.on .sit__line::after { transition: transform 0.5s linear; }
+      .mcard { animation: none; opacity: 1; transform: var(--final, none); }
     }
   </style>
 </head>
@@ -430,7 +548,7 @@
 
   /* הקישור שמצורף לכל שיתוף — דף ה"בקרוב" (הפאנל החדש ב-pre-launch).
      הפרמטר src=share מאפשר למדוד כמה נרשמים הגיעו משיתופים. */
-  const SHARE_URL = 'https://radud.com/?src=share';
+  const SHARE_URL = 'https://radud.com/pre-launch/?src=share';
 
   /* חמשת הקלפים, לפי סדר הצלילה:
        img     — מספר קובץ התמונה (למשל 7 => 7.png)
@@ -452,23 +570,26 @@
   const WHATSAPP = '';
   const WHATSAPP_TEXT = 'עמוק';
 
-  /* "מתחת לתהום" — קישור הרכישה. ריק = הבלוק לא מוצג. */
+  /* "מתחת לתהום" — נקודת המכירה במסך הסיום.
+     url: קישור PayMe / Payment Link. '#' = placeholder עד חיבור תשלום. */
   const TEHOM = {
     url: '#',
     price: '₪29',
   };
 
-  /* טקסטים */
+  /* טקסטים — מסך הסיום = נקודת מכירה ל-20 הקלפים */
   const FINALE = {
-    title: 'אלה היו חמישה. יש עוד 55.',
-    sub: 'המהדורה הראשונה בדרך. מי שברשימה נכנס 48 שעות לפני כולם.',
+    title: 'יש עוד 20 שלא נכנסו לקופסה. לא כי הם חלשים.',
+    sub: 'כי לא כל משפט אפשר להניח באמצע שולחן.',
+    productName: 'מתחת לתהום',
+    cta: 'פתח אותם עכשיו',
+    rebate: 'הסכום מזוכה במלואו ברכישת החפיסה.',
     waLabel: 'קלף כל בוקר עד ההשקה',
     waMicro: 'נפתח וואטסאפ עם המילה "עמוק". שלח, וזהו.',
-    tehomTitle: 'יש עוד 20 שלא נכנסו לקופסה.',
-    tehomSub: 'לא כי הם חלשים. כי לא כל משפט אפשר להניח באמצע שולחן.',
-    tehomBtn: 'לצלול למתחת לתהום',
-    tehomMicro: 'הסכום מזוכה במלואו ברכישת החפיסה.',
   };
+
+  /* נתיב יחסי לאייקוני תשלום (radud-assets בשורש האתר) */
+  const PAY_ICONS_BASE = '../../radud-assets/';
   const SHARE_LABEL = 'שלח למישהו שצריך את זה';
   const SIT_LABEL = 'שב עם זה רגע';
 
@@ -570,26 +691,55 @@
     track.appendChild(slide);
   });
 
-  /* עמוד סיום */
+  /* עמוד סיום — נקודת מכירה למתחת לתהום */
   const fin = document.createElement('div');
   fin.className = 'slide finale';
   fin.dataset.index = total;
   const waHref = WHATSAPP
     ? 'https://wa.me/' + WHATSAPP + '?text=' + encodeURIComponent(WHATSAPP_TEXT)
     : '';
+  /* שומרים על placeholder עד חיבור PayMe — אל תשנה את הלוגיקה בלי כוונה */
+  const tehomHref = TEHOM.url || '#';
+  const tehomExternal = tehomHref !== '#';
   fin.innerHTML = `
     <h2 class="finale__title">${FINALE.title}</h2>
     <p class="finale__sub">${FINALE.sub}</p>
+
+    <div class="mystery" aria-hidden="true">
+      <div class="mcard mcard--r"><span class="mcard__dot"></span></div>
+      <div class="mcard mcard--c">
+        <span class="mcard__blur"><i></i><i></i><i></i><i></i></span>
+      </div>
+      <div class="mcard mcard--l"><span class="mcard__dot"></span></div>
+    </div>
+
+    <div class="finale__offer">
+      <h3 class="finale__name">${FINALE.productName}</h3>
+      <a class="finale__cta"
+         href="${tehomHref}"
+         ${tehomExternal ? 'target="_blank" rel="noopener"' : ''}>${FINALE.cta} · ${TEHOM.price}</a>
+
+      <ul class="pack__payments" aria-label="אמצעי תשלום">
+        <li>
+          <img class="pack__pay-icon" src="${PAY_ICONS_BASE}payment-bit.svg" alt="ביט" width="56" height="28" loading="lazy" decoding="async" />
+        </li>
+        <li>
+          <img class="pack__pay-icon" src="${PAY_ICONS_BASE}payment-cards.svg" alt="כרטיסי אשראי — ויזה ומאסטרקארד" width="72" height="28" loading="lazy" decoding="async" />
+        </li>
+        <li>
+          <img class="pack__pay-icon" src="${PAY_ICONS_BASE}payment-apple-pay.svg" alt="Apple Pay" width="64" height="28" loading="lazy" decoding="async" />
+        </li>
+        <li>
+          <img class="pack__pay-icon" src="${PAY_ICONS_BASE}payment-google-pay.svg" alt="Google Pay" width="64" height="28" loading="lazy" decoding="async" />
+        </li>
+      </ul>
+
+      <p class="finale__rebate">${FINALE.rebate}</p>
+    </div>
+
     ${waHref ? `
       <a class="finale__wa" href="${waHref}" target="_blank" rel="noopener">${FINALE.waLabel}</a>
       <p class="finale__wamicro">${FINALE.waMicro}</p>` : ''}
-    ${TEHOM.url ? `
-      <div class="finale__tehom">
-        <h3 class="finale__tehomtitle">${FINALE.tehomTitle}</h3>
-        <p class="finale__tehomsub">${FINALE.tehomSub}</p>
-        <a class="finale__tehombtn" href="${TEHOM.url}" target="_blank" rel="noopener">${FINALE.tehomBtn} · ${TEHOM.price}</a>
-        <p class="finale__tehommicro">${FINALE.tehomMicro}</p>
-      </div>` : ''}
     <p class="finale__brand">רדוד. עד שמנסים לעמוד.</p>`;
   track.appendChild(fin);
 
