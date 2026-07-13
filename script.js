@@ -1,235 +1,78 @@
 /* ===========================================================================
-   רדוד — script.js (V3)
-   Vanilla JS. אין תלויות.
-   ⬇⬇⬇  כל מה שמתחלף לעיתים קרובות נמצא ב-CONFIG. ערוך רק כאן.  ⬇⬇⬇
+   רדוד — Pre-Launch / Coming Soon (script.js)
+   מבוסס על script.js של הדף החי, בלי רכישה / PayMe / מלאי.
+   ⬇⬇⬇  CONFIG — ערוך רק כאן  ⬇⬇⬇
    =========================================================================== */
 const CONFIG = {
-  // וואטסאפ — פורמט בינלאומי בלי + ובלי 0 מוביל. לדוגמה: "972501234567".
-  // <PLACEHOLDER>
+  // וואטסאפ — פורמט בינלאומי בלי +. <PLACEHOLDER>
   whatsapp: "",
   whatsappText: "היי, יש לי שאלה על רדוד",
 
   // מייל יצירת קשר. <PLACEHOLDER>
   email: "",
 
-  /* =========================================================================
-     PayMe — תשלומים (מוכן, כבוי כברירת מחדל)
-     -------------------------------------------------------------------------
-     Docs: https://docs.payme.io  ·  https://payme.stoplight.io
-     Partner / keys: partners@payme.io
+  /* Klaviyo — List ייעודי להשקה (לא רשימת הדף החי).
+     PUBLIC_KEY נשאר כמו באתר. LIST_ID: להחליף כשיוצרים List חדש. */
+  klaviyoPublicKey: "Y3xwhu",
+  klaviyoListId: "", // TODO: List ID חדש להשקה
 
-     ⚠ Frontend: רק payme_client_key (Partner Key / public).
-        לעולם לא secret keys בדפדפן.
+  /* אחרי הרשמה — כפתור מוביל לחוויית 5 הקלפים */
+  hamishaUrl: "hamisha/",
 
-     איך מפעילים כשתקבל מפתח:
-       1. הדבק את payme_client_key למטה
-       2. מלא paymentLinks (קישור תשלום מוכן לכל חבילה) — מומלץ לאתר סטטי
-          או: מלא saleUrls אם קיבלת sale_url ישיר מ-PayMe
-       3. שים enabled: true
-       4. (אופציונלי) successUrl / callbackUrl לפי ההגדרה אצל PayMe
-
-     זרימה: לחיצה על "לרכישה" → פותח מודל עם iframe של דף התשלום של PayMe.
-     ========================================================================= */
-  payme: {
-    // false = כבוי (הכפתורים מציגים הודעת "בקרוב"). true = פעיל.
-    enabled: false,
-
-    // Partner Key / payme_client_key — מפתח ציבורי בלבד.
-    clientKey: "", // <TODO PAYME> לדוגמה: "pmc-xxxxxxxx"
-
-    // Seller / MPL id (לעיתים נדרש ביצירת sale בצד שרת — לא secret card data).
-    // באתר סטטי עדיף Payment Links מוכנים; השדה כאן לתיעוד / שימוש עתידי.
-    sellerPaymeId: "", // <TODO PAYME> לדוגמה: "MPLXXXX-..."
-
-    // קישורי תשלום מוכנים (Payment Link / sale_url) לכל חבילה.
-    // כשמוגדרים — ה-iframe טוען אותם ישירות. הכי מתאים לאתר סטטי.
-    paymentLinks: {
-      single: "", // <TODO PAYME> חפיסה אחת · ₪149
-      duo:    "", // <TODO PAYME> שניים · ₪249
-      trio:   "", // <TODO PAYME> שלושה · ₪339
-      // upsell דיגיטלי בדף thankyou.html
-      mitachat: "", // <TODO PAYME> מתחת לתהום · ₪29
-    },
-
-    // מחירים (אגורות או שקלים — לפי מה שתגדיר ב-PayMe; כאן לתיעוד UI בלבד)
-    packs: {
-      single:   { label: "אחד",          amountILS: 149 },
-      duo:      { label: "שניים",        amountILS: 249 },
-      trio:     { label: "שלושה",        amountILS: 339 },
-      mitachat: { label: "מתחת לתהום",   amountILS: 29  },
-    },
-
-    // לאן לחזור אחרי תשלום מוצלח (PayMe success redirect — אם תומך בקישור)
-    successUrl: "https://radud.com/thankyou.html",
-    // cancel / close — נשארים בדף
-  },
+  /* localStorage */
+  leadKey: "radud_prelaunch_lead",
+  popupSeenKey: "radud_prelaunch_popup_seen",
 };
 
 /* ===========================================================================
    עזרים
    =========================================================================== */
-const $  = (sel, root = document) => root.querySelector(sel);
+const $ = (sel, root = document) => root.querySelector(sel);
 const $$ = (sel, root = document) => [...root.querySelectorAll(sel)];
 
 const REDUCE_MOTION =
   window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
-/* ===========================================================================
-   לוגו — "רדוד." עם ה-ו' הצוללת. נבנה לכל אלמנט עם [data-logo].
-   =========================================================================== */
-function buildLogo() {
-  const WORD = "רדוד";
-  const DIVE_INDEX = 2; // ה-ו'
-
-  $$("[data-logo]").forEach((el) => {
-    if (el.dataset.built) return;
-    el.dataset.built = "1";
-
-    const word = document.createElement("span");
-    word.className = "logo__word";
-    [...WORD].forEach((ch, i) => {
-      const s = document.createElement("span");
-      s.className = "logo__l" + (i === DIVE_INDEX ? " logo__l--dive" : "");
-      s.textContent = ch;
-      word.appendChild(s);
-    });
-    const dot = document.createElement("span");
-    dot.className = "logo__dot";
-    dot.textContent = ".";
-
-    el.innerHTML = "";
-    el.append(word, dot);
-  });
-}
-
-/* ===========================================================================
-   בחירת חבילה — duo נבחרת מראש.
-   כפתור "לרכישה" → PayMe (כש-CONFIG.payme.enabled = true).
-   =========================================================================== */
-function initPricing() {
-  const grid = $("[data-pricing]");
-  const msg = $("[data-pricing-msg]");
-  if (!grid) return;
-
-  const packs = $$(".pack", grid);
-
-  function select(pack) {
-    packs.forEach((p) => p.setAttribute("aria-pressed", String(p === pack)));
+function isLead() {
+  try {
+    return localStorage.getItem(CONFIG.leadKey) === "1";
+  } catch {
+    return false;
   }
+}
 
-  packs.forEach((pack) => {
-    pack.addEventListener("click", () => select(pack));
-    pack.addEventListener("keydown", (e) => {
-      if (e.key === "Enter" || e.key === " ") { e.preventDefault(); select(pack); }
-    });
-  });
-
-  $$("[data-buy]").forEach((btn) => {
-    btn.addEventListener("click", (e) => {
-      e.stopPropagation();
-      const pack = btn.closest(".pack");
-      select(pack);
-
-      const packId = btn.getAttribute("data-buy") || pack?.dataset?.pack || "single";
-      startPaymeCheckout(packId, msg);
-    });
-  });
+function markLead() {
+  try {
+    localStorage.setItem(CONFIG.leadKey, "1");
+  } catch {
+    /* ignore */
+  }
 }
 
 /* ===========================================================================
-   PayMe — iframe checkout (מוכן, לא פעיל עד enabled + paymentLinks)
-   -------------------------------------------------------------------------
-   זרימה מומלצת לאתר סטטי:
-     Payment Link / sale_url מוכן לכל חבילה → iframe src = הקישור
-   אלטרנטיבה (דורשת בדרך כלל backend):
-     Generate-Sale API עם payme_client_key → sale_url → iframe
+   src=share — שמירה למדידה (UTM / pixel)
    =========================================================================== */
-function startPaymeCheckout(packId, msgEl) {
-  const payme = CONFIG.payme || {};
-  const packMeta = (payme.packs && payme.packs[packId]) || { label: packId, amountILS: "" };
-
-  // --- כבוי / חסרים פרטים: שומרים על התנהגות בטוחה, בלי לפתוח תשלום ---
-  if (!payme.enabled) {
-    if (msgEl) {
-      msgEl.textContent =
-        "החבילה נבחרה. חיבור PayMe יושלם בקרוב" +
-        (packMeta.amountILS ? ` · ₪${packMeta.amountILS}` : "") +
-        ".";
+function initShareParam() {
+  const params = new URLSearchParams(location.search);
+  if (params.get("src") === "share") {
+    try {
+      sessionStorage.setItem("radud_src", "share");
+    } catch {
+      /* ignore */
     }
-    return;
   }
-
-  const link =
-    (payme.paymentLinks && payme.paymentLinks[packId]) ||
-    "";
-
-  if (!link) {
-    if (msgEl) {
-      msgEl.textContent =
-        "חסר קישור תשלום לחבילה הזו. מלא CONFIG.payme.paymentLinks." + packId;
-    }
-    console.warn("[PayMe] missing paymentLinks." + packId);
-    return;
-  }
-
-  if (msgEl) msgEl.textContent = "";
-  openPaymeModal(link, packMeta.label || packId);
 }
 
-function openPaymeModal(saleUrl, title) {
-  const overlay = document.getElementById("payme-checkout");
-  const iframe  = document.getElementById("payme-iframe");
-  const heading = document.getElementById("payme-title");
-  if (!overlay || !iframe) {
-    // fallback: פתיחה בטאב חדש אם המודל לא קיים בדף
-    window.open(saleUrl, "_blank", "noopener");
-    return;
+function shareSource() {
+  try {
+    return sessionStorage.getItem("radud_src") === "share" ? "share" : null;
+  } catch {
+    return null;
   }
-
-  if (heading) heading.textContent = title ? `תשלום · ${title}` : "תשלום מאובטח";
-  iframe.src = saleUrl;
-  overlay.hidden = false;
-  overlay.setAttribute("aria-hidden", "false");
-  document.body.style.overflow = "hidden";
-}
-
-function closePaymeModal() {
-  const overlay = document.getElementById("payme-checkout");
-  const iframe  = document.getElementById("payme-iframe");
-  if (!overlay) return;
-  overlay.hidden = true;
-  overlay.setAttribute("aria-hidden", "true");
-  if (iframe) iframe.src = "about:blank";
-  document.body.style.overflow = "";
-}
-
-function initPaymeModal() {
-  const overlay = document.getElementById("payme-checkout");
-  if (!overlay) return;
-
-  const closeBtn = document.getElementById("payme-close");
-  if (closeBtn) closeBtn.addEventListener("click", closePaymeModal);
-
-  overlay.addEventListener("click", (e) => {
-    if (e.target === overlay) closePaymeModal();
-  });
-
-  document.addEventListener("keydown", (e) => {
-    if (e.key === "Escape" && !overlay.hidden) closePaymeModal();
-  });
-
-  // כפתורי upsell (למשל thankyou.html) עם data-buy="mitachat"
-  $$("[data-payme-buy]").forEach((btn) => {
-    btn.addEventListener("click", (e) => {
-      e.preventDefault();
-      const packId = btn.getAttribute("data-payme-buy") || "mitachat";
-      startPaymeCheckout(packId, $("[data-pricing-msg]"));
-    });
-  });
 }
 
 /* ===========================================================================
-   סליידר ההמלצות
+   סליידר (המסע) — אותה קומפוננטה כמו proof
    =========================================================================== */
 function initSlider() {
   const track = $("[data-slider]");
@@ -245,6 +88,19 @@ function initSlider() {
 }
 
 /* ===========================================================================
+   קלפים מתהפכים (display:block על inner/faces — ראו styles)
+   =========================================================================== */
+function initFlipCards() {
+  $$("[data-flip]").forEach((card) => {
+    card.addEventListener("click", () => {
+      card.classList.toggle("is-flipped");
+      const flipped = card.classList.contains("is-flipped");
+      card.setAttribute("aria-pressed", String(flipped));
+    });
+  });
+}
+
+/* ===========================================================================
    FAQ — פתיחה של אחד סוגרת את השאר
    =========================================================================== */
 function initFaq() {
@@ -253,43 +109,58 @@ function initFaq() {
   $$("details", list).forEach((d) => {
     d.addEventListener("toggle", () => {
       if (!d.open) return;
-      $$("details[open]", list).forEach((o) => { if (o !== d) o.open = false; });
+      $$("details[open]", list).forEach((o) => {
+        if (o !== d) o.open = false;
+      });
     });
   });
 }
 
 /* ===========================================================================
-   פס רכישה צף (מובייל) — מופיע אחרי שגוללים מעבר להירו,
-   ונעלם כשמגיעים לאזור החבילות (כדי לא לכסות את הכפתורים).
+   פס צף (מובייל) — אחרי ההירו, נעלם כשטופס נראה
    =========================================================================== */
 function initStickyBar() {
   const bar = $("[data-stickybar]");
   const hero = $("#hero");
-  const pricing = $("#pricing");
-  if (!bar || !hero) return;
+  if (!bar || !hero || isLead()) return;
 
   bar.hidden = false;
 
   let pastHero = false;
-  let inPricing = false;
+  let formVisible = false;
 
-  const update = () => bar.classList.toggle("show", pastHero && !inPricing);
+  const update = () => {
+    bar.classList.toggle("show", pastHero && !formVisible && !isLead());
+  };
 
-  new IntersectionObserver(([e]) => {
-    pastHero = !e.isIntersecting;
-    update();
-  }, { rootMargin: "-80px 0px 0px 0px" }).observe(hero);
-
-  if (pricing) {
-    new IntersectionObserver(([e]) => {
-      inPricing = e.isIntersecting;
+  new IntersectionObserver(
+    ([e]) => {
+      pastHero = !e.isIntersecting;
       update();
-    }, { rootMargin: "0px 0px -35% 0px" }).observe(pricing);
-  }
+    },
+    { rootMargin: "-80px 0px 0px 0px" }
+  ).observe(hero);
+
+  $$("[data-lead-form]").forEach((form) => {
+    new IntersectionObserver(
+      ([e]) => {
+        if (e.isIntersecting) formVisible = true;
+        else {
+          /* any form still on screen? */
+          formVisible = $$("[data-lead-form]").some((f) => {
+            const r = f.getBoundingClientRect();
+            return r.top < window.innerHeight && r.bottom > 0;
+          });
+        }
+        update();
+      },
+      { threshold: 0.2 }
+    ).observe(form);
+  });
 }
 
 /* ===========================================================================
-   חשיפה בגלילה — כל סקשן עולה בעדינות. מכבד reduced-motion.
+   חשיפה בגלילה
    =========================================================================== */
 function initReveals() {
   const sections = $$("main > section");
@@ -297,20 +168,24 @@ function initReveals() {
 
   sections.forEach((s) => s.classList.add("reveal"));
 
-  const io = new IntersectionObserver((entries) => {
-    entries.forEach((e) => {
-      if (e.isIntersecting) { e.target.classList.add("in"); io.unobserve(e.target); }
-    });
-  }, { rootMargin: "0px 0px -10% 0px" });
+  const io = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((e) => {
+        if (e.isIntersecting) {
+          e.target.classList.add("in");
+          io.unobserve(e.target);
+        }
+      });
+    },
+    { rootMargin: "0px 0px -10% 0px" }
+  );
 
   sections.forEach((s) => io.observe(s));
-
-  // רשת ביטחון — אחרי 2.5 שניות הכל גלוי גם אם משהו השתבש
   setTimeout(() => sections.forEach((s) => s.classList.add("in")), 2500);
 }
 
 /* ===========================================================================
-   חיווט וואטסאפ + מייל מתוך CONFIG
+   וואטסאפ + מייל
    =========================================================================== */
 function wireContacts() {
   if (CONFIG.whatsapp) {
@@ -323,139 +198,259 @@ function wireContacts() {
 }
 
 /* ===========================================================================
-   מגנט לידים — פופ-אפ לוגיקה
+   פופ-אפ — 25 שניות או 40% גלילה (המוקדם). לא למי שנרשם.
    =========================================================================== */
 function initLeadPopup() {
-  if (localStorage.getItem("radud_popup_seen") || localStorage.getItem("radud_lead")) return;
+  if (isLead()) return;
+  try {
+    if (localStorage.getItem(CONFIG.popupSeenKey)) return;
+  } catch {
+    /* continue */
+  }
 
   const popup = document.getElementById("lead-popup");
   const closeBtn = document.getElementById("popup-close");
   if (!popup) return;
 
-  let isTriggered = false;
+  let triggered = false;
 
-  const triggerPopup = () => {
-    if (isTriggered) return;
-    isTriggered = true;
-    
+  const open = () => {
+    if (triggered || isLead()) return;
+    triggered = true;
     popup.hidden = false;
-    localStorage.setItem("radud_popup_seen", "1"); 
-    
-    window.removeEventListener("scroll", scrollCheck);
-  };
-
-  const timer = setTimeout(triggerPopup, 45000);
-
-  const scrollCheck = () => {
-    const scrollPosition = window.scrollY;
-    const documentHeight = document.documentElement.scrollHeight - window.innerHeight;
-    const scrollPercentage = scrollPosition / documentHeight;
-
-    if (scrollPercentage >= 0.6) {
-      clearTimeout(timer);
-      triggerPopup();
+    popup.setAttribute("aria-hidden", "false");
+    try {
+      localStorage.setItem(CONFIG.popupSeenKey, "1");
+    } catch {
+      /* ignore */
     }
+    window.removeEventListener("scroll", onScroll);
+    clearTimeout(timer);
   };
 
-  window.addEventListener("scroll", scrollCheck);
+  const timer = setTimeout(open, 25000);
 
-  closeBtn.addEventListener("click", () => {
-    popup.hidden = true;
-  });
+  const onScroll = () => {
+    const max = document.documentElement.scrollHeight - window.innerHeight;
+    if (max <= 0) return;
+    if (window.scrollY / max >= 0.4) open();
+  };
+
+  window.addEventListener("scroll", onScroll, { passive: true });
+
+  if (closeBtn) {
+    closeBtn.addEventListener("click", () => {
+      popup.hidden = true;
+      popup.setAttribute("aria-hidden", "true");
+    });
+  }
 
   popup.addEventListener("click", (e) => {
-    if (e.target === popup) popup.hidden = true;
+    if (e.target === popup) {
+      popup.hidden = true;
+      popup.setAttribute("aria-hidden", "true");
+    }
+  });
+
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape" && !popup.hidden) {
+      popup.hidden = true;
+      popup.setAttribute("aria-hidden", "true");
+    }
   });
 }
 
 /* ===========================================================================
-   חיבור טפסים לקלאביו (AJAX שקט)
+   הצלחת הרשמה — הודעה + כפתור לקלפים (בלי רידיירקט)
    =========================================================================== */
-function initKlaviyoForms() {
-  // TODO: החלף את המילים פה בקוד ה-List ID שהעתקת מקלאביו
-  const LIST_ID = "UV4h7a";
-  const PUBLIC_KEY = "Y3xwhu";
+function showFormSuccess(form) {
+  form.classList.add("is-done");
+  markLead();
 
-  const forms = [document.getElementById("inline-lead-form"), document.getElementById("popup-lead-form")];
+  /* עדכן כפתורי hamisha אם ה-URL ב-CONFIG שונה */
+  form.querySelectorAll(".lead-form__success a").forEach((a) => {
+    a.href = CONFIG.hamishaUrl;
+  });
 
-  forms.forEach(form => {
-    if (!form) return;
+  /* הסתר sticky */
+  const bar = $("[data-stickybar]");
+  if (bar) {
+    bar.classList.remove("show");
+    bar.hidden = true;
+  }
 
-    form.addEventListener("submit", (e) => {
-      e.preventDefault(); // מונע מהדף להתרענן
-      
+  /* Meta Pixel */
+  if (typeof window.fbq === "function") {
+    const params = {};
+    if (shareSource()) params.utm_source = "share";
+    window.fbq("track", "Lead", params);
+    window.fbq("track", "CompleteRegistration", params);
+  }
+}
+
+async function subscribeEmail(email) {
+  const listId = CONFIG.klaviyoListId;
+  const publicKey = CONFIG.klaviyoPublicKey;
+
+  if (!listId || !publicKey) {
+    console.warn("[pre-launch] Klaviyo List ID missing — local success only. Set CONFIG.klaviyoListId.");
+    return { ok: true, local: true };
+  }
+
+  const res = await fetch(
+    `https://a.klaviyo.com/client/subscriptions/?company_id=${publicKey}`,
+    {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        revision: "2024-10-15",
+      },
+      body: JSON.stringify({
+        data: {
+          type: "subscription",
+          attributes: {
+            profile: {
+              data: {
+                type: "profile",
+                attributes: {
+                  email,
+                  properties: shareSource()
+                    ? { source: "share", utm_source: "share" }
+                    : { source: "pre-launch" },
+                },
+              },
+            },
+          },
+          relationships: {
+            list: { data: { type: "list", id: listId } },
+          },
+        },
+      }),
+    }
+  );
+
+  return { ok: res.ok || res.status === 202, status: res.status };
+}
+
+function initLeadForms() {
+  $$("[data-lead-form]").forEach((form) => {
+    form.addEventListener("submit", async (e) => {
+      e.preventDefault();
+
       const emailInput = form.querySelector('input[name="email"]');
       const btn = form.querySelector('button[type="submit"]');
-      const micro = form.querySelector('.lead-form__micro');
-      
-      const email = emailInput.value.trim();
-      if (!email) return;
+      const micro = form.querySelector(".lead-form__micro");
+      const email = (emailInput?.value || "").trim();
 
-      // שינוי מצב כפתור בזמן שליחה
-      const originalBtnText = btn.textContent;
-      btn.textContent = "שולח...";
+      if (!email || !emailInput.checkValidity()) {
+        emailInput?.reportValidity();
+        return;
+      }
+
+      const original = btn.textContent;
+      btn.textContent = "שומר מקום…";
       btn.disabled = true;
 
-      // שיגור ל-Klaviyo Client API (הדרך הרשמית מאתר סטטי)
-      fetch('https://a.klaviyo.com/client/subscriptions/?company_id=' + PUBLIC_KEY, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'revision': '2024-10-15'
-        },
-        body: JSON.stringify({
-          data: {
-            type: 'subscription',
-            attributes: {
-              profile: { data: { type: 'profile', attributes: { email: email } } }
-            },
-            relationships: { list: { data: { type: 'list', id: LIST_ID } } }
-          }
-        })
-      })
-      .then(res => {
-        if (!res.ok) throw new Error('klaviyo ' + res.status);
-      })
-      .then(() => {
-        // עיצוב ההצלחה
-        btn.textContent = "נשלח.";
-        micro.textContent = "הקלפים בדרך למייל שלך.";
-        micro.style.color = "var(--brass)"; // צבע פליז כדי לאשר הצלחה
-        
-        // סימון שהליד נרשם כדי לא להציג לו את הפופ-אפ יותר לעולם
-        localStorage.setItem("radud_lead", "1");
-        
-        // אם זה הפופ-אפ, נסגור אותו באלגנטיות אחרי 2 שניות
-        if (form.id === "popup-lead-form") {
-          setTimeout(() => {
-            const popup = document.getElementById("lead-popup");
-            if (popup) popup.hidden = true;
-          }, 2000);
-        }
-      })
-      .catch(err => {
-        // במידה ויש שגיאת רשת
-        btn.textContent = originalBtnText;
+      try {
+        const result = await subscribeEmail(email);
+        if (!result.ok) throw new Error("subscribe failed " + result.status);
+
+        showFormSuccess(form);
+
+        /* בפופ-אפ — משאירים את הודעת ההצלחה + כפתור הקלפים (בלי סגירה אוטומטית) */
+      } catch (err) {
+        console.error(err);
+        btn.textContent = original;
         btn.disabled = false;
-        micro.textContent = "משהו השתבש בדרך. נסה שוב.";
-      });
+        if (micro) micro.textContent = "משהו השתבש בדרך. נסה שוב.";
+      }
     });
   });
+
+  /* אם כבר נרשמו בסשן קודם — הצג הצלחה בטופס ההירו */
+  if (isLead()) {
+    const hero = $("#hero-lead-form");
+    if (hero) showFormSuccess(hero);
+  }
+}
+
+/* ===========================================================================
+   Meta Pixel helpers (PageView / ViewContent) — אופציונלי אם fbq קיים
+   =========================================================================== */
+function initPixels() {
+  if (typeof window.fbq !== "function") return;
+
+  window.fbq("track", "PageView");
+
+  const depths = $("#how");
+  if (depths && "IntersectionObserver" in window) {
+    const io = new IntersectionObserver(
+      ([e]) => {
+        if (e.isIntersecting) {
+          window.fbq("track", "ViewContent", { content_name: "depths" });
+          io.disconnect();
+        }
+      },
+      { threshold: 0.4 }
+    );
+    io.observe(depths);
+  }
+}
+
+/* ===========================================================================
+   גלילה מדויקת לטופס ההרשמה בהירו (#hero-form)
+   מפצה על ה-nav הדביק — נחיתה על ראש הטופס, לא מעט מתחתיו.
+   =========================================================================== */
+function scrollToHeroForm({ updateHash = true } = {}) {
+  const target = $("#hero-form");
+  if (!target) return;
+
+  const nav = $(".nav");
+  const offset = (nav ? nav.offsetHeight : 0) + 12;
+  const top = Math.max(
+    0,
+    target.getBoundingClientRect().top + window.pageYOffset - offset
+  );
+
+  window.scrollTo({
+    top,
+    behavior: REDUCE_MOTION ? "auto" : "smooth",
+  });
+
+  if (updateHash && history.replaceState) {
+    history.replaceState(null, "", "#hero-form");
+  }
+}
+
+function initScrollToHeroForm() {
+  $$('a[href="#hero-form"]').forEach((link) => {
+    link.addEventListener("click", (e) => {
+      const target = $("#hero-form");
+      if (!target) return;
+      e.preventDefault();
+      scrollToHeroForm();
+    });
+  });
+
+  /* Hash ישיר / רענון עם #hero-form */
+  if (location.hash === "#hero-form") {
+    requestAnimationFrame(() => scrollToHeroForm({ updateHash: false }));
+  }
 }
 
 /* ===========================================================================
    אתחול
    =========================================================================== */
 document.addEventListener("DOMContentLoaded", () => {
-  buildLogo();
-  initPricing();
-  initPaymeModal();
+  initShareParam();
+  initFlipCards();
   initSlider();
   initFaq();
   initStickyBar();
   initReveals();
   wireContacts();
   initLeadPopup();
-  initKlaviyoForms();
+  initLeadForms();
+  initPixels();
+  initScrollToHeroForm();
 });
-

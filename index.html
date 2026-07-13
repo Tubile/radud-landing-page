@@ -1,21 +1,19 @@
 <!DOCTYPE html>
 <!--
-  רדוד — דף נחיתה (V2)
+  רדוד — דף "בקרוב" / Pre-Launch
   ----------------------------------------------------------------------------
-  Vanilla HTML/CSS/JS. בלי framework, בלי build step. מתאים ל-GitHub Pages.
-  כל מה שמשתנה לעיתים קרובות (וואטסאפ, מייל, PayMe) — ב-CONFIG בראש script.js.
-  כל מקום שדורש החלפה ידנית מסומן ב-PLACEHOLDER / TODO.
+  מבוסס על מבנה ושפת העיצוב של index.html החי.
+  פאנל נפרד — אין תלות ברכישה / PayMe / מלאי.
+  חוויית 5 קלפים: hamisha/
 -->
-
 <html lang="he" dir="rtl">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>מהדורה מוגבלת, 1000 עותקים</title>
-  <meta name="description" content="60 משפטים ב-3 דרגות עומק שעושים סדק קטן במוח, ונשארים שם." />
+  <title>רדוד. — מהדורה ראשונה, בקרוב</title>
+  <meta name="description" content="מהדורה ראשונה של רדוד בדרך. שריינו מקום, קבלו 5 קלפים עכשיו על המסך, והיכנסו 48 שעות לפני כולם." />
 
-  <!-- Open Graph / שיתוף ברשתות (החלף את התמונה כשתהיה) -->
-  <meta property="og:title" content="רדוד." />
+  <meta property="og:title" content="רדוד. — מהדורה ראשונה, בקרוב" />
   <meta property="og:description" content="מה היית שואל, אם לא היית מפחד מהתשובה?" />
   <!-- PLACEHOLDER: <meta property="og:image" content="assets/og.jpg" /> -->
 
@@ -23,34 +21,33 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Frank+Ruhl+Libre:wght@400;500;700;900&family=Heebo:wght@300;400;500;700&display=swap" rel="stylesheet" />
 
-  <link rel="stylesheet" href="styles.css?v=2.0" />
+  <link rel="stylesheet" href="styles.css?v=pre-1.1" />
 </head>
 <body>
 
-  <!-- שכבת גרעין עדינה על כל הדף (אטמוספרה) -->
   <div class="grain" aria-hidden="true"></div>
 
 
   <!-- ========================================================================
-       NAV — מינימלי. לוגו + מונה + CTA.
+       1) NAV — לוגו + שריין מקום
        ======================================================================== -->
   <header class="nav" aria-label="ניווט ראשי">
     <a class="nav__home" href="#hero" aria-label="רדוד — לראש הדף">
-      <img class="logo logo--img" src="radud-assets/logo.radud.png" alt="רדוד" width="140" height="140" />
+      <img class="logo logo--img" src="assets/logo.radud.png" alt="רדוד" width="140" height="140" />
     </a>
-    <a class="nav__cta" href="#pricing">לרכישה</a>
+    <a class="nav__cta" href="#hero-form">שריין מקום</a>
   </header>
 
   <main>
 
     <!-- ======================================================================
-         1) HERO — עומק 0
+         2) HERO — טופס הרשמה בפנים
          ====================================================================== -->
     <section class="hero" id="hero">
 
       <p class="hero__edition">
-        <span class="hero__edition-badge">מהדורה מוגבלת</span>
-        1000 עותקים
+        <span class="hero__edition-badge">מהדורה ראשונה</span>
+        בקרוב
       </p>
 
       <h1 class="hero__title">מה היית שואל,<br />אם לא היית מפחד מהתשובה?</h1>
@@ -60,25 +57,47 @@
         <em>שעושים סדק קטן במוח, ונשארים שם.</em>
       </p>
 
-      <!-- תמונת מוצר ראשית — במה מוארת. -->
       <figure class="hero__product">
         <span class="hero__halo" aria-hidden="true"></span>
-        
-        <img src="assetsdeck.png" alt="חפיסת רדוד" style="width: 100%; max-width: 280px; margin: 0 auto; display: block;" />
-        
+        <img src="../assetsdeck.png" alt="חפיסת רדוד" style="width: 100%; max-width: 280px; margin: 0 auto; display: block;" />
         <span class="hero__reflection" aria-hidden="true"></span>
       </figure>
 
-      <!-- קריאות לפעולה — ראשית + משנית -->
-      <div class="hero__ctas">
-        <a class="btn btn--primary" href="#pricing">לרכישה · מ-₪149</a>
-        <a class="btn btn--ghost" href="#" data-wa target="_blank" rel="noopener">שאלה? וואטסאפ</a>
+      <!-- טופס הרשמה בהירו (במקום כפתורי רכישה) -->
+      <div class="hero__form" id="hero-form">
+        <form class="lead-form" id="hero-lead-form" data-lead-form novalidate>
+          <div class="lead-form__group">
+            <label class="sr-only" for="hero-email">המייל שלך</label>
+            <input
+              type="email"
+              id="hero-email"
+              name="email"
+              class="lead-form__input"
+              placeholder="המייל שלך."
+              required
+              autocomplete="email"
+              inputmode="email"
+            />
+            <button type="submit" class="btn btn--primary lead-form__btn">שריין מקום וקבל 5 קלפים</button>
+          </div>
+          <p class="lead-form__micro">בלי ספאם. רק הקלפים, ואז שקט.</p>
+          <div class="lead-form__success" aria-live="polite">
+            <p class="lead-form__success-title">נרשמת. הקלפים שלך מוכנים.</p>
+            <a class="btn btn--primary" href="hamisha/">פתח את הקלפים</a>
+          </div>
+        </form>
+
+        <ul class="hero__offer" aria-label="מה מקבלים בהרשמה">
+          <li>5 קלפים מהחפיסה, עכשיו, על המסך</li>
+          <li>כניסה 48 שעות לפני כולם ביום ההשקה</li>
+          <li>משלוח עד הבית חינם בחלון הפתיחה</li>
+        </ul>
       </div>
 
     </section>
 
     <!-- ======================================================================
-         2) הקלפים עצמם — תקריבים + מנגנון הגב
+         3) הצצה לקלפים
          ====================================================================== -->
     <section class="cards" id="cards" aria-label="הקלפים עצמם">
       <p class="eyebrow">המוצר, מקרוב</p>
@@ -86,17 +105,50 @@
 
       <div class="cards__gallery" data-gallery>
         <figure class="cards__shot">
-          <img class="cards__img" src="radud-assets/takriv klaf darga 1.png" alt="תקריב קלף רדוד · דרגה 1 — מים רדודים" loading="lazy" width="744" height="1039" />
+          <button type="button" class="flip-card" data-flip aria-label="הפוך קלף — מים רדודים">
+            <span class="flip-card__inner">
+              <span class="flip-card__face flip-card__face--front">
+                <img src="../backfeaturecard.png" alt="" width="744" height="1039" draggable="false" />
+              </span>
+              <span class="flip-card__face flip-card__face--back">
+                <img src="assets/landing-sector.png" alt="תקריב קלף רדוד · מים רדודים" width="744" height="1039" draggable="false" />
+              </span>
+            </span>
+            <span class="flip-card__hint">הקש להפוך</span>
+          </button>
         </figure>
         <figure class="cards__shot cards__shot--mid">
-          <img class="cards__img" src="radud-assets/takriv klaf darga 2.png" alt="תקריב קלף רדוד · דרגה 2 — מים עמוקים" loading="lazy" width="744" height="1039" />
+          <button type="button" class="flip-card" data-flip aria-label="הפוך קלף — מים עמוקים">
+            <span class="flip-card__inner">
+              <span class="flip-card__face flip-card__face--front">
+                <img src="../backfeaturecard.png" alt="" width="744" height="1039" draggable="false" />
+              </span>
+              <span class="flip-card__face flip-card__face--back">
+                <img src="assets/landing-sector2.png" alt="תקריב קלף רדוד · מים עמוקים" width="744" height="1039" draggable="false" />
+              </span>
+            </span>
+            <span class="flip-card__hint">הקש להפוך</span>
+          </button>
         </figure>
         <figure class="cards__shot">
-          <img class="cards__img" src="radud-assets/takriv klaf darga 3.png" alt="תקריב קלף רדוד · דרגה 3 — תהום" loading="lazy" width="744" height="1039" />
+          <button type="button" class="flip-card" data-flip aria-label="הפוך קלף — תהום">
+            <span class="flip-card__inner">
+              <span class="flip-card__face flip-card__face--front">
+                <img src="../backfeaturecard.png" alt="" width="744" height="1039" draggable="false" />
+              </span>
+              <span class="flip-card__face flip-card__face--back">
+                <img src="assets/landing-sector3.png" alt="תקריב קלף רדוד · תהום" width="744" height="1039" draggable="false" />
+              </span>
+            </span>
+            <span class="flip-card__hint">הקש להפוך</span>
+          </button>
         </figure>
       </div>
 
-      <!-- מנגנון הגב — בכוונה לא לכל קלף -->
+      <p class="cards__hint">
+        <a href="#hero-form">אלה שלושה. עוד חמישה מחכים לך אחרי ההרשמה.</a>
+      </p>
+
       <div class="back">
         <div class="back__visual" aria-hidden="true">
           <span class="back__card back__card--front">הצד<br />הראשון</span>
@@ -114,72 +166,78 @@
     </section>
 
     <!-- ======================================================================
-         3) הוכחה חברתית
+         4) המסע — קרוסלה (מחליפה את העדויות)
          ====================================================================== -->
-    <section class="proof" id="proof" aria-label="המלצות">
-      <p class="eyebrow">אחרי הקלף הראשון</p>
-      <h2 class="section__title">מי שכבר נכנס למים.</h2>
+    <section class="journey" id="journey" aria-label="המסע">
+      <p class="eyebrow">המסע</p>
+      <h2 class="section__title">איך ערב אחד משתנה.</h2>
 
-      <div class="proof__track" data-slider role="list">
-        <figure class="quote" role="listitem">
-          <img class="quote__img" src="radud-assets/client-pic1.png" alt="רדוד אצל לקוח — קופסה וקלף על שולחן" loading="lazy" width="941" height="1672" />
-          <blockquote>שלפנו קלף אחד בארוחה. שעתיים אחרי, עדיין דיברנו.</blockquote>
-          <figcaption>— [שם אמיתי, עיר]</figcaption>
-        </figure>
+      <div class="journey__track" data-slider role="list">
 
-        <figure class="quote" role="listitem">
-          <img class="quote__img" src="radud-assets/client-pic2.png" alt="רדוד אצל לקוח — תמונת משתמש" loading="lazy" width="941" height="1672" />
-          <blockquote>קניתי כמתנה. בסוף הערב הם שאלו איפה משיגים עוד אחד.</blockquote>
-          <figcaption>— [שם אמיתי, עיר]</figcaption>
-        </figure>
-
-        <figure class="quote" role="listitem">
-          <img class="quote__img" src="radud-assets/client-pic3.png" alt="רדוד אצל לקוח — תמונת משתמש" loading="lazy" width="941" height="1672" />
-          <blockquote>חשבתי שזה עוד גימיק. הקלף השלישי כבר נגע במשהו אמיתי.</blockquote>
-          <figcaption>— [שם אמיתי, עיר]</figcaption>
-        </figure>
-
-        <figure class="quote" role="listitem">
-          <img class="quote__img" src="radud-assets/client-pic4.png" alt="רדוד אצל לקוח — תמונת משתמש" loading="lazy" width="941" height="1672" />
-          <blockquote>פתחנו קלף אחד. לא סגרנו את הערב באותו מקום שבו התחלנו.</blockquote>
-          <figcaption>— [שם אמיתי, עיר]</figcaption>
-        </figure>
-
-        <figure class="quote" role="listitem">
-          <img class="quote__img" src="radud-assets/client-pic5.png" alt="רדוד אצל לקוח — תמונת משתמש" loading="lazy" width="941" height="1672" />
-          <blockquote>החפיסה הזו לא נותנת מנוחה. בדיוק בשביל זה קניתי אותה.</blockquote>
-          <figcaption>— [שם אמיתי, עיר]</figcaption>
-        </figure>
-      </div>
-
-      <div class="proof__nav" aria-hidden="true">
-        <button class="proof__arrow" data-slide="prev" aria-label="הקודם">→</button>
-        <button class="proof__arrow" data-slide="next" aria-label="הבא">←</button>
-      </div>
-    </section>
-
-  <!-- ======================================================================
-         מגנט לידים (Inline)
-         ====================================================================== -->
-    <section class="lead-magnet" id="lead-magnet" aria-label="הרשמה לקבלת 5 קלפים">
-      <div class="lead-magnet__inner">
-        <h2 class="lead-magnet__title">קבלו עוד 5 קלפים מהחפיסה למייל, עכשיו</h2>
-        <p class="lead-magnet__desc">אחד רדוד, שניים עמוקים, אחד מהתהום.<br/>ואחד שתצטרך לשבת איתו רגע.</p>
-        
-        <form class="lead-form" id="inline-lead-form">
-          <div class="lead-form__group">
-            <input type="email" id="inline-email" name="email" class="lead-form__input" placeholder="המייל שלך." required />
-            <button type="submit" class="btn btn--primary lead-form__btn">שלחו לי את הקלפים</button>
+        <figure class="journey__slide" role="listitem">
+          <div class="journey__visual">
+            <img src="assets/sector-slide1.png" alt="אתה מכיר את הערב הזה" loading="lazy" width="1200" height="900" />
           </div>
-          <p class="lead-form__micro">בלי ספאם. רק הקלפים, ואז שקט.</p>
-        </form>
+          <figcaption class="journey__caption">אתה מכיר את הערב הזה.</figcaption>
+        </figure>
+
+        <figure class="journey__slide" role="listitem">
+          <div class="journey__visual">
+            <img src="assets/sector-slide2.png" alt="כולם פה. ואף אחד לא באמת" loading="lazy" width="1200" height="900" />
+          </div>
+          <figcaption class="journey__caption">כולם פה. ואף אחד לא באמת.</figcaption>
+        </figure>
+
+        <figure class="journey__slide" role="listitem">
+          <div class="journey__visual">
+            <img src="assets/sector-slide3.png" alt="מדברים על אתמול. על שישי הקרוב. על כלום" loading="lazy" width="1200" height="900" />
+          </div>
+          <figcaption class="journey__caption">מדברים על אתמול. על שישי הקרוב. על כלום.</figcaption>
+        </figure>
+
+        <figure class="journey__slide" role="listitem">
+          <div class="journey__visual">
+            <img src="assets/sector-slide4.png" alt="ואז מישהו מניח קלף באמצע השולחן" loading="lazy" width="1200" height="900" />
+          </div>
+          <figcaption class="journey__caption">ואז מישהו מניח קלף באמצע השולחן.</figcaption>
+        </figure>
+
+        <figure class="journey__slide" role="listitem">
+          <div class="journey__visual">
+            <img src="assets/landing-sector.png" alt="קלף רדוד · משפט" loading="lazy" width="744" height="1039" />
+          </div>
+          <figcaption class="journey__caption">משפט אחד. והחדר שותק.</figcaption>
+        </figure>
+
+        <figure class="journey__slide" role="listitem">
+          <div class="journey__visual">
+            <img src="assets/sector-slide6.png" alt="ואז מישהו עונה באמת. וזה הערב שזוכרים" loading="lazy" width="1200" height="900" />
+          </div>
+          <figcaption class="journey__caption">ואז מישהו עונה באמת. וזה הערב שזוכרים.</figcaption>
+        </figure>
+
+        <figure class="journey__slide journey__slide--cta" role="listitem">
+          <div class="journey__visual">
+            <img src="../assetsdeck.png" alt="חפיסת רדוד" loading="lazy" style="object-fit: contain; padding: 1.5rem; background: #0E0E0D;" />
+          </div>
+          <figcaption class="journey__caption">
+            רדוד. עד שמנסים לעמוד.
+            <a class="btn btn--primary" href="#hero-form">שריין מקום</a>
+          </figcaption>
+        </figure>
+
+      </div>
+
+      <div class="journey__nav" aria-hidden="true">
+        <button class="journey__arrow" data-slide="prev" type="button" aria-label="הקודם">→</button>
+        <button class="journey__arrow" data-slide="next" type="button" aria-label="הבא">←</button>
       </div>
     </section>
-    
+
     <!-- ======================================================================
-         4) מתי שולפים קלף
+         5) רגעים שצריכים סדק (4 פריטים)
          ====================================================================== -->
-    <section class="fit" id="fit" aria-label="מתי שולפים קלף">
+    <section class="fit" id="what" aria-label="מתי שולפים קלף">
       <p class="eyebrow">רגעים שצריכים סדק</p>
       <h2 class="section__title">מתי שולפים קלף.</h2>
       <ul class="fit__list">
@@ -207,17 +265,11 @@
             לא לכולם. רק למי שחייב להתעורר.
           </div>
         </li>
-        <li class="fit__item">
-          <div class="fit__text">
-            <span class="fit__lead">בנסיעה ארוכה.</span>
-            הנושאים נגמרו. והכביש לא.
-          </div>
-        </li>
       </ul>
     </section>
 
     <!-- ======================================================================
-         5) שלוש דרגות עומק — התחנות של מד-העומק
+         6) שלוש דרגות עומק
          ====================================================================== -->
     <section class="depths" id="how" aria-label="שלוש דרגות עומק">
       <p class="eyebrow">איך זה בנוי</p>
@@ -254,7 +306,7 @@
     </section>
 
     <!-- ======================================================================
-         6) מה בקופסה — מפרט
+         7) מפרט
          ====================================================================== -->
     <section class="spec" id="spec" aria-label="מה בקופסה">
       <p class="eyebrow">מפרט</p>
@@ -274,13 +326,12 @@
           <dd>רק לחלק מהקלפים, ולא כתוב לאיזה.</dd>
         </div>
         <div class="spec__row">
-          <dt>נייר</dt>
-          <!-- PLACEHOLDER: עדכן מפרט פיזי אמיתי (גרמאז', למינציה, גודל) -->
-          <dd>[גרמאז' פרימיום, למינציית מט]</dd>
+          <dt>מהדורה</dt>
+          <dd>מהדורה ראשונה · הדפסה אחת</dd>
         </div>
         <div class="spec__row">
-          <dt>מהדורה</dt>
-          <dd>ראשונה · 1000 עותקים · כל קופסה ממוספרת</dd>
+          <dt>מחיר בהשקה</dt>
+          <dd>מ-₪149</dd>
         </div>
         <div class="spec__row">
           <dt>שפה</dt>
@@ -290,129 +341,84 @@
     </section>
 
     <!-- ======================================================================
-         7) פתק מהיוצר
+         8) למי עשינו את זה (מניפסט)
          ====================================================================== -->
-    <section class="creator" id="creator" aria-label="פתק מהיוצר">
-      <div class="creator__inner">
-        <!-- PLACEHOLDER: תמונת פרופיל אמיתית -->
-        <div class="ph ph--creator" role="img" aria-label="תמונת היוצר"><span class="ph__label">תמונה שלך</span></div>
+    <section class="manifest" id="manifest" aria-label="למי עשינו את זה">
+      <p class="eyebrow">למי עשינו את זה</p>
+      <div class="manifest__card">
+        <p>יש אחד בכל שולחן שהשיחות הרגילות קטנות עליו.</p>
+        <p>זה שעונה "הכל טוב" ומקווה שלא יאמינו לו.</p>
+        <p>שיש לו משפטים שמחכים שנים לשולחן הנכון.</p>
+        <p>שמרגיש הכי לבד דווקא כשכולם מסביב.</p>
+        <p>חיפשנו דרך להגיד לו שראינו אותו.</p>
+        <p class="manifest__close">יצאו מזה 60 קלפים.</p>
+      </div>
+    </section>
 
-        <div class="creator__content">
-          <h2 class="creator__title">למה יצרתי את רדוד.</h2>
-          <p class="creator__text">יש משפטים שעושים סדק במוח. שומעים אותם פעם אחת, ומשהו זז. לפעמים לתמיד.<br />רדוד נולד בשביל הרגעים האלה — כשהראש צריך גירוי עמוק מספיק כדי להיכנס להילוך, ולהעלות משם תשובות שלא ידעת שהיו לך.<br />והיופי? זה לא חייב להישאר בינך לבין עצמך.</p>
-          <span class="creator__sig">— [השם שלך]</span>
+    <!-- ======================================================================
+         9) טופס שני (סוגר)
+         ====================================================================== -->
+    <section class="waitlist-close" id="waitlist" aria-label="הרשמה">
+      <h2 class="section__title">המהדורה הראשונה.<br />הרשימה נכנסת ראשונה.</h2>
+
+      <ul class="hero__offer" aria-label="מה מקבלים בהרשמה">
+        <li>5 קלפים מהחפיסה, עכשיו, על המסך</li>
+        <li>כניסה 48 שעות לפני כולם ביום ההשקה</li>
+        <li>משלוח עד הבית חינם בחלון הפתיחה</li>
+      </ul>
+
+      <form class="lead-form" id="footer-lead-form" data-lead-form novalidate>
+        <div class="lead-form__group">
+          <label class="sr-only" for="footer-email">המייל שלך</label>
+          <input
+            type="email"
+            id="footer-email"
+            name="email"
+            class="lead-form__input"
+            placeholder="המייל שלך."
+            required
+            autocomplete="email"
+            inputmode="email"
+          />
+          <button type="submit" class="btn btn--primary lead-form__btn">שריין מקום וקבל 5 קלפים</button>
         </div>
-      </div>
+        <p class="lead-form__micro">בלי ספאם. רק הקלפים, ואז שקט.</p>
+        <div class="lead-form__success" aria-live="polite">
+          <p class="lead-form__success-title">נרשמת. הקלפים שלך מוכנים.</p>
+          <a class="btn btn--primary" href="hamisha/">פתח את הקלפים</a>
+        </div>
+      </form>
     </section>
 
     <!-- ======================================================================
-         8) החבילות
+         10) FAQ מותאם ל"בקרוב"
          ====================================================================== -->
-    <section class="pricing" id="pricing" aria-label="חבילות">
-      <p class="eyebrow">מהדורה ראשונה</p>
-      <h2 class="section__title">בחר את העומק שלך.</h2>
-
-      <div class="pricing__grid" data-pricing>
-
-        <article class="pack" data-pack="single" tabindex="0" role="button" aria-pressed="false">
-          <h3 class="pack__name">אחד.</h3>
-          <p class="pack__qty">חפיסה אחת · בשבילך</p>
-          <p class="pack__price"><span class="pack__amount">₪149</span></p>
-          <p class="pack__ship">משלוח לנקודת איסוף כלול</p>
-          <button class="pack__cta" type="button" data-buy="single">לרכישה</button>
-          <ul class="pack__payments" aria-label="אמצעי תשלום">
-            <li>
-              <!-- ICON: bit.png — replace src when brand asset is ready -->
-              <img class="pack__pay-icon" src="radud-assets/payment-bit.svg" alt="ביט" width="56" height="28" loading="lazy" decoding="async" />
-            </li>
-            <li>
-              <!-- ICON: cards.png / visa-mastercard.png -->
-              <img class="pack__pay-icon" src="radud-assets/payment-cards.svg" alt="כרטיסי אשראי — ויזה ומאסטרקארד" width="72" height="28" loading="lazy" decoding="async" />
-            </li>
-            <li>
-              <!-- ICON: apple-pay.png -->
-              <img class="pack__pay-icon" src="radud-assets/payment-apple-pay.svg" alt="Apple Pay" width="64" height="28" loading="lazy" decoding="async" />
-            </li>
-            <li>
-              <!-- ICON: google-pay.png -->
-              <img class="pack__pay-icon" src="radud-assets/payment-google-pay.svg" alt="Google Pay" width="64" height="28" loading="lazy" decoding="async" />
-            </li>
-          </ul>
-        </article>
-
-        <article class="pack pack--featured" data-pack="duo" tabindex="0" role="button" aria-pressed="true">
-          <span class="pack__tag">הבחירה הפופולרית</span>
-          <h3 class="pack__name">שניים.</h3>
-          <p class="pack__qty">אחד לך, אחד למי שחייב את זה</p>
-          <p class="pack__price">
-            <span class="pack__amount">₪249</span>
-            <s class="pack__was">₪278</s>
-          </p>
-          <p class="pack__ship">משלוח לנקודת איסוף חינם</p>
-          <button class="pack__cta" type="button" data-buy="duo">לרכישה</button>
-          <ul class="pack__payments" aria-label="אמצעי תשלום">
-            <li>
-              <!-- ICON: bit.png — replace src when brand asset is ready -->
-              <img class="pack__pay-icon" src="radud-assets/payment-bit.svg" alt="ביט" width="56" height="28" loading="lazy" decoding="async" />
-            </li>
-            <li>
-              <!-- ICON: cards.png / visa-mastercard.png -->
-              <img class="pack__pay-icon" src="radud-assets/payment-cards.svg" alt="כרטיסי אשראי — ויזה ומאסטרקארד" width="72" height="28" loading="lazy" decoding="async" />
-            </li>
-            <li>
-              <!-- ICON: apple-pay.png -->
-              <img class="pack__pay-icon" src="radud-assets/payment-apple-pay.svg" alt="Apple Pay" width="64" height="28" loading="lazy" decoding="async" />
-            </li>
-            <li>
-              <!-- ICON: google-pay.png -->
-              <img class="pack__pay-icon" src="radud-assets/payment-google-pay.svg" alt="Google Pay" width="64" height="28" loading="lazy" decoding="async" />
-            </li>
-          </ul>
-        </article>
-
-        <article class="pack" data-pack="trio" tabindex="0" role="button" aria-pressed="false">
-          <h3 class="pack__name">שלושה.</h3>
-          <p class="pack__qty">לשולחן שלם</p>
-          <p class="pack__price">
-            <span class="pack__amount">₪339</span>
-            <s class="pack__was">₪417</s>
-          </p>
-          <p class="pack__ship">משלוח עד הבית חינם</p>
-          <button class="pack__cta" type="button" data-buy="trio">לרכישה</button>
-          <ul class="pack__payments" aria-label="אמצעי תשלום">
-            <li>
-              <!-- ICON: bit.png — replace src when brand asset is ready -->
-              <img class="pack__pay-icon" src="radud-assets/payment-bit.svg" alt="ביט" width="56" height="28" loading="lazy" decoding="async" />
-            </li>
-            <li>
-              <!-- ICON: cards.png / visa-mastercard.png -->
-              <img class="pack__pay-icon" src="radud-assets/payment-cards.svg" alt="כרטיסי אשראי — ויזה ומאסטרקארד" width="72" height="28" loading="lazy" decoding="async" />
-            </li>
-            <li>
-              <!-- ICON: apple-pay.png -->
-              <img class="pack__pay-icon" src="radud-assets/payment-apple-pay.svg" alt="Apple Pay" width="64" height="28" loading="lazy" decoding="async" />
-            </li>
-            <li>
-              <!-- ICON: google-pay.png -->
-              <img class="pack__pay-icon" src="radud-assets/payment-google-pay.svg" alt="Google Pay" width="64" height="28" loading="lazy" decoding="async" />
-            </li>
-          </ul>
-        </article>
-
-      </div>
-
-      <p class="pricing__assure">קופסה ממוספרת · 14 יום החזרה · תשלום מאובטח — ביט או אשראי</p>
-      <p class="pricing__msg" data-pricing-msg role="status" aria-live="polite"></p>
-    </section>
-
-    <!-- ======================================================================
-         9) משלוחים + FAQ
-         ====================================================================== -->
-    <section class="faq" id="faq" aria-label="שאלות נפוצות">
+    <section class="faq" id="faq" aria-label="שאלות לפני שצוללים">
       <p class="eyebrow">לפני שצוללים</p>
-      <h2 class="section__title">משלוחים ושאלות.</h2>
+      <h2 class="section__title">שאלות לפני שצוללים.</h2>
 
       <div class="faq__list" data-faq>
+
+        <details class="faq__item">
+          <summary class="faq__q">מתי זה יוצא?</summary>
+          <div class="faq__a">
+            המהדורה הראשונה בייצור עכשיו. הנרשמים יקבלו את התאריך ראשונים, ויכנסו 48 שעות לפני כולם.
+          </div>
+        </details>
+
+        <details class="faq__item">
+          <summary class="faq__q">כמה זה יעלה?</summary>
+          <div class="faq__a">
+            מ-₪149 לחפיסה. משלוח כלול.
+          </div>
+        </details>
+
+        <details class="faq__item">
+          <summary class="faq__q">מה מקבלים בהרשמה?</summary>
+          <div class="faq__a">
+            חמישה קלפים מהחפיסה, עכשיו, על המסך. אחד רדוד, שניים עמוקים, אחד מהתהום. ואחד שתצטרך לשבת איתו רגע.
+          </div>
+        </details>
 
         <details class="faq__item">
           <summary class="faq__q">זה עוד קלפי שאלות לזוגות?</summary>
@@ -428,54 +434,33 @@
           </div>
         </details>
 
-        <details class="faq__item">
-          <summary class="faq__q">מתי זה מגיע?</summary>
-          <div class="faq__a">
-            <!-- PLACEHOLDER: עדכן זמן אספקה אמיתי -->
-            אספקה תוך [X] ימי עסקים. לנקודות איסוף או עד הבית, לפי החבילה שבחרת.
-          </div>
-        </details>
-
-        <details class="faq__item">
-          <summary class="faq__q">לאן שולחים?</summary>
-          <div class="faq__a">
-            <!-- PLACEHOLDER: עדכן ספק/נקודות איסוף -->
-            לכל הארץ. נקודות איסוף בפריסה ארצית, או משלוח עד הבית בחבילת השלושה.
-          </div>
-        </details>
-
-        <details class="faq__item">
-          <summary class="faq__q">ואם זה לא בשבילי?</summary>
-          <div class="faq__a">
-            14 יום להחזרת החפיסה. אבל בוא נהיה כנים, אם פתחת אותה, כבר מאוחר.
-          </div>
-        </details>
-
       </div>
     </section>
 
   </main>
 
   <!-- ========================================================================
-       פס רכישה צף — מובייל בלבד, מופיע אחרי שגוללים מעבר להירו
+       פס צף — מובייל: שריין מקום
        ======================================================================== -->
   <div class="stickybar" data-stickybar hidden>
     <div class="stickybar__info">
-      <span class="stickybar__price">מ-₪149</span>
-      <span class="stickybar__note">מהדורה מוגבלת</span>
+      <span class="stickybar__price">5 קלפים עכשיו</span>
+      <span class="stickybar__note">מהדורה ראשונה · בקרוב</span>
     </div>
-    <a class="stickybar__cta" href="#pricing">לרכישה</a>
+    <a class="stickybar__cta" href="#hero-form">שריין מקום · 5 קלפים עכשיו</a>
   </div>
 
   <!-- ========================================================================
        FOOTER
        ======================================================================== -->
   <footer class="footer">
-    <img class="logo logo--img logo--sm" src="radud-assets/logo.radud.png" alt="רדוד" width="100" height="100" />
+    <img class="logo logo--img logo--sm" src="assets/logo.radud.png" alt="רדוד" width="100" height="100" />
+    <p class="footer__status">
+      מהדורה ראשונה · בקרוב · <a href="#hero-form">שריין מקום</a>
+    </p>
     <nav class="footer__links" aria-label="קישורי תחתית">
       <a href="#">תקנון</a>
       <a href="#">הצהרת נגישות</a>
-      <a href="#">מדיניות החזרות</a>
       <a href="#" data-email>צור קשר</a>
       <a href="#" data-wa target="_blank" rel="noopener">וואטסאפ</a>
     </nav>
@@ -483,50 +468,45 @@
   </footer>
 
   <!-- ========================================================================
-       פופ-אפ מגנט לידים
+       פופ-אפ יציאה / הרשמה (25 שנ' או 40% גלילה)
        ======================================================================== -->
   <div class="popup-overlay" id="lead-popup" hidden aria-hidden="true">
-    <div class="popup-content" role="dialog" aria-labelledby="popup-title">
-      <button class="popup-close" id="popup-close" aria-label="סגור">✕</button>
-      
-      <h2 class="lead-magnet__title" id="popup-title">לפני שאתה הולך. קח 5 קלפים נוספים</h2>
+    <div class="popup-content" role="dialog" aria-labelledby="popup-title" aria-modal="true">
+      <button class="popup-close" id="popup-close" type="button" aria-label="סגור">✕</button>
+
+      <h2 class="lead-magnet__title" id="popup-title">שריין מקום. קבל 5 קלפים.</h2>
       <p class="lead-magnet__desc">אחד רדוד, שניים עמוקים, אחד מהתהום. ואחד שתצטרך לשבת איתו רגע.</p>
-      
-      <form class="lead-form" id="popup-lead-form">
+
+      <ul class="hero__offer" aria-label="מה מקבלים בהרשמה">
+        <li>5 קלפים מהחפיסה, עכשיו, על המסך</li>
+        <li>כניסה 48 שעות לפני כולם ביום ההשקה</li>
+        <li>משלוח עד הבית חינם בחלון הפתיחה</li>
+      </ul>
+
+      <form class="lead-form" id="popup-lead-form" data-lead-form novalidate>
         <div class="lead-form__group lead-form__group--col">
-          <input type="email" id="popup-email" name="email" class="lead-form__input" placeholder="המייל שלך." required />
-          <button type="submit" class="btn btn--primary lead-form__btn">שלחו לי את הקלפים</button>
+          <label class="sr-only" for="popup-email">המייל שלך</label>
+          <input
+            type="email"
+            id="popup-email"
+            name="email"
+            class="lead-form__input"
+            placeholder="המייל שלך."
+            required
+            autocomplete="email"
+            inputmode="email"
+          />
+          <button type="submit" class="btn btn--primary lead-form__btn">שריין מקום וקבל 5 קלפים</button>
         </div>
         <p class="lead-form__micro">בלי ספאם. רק הקלפים, ואז שקט.</p>
+        <div class="lead-form__success" aria-live="polite">
+          <p class="lead-form__success-title">נרשמת. הקלפים שלך מוכנים.</p>
+          <a class="btn btn--primary" href="hamisha/">פתח את הקלפים</a>
+        </div>
       </form>
     </div>
   </div>
 
-  <!-- ========================================================================
-       PayMe checkout modal (iframe) — כבוי עד CONFIG.payme.enabled = true
-       Docs: https://docs.payme.io · keys: partners@payme.io
-       Frontend: רק payme_client_key / Payment Link. בלי secret keys.
-       ======================================================================== -->
-  <div class="popup-overlay payme-overlay" id="payme-checkout" hidden aria-hidden="true">
-    <div class="payme-modal" role="dialog" aria-modal="true" aria-labelledby="payme-title">
-      <header class="payme-modal__head">
-        <h2 class="payme-modal__title" id="payme-title">תשלום מאובטח</h2>
-        <button class="popup-close" id="payme-close" type="button" aria-label="סגור">✕</button>
-      </header>
-      <!-- iframe src מוגדר ב-JS מתוך CONFIG.payme.paymentLinks[packId] -->
-      <iframe
-        id="payme-iframe"
-        class="payme-modal__iframe"
-        title="תשלום PayMe"
-        src="about:blank"
-        allow="payment *"
-        loading="lazy"
-        referrerpolicy="no-referrer-when-downgrade"
-      ></iframe>
-      <p class="payme-modal__note">תשלום מאובטח דרך PayMe · ביט או אשראי</p>
-    </div>
-  </div>
-  
-  <script src="script.js"></script>
+  <script src="script.js?v=pre-1.1"></script>
 </body>
 </html>
