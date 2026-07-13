@@ -2,20 +2,8 @@
    רדוד — script.js (V3)
    Vanilla JS. אין תלויות.
    ⬇⬇⬇  כל מה שמתחלף לעיתים קרובות נמצא ב-CONFIG. ערוך רק כאן.  ⬇⬇⬇
-
-   ⚠️ אם כבר מילאת apiUrl / whatsapp / email בקובץ הקודם —
-      העתק אותם לכאן. אלו שלושת השדות היחידים שצריך להעביר.
-
-      
    =========================================================================== */
 const CONFIG = {
-  // כתובת ה-Web App של Google Apps Script (doGet מחזיר {remaining}).
-  // <TODO> הדבק כאן את ה-URL מ-"Deploy as Web App".
-  apiUrl: "",
-
-  // מספר המלאי שיוצג כל עוד ה-API לא מחובר / לא זמין.
-  fallbackRemaining: 1000,
-
   // וואטסאפ — פורמט בינלאומי בלי + ובלי 0 מוביל. לדוגמה: "972501234567".
   // <PLACEHOLDER>
   whatsapp: "",
@@ -24,16 +12,57 @@ const CONFIG = {
   // מייל יצירת קשר. <PLACEHOLDER>
   email: "",
 
-  // מאגר הטריגרים לקלף שבהירו — כולם אמיתיים, מדרגת "מים רדודים".
-  // בכל טעינה נשלף אחד אקראי. אפשר להוסיף/להחליף חופשי.
-  triggers: [
-    "עלבונות זוכרים מילה במילה. מחמאות? בערך.",
-    "עצלנות היא לא חוסר באנרגיה. היא פחד שלבש בגדי נוחות.",
-    "כעס הוא כמעט תמיד עצב שלא נתנו לו לבכות.",
-    "רוב הזמן אנחנו לא באמת מחפשים עצה, אנחנו מחפשים קהל.",
-    "אתה לא \u201Cעסוק\u201D. אתה פשוט בורח מלשבת לבד עם המחשבות שלך.",
-    "מי שמרגיש צורך להזכיר לך שהוא הבוס, כנראה שהוא לא.",
-  ],
+  /* =========================================================================
+     PayMe — תשלומים (מוכן, כבוי כברירת מחדל)
+     -------------------------------------------------------------------------
+     Docs: https://docs.payme.io  ·  https://payme.stoplight.io
+     Partner / keys: partners@payme.io
+
+     ⚠ Frontend: רק payme_client_key (Partner Key / public).
+        לעולם לא secret keys בדפדפן.
+
+     איך מפעילים כשתקבל מפתח:
+       1. הדבק את payme_client_key למטה
+       2. מלא paymentLinks (קישור תשלום מוכן לכל חבילה) — מומלץ לאתר סטטי
+          או: מלא saleUrls אם קיבלת sale_url ישיר מ-PayMe
+       3. שים enabled: true
+       4. (אופציונלי) successUrl / callbackUrl לפי ההגדרה אצל PayMe
+
+     זרימה: לחיצה על "לרכישה" → פותח מודל עם iframe של דף התשלום של PayMe.
+     ========================================================================= */
+  payme: {
+    // false = כבוי (הכפתורים מציגים הודעת "בקרוב"). true = פעיל.
+    enabled: false,
+
+    // Partner Key / payme_client_key — מפתח ציבורי בלבד.
+    clientKey: "", // <TODO PAYME> לדוגמה: "pmc-xxxxxxxx"
+
+    // Seller / MPL id (לעיתים נדרש ביצירת sale בצד שרת — לא secret card data).
+    // באתר סטטי עדיף Payment Links מוכנים; השדה כאן לתיעוד / שימוש עתידי.
+    sellerPaymeId: "", // <TODO PAYME> לדוגמה: "MPLXXXX-..."
+
+    // קישורי תשלום מוכנים (Payment Link / sale_url) לכל חבילה.
+    // כשמוגדרים — ה-iframe טוען אותם ישירות. הכי מתאים לאתר סטטי.
+    paymentLinks: {
+      single: "", // <TODO PAYME> חפיסה אחת · ₪149
+      duo:    "", // <TODO PAYME> שניים · ₪249
+      trio:   "", // <TODO PAYME> שלושה · ₪339
+      // upsell דיגיטלי בדף thankyou.html
+      mitachat: "", // <TODO PAYME> מתחת לתהום · ₪29
+    },
+
+    // מחירים (אגורות או שקלים — לפי מה שתגדיר ב-PayMe; כאן לתיעוד UI בלבד)
+    packs: {
+      single:   { label: "אחד",          amountILS: 149 },
+      duo:      { label: "שניים",        amountILS: 249 },
+      trio:     { label: "שלושה",        amountILS: 339 },
+      mitachat: { label: "מתחת לתהום",   amountILS: 29  },
+    },
+
+    // לאן לחזור אחרי תשלום מוצלח (PayMe success redirect — אם תומך בקישור)
+    successUrl: "https://radud.com/thankyou.html",
+    // cancel / close — נשארים בדף
+  },
 };
 
 /* ===========================================================================
@@ -74,71 +103,8 @@ function buildLogo() {
 }
 
 /* ===========================================================================
-   קלף אחד, על החשבון — קלף בודד, טריגר אקראי אמיתי, היפוך אחד.
-   =========================================================================== */
-function buildFlip() {
-  const row  = $("[data-flip-row]");
-  const hint = $("[data-flip-hint]");
-  if (!row) return;
-
-  const text = CONFIG.triggers[Math.floor(Math.random() * CONFIG.triggers.length)];
-
-  const card = document.createElement("button");
-  card.className = "flip-card";
-  card.type = "button";
-  card.setAttribute("aria-label", "הפוך את הקלף");
-
-  card.innerHTML = `
-      <span class="flip-card__inner" style="display: block;">
-        <span class="flip-card__face flip-card__face--back flip-card__cover" style="display: flex; padding: 0; border: none;">
-          <img src="backfeaturecard.png" alt="גב הקלף" style="width: 100%; height: 100%; object-fit: cover; border-radius: 6px;" />
-        </span>
-        <span class="flip-card__face flip-card__face--front flip-card__trigger" style="display: flex; padding: 0; border: none;">
-          <img src="featurecard.jpg" alt="קלף טריגר" style="width: 100%; height: 100%; object-fit: cover; border-radius: 6px;" />
-        </span>
-      </span>`;
-
-  card.addEventListener("click", () => {
-    if (card.classList.contains("is-flipped")) return;
-    card.classList.add("is-flipped");
-    card.setAttribute("aria-label", "הקלף נחשף");
-    if (hint) {
-      hint.textContent = "זה אחד. יש עוד 59.";
-      hint.classList.add("is-done");
-    }
-  });
-
-  row.appendChild(card);
-  buildLogo(); // הלוגו שבגב הקלף
-}
-
-/* ===========================================================================
-   קריאת מלאי — doGet מחזיר {remaining}. מעדכן את כל המונים בדף.
-   =========================================================================== */
-async function loadRemaining() {
-  let remaining = CONFIG.fallbackRemaining;
-
-  if (CONFIG.apiUrl) {
-    try {
-      const res = await fetch(CONFIG.apiUrl, { method: "GET" });
-      const data = await res.json();
-      if (typeof data.remaining === "number") remaining = data.remaining;
-    } catch (err) {
-      console.warn("שליפת מלאי נכשלה, מוצג fallback:", err);
-    }
-  }
-
-  $$("[data-remaining]").forEach((el) => (el.textContent = remaining));
-
-  if (remaining <= 0) {
-    $$(".pack").forEach((p) => p.classList.add("is-sold-out"));
-    const msg = $("[data-pricing-msg]");
-    if (msg) msg.textContent = "אזל מהמלאי. מהדורה חדשה בקרוב.";
-  }
-}
-
-/* ===========================================================================
-   בחירת חבילה — duo נבחרת מראש. הכפתור פלייסהולדר עד חיבור GROW.
+   בחירת חבילה — duo נבחרת מראש.
+   כפתור "לרכישה" → PayMe (כש-CONFIG.payme.enabled = true).
    =========================================================================== */
 function initPricing() {
   const grid = $("[data-pricing]");
@@ -148,7 +114,6 @@ function initPricing() {
   const packs = $$(".pack", grid);
 
   function select(pack) {
-    if (pack.classList.contains("is-sold-out")) return;
     packs.forEach((p) => p.setAttribute("aria-pressed", String(p === pack)));
   }
 
@@ -164,8 +129,101 @@ function initPricing() {
       e.stopPropagation();
       const pack = btn.closest(".pack");
       select(pack);
-      // <TODO GROW> כאן ייכנס המעבר לצ'קאאוט של החבילה הנבחרת.
-      if (msg) msg.textContent = "החבילה נבחרה. חיבור הצ׳קאאוט יושלם בקרוב.";
+
+      const packId = btn.getAttribute("data-buy") || pack?.dataset?.pack || "single";
+      startPaymeCheckout(packId, msg);
+    });
+  });
+}
+
+/* ===========================================================================
+   PayMe — iframe checkout (מוכן, לא פעיל עד enabled + paymentLinks)
+   -------------------------------------------------------------------------
+   זרימה מומלצת לאתר סטטי:
+     Payment Link / sale_url מוכן לכל חבילה → iframe src = הקישור
+   אלטרנטיבה (דורשת בדרך כלל backend):
+     Generate-Sale API עם payme_client_key → sale_url → iframe
+   =========================================================================== */
+function startPaymeCheckout(packId, msgEl) {
+  const payme = CONFIG.payme || {};
+  const packMeta = (payme.packs && payme.packs[packId]) || { label: packId, amountILS: "" };
+
+  // --- כבוי / חסרים פרטים: שומרים על התנהגות בטוחה, בלי לפתוח תשלום ---
+  if (!payme.enabled) {
+    if (msgEl) {
+      msgEl.textContent =
+        "החבילה נבחרה. חיבור PayMe יושלם בקרוב" +
+        (packMeta.amountILS ? ` · ₪${packMeta.amountILS}` : "") +
+        ".";
+    }
+    return;
+  }
+
+  const link =
+    (payme.paymentLinks && payme.paymentLinks[packId]) ||
+    "";
+
+  if (!link) {
+    if (msgEl) {
+      msgEl.textContent =
+        "חסר קישור תשלום לחבילה הזו. מלא CONFIG.payme.paymentLinks." + packId;
+    }
+    console.warn("[PayMe] missing paymentLinks." + packId);
+    return;
+  }
+
+  if (msgEl) msgEl.textContent = "";
+  openPaymeModal(link, packMeta.label || packId);
+}
+
+function openPaymeModal(saleUrl, title) {
+  const overlay = document.getElementById("payme-checkout");
+  const iframe  = document.getElementById("payme-iframe");
+  const heading = document.getElementById("payme-title");
+  if (!overlay || !iframe) {
+    // fallback: פתיחה בטאב חדש אם המודל לא קיים בדף
+    window.open(saleUrl, "_blank", "noopener");
+    return;
+  }
+
+  if (heading) heading.textContent = title ? `תשלום · ${title}` : "תשלום מאובטח";
+  iframe.src = saleUrl;
+  overlay.hidden = false;
+  overlay.setAttribute("aria-hidden", "false");
+  document.body.style.overflow = "hidden";
+}
+
+function closePaymeModal() {
+  const overlay = document.getElementById("payme-checkout");
+  const iframe  = document.getElementById("payme-iframe");
+  if (!overlay) return;
+  overlay.hidden = true;
+  overlay.setAttribute("aria-hidden", "true");
+  if (iframe) iframe.src = "about:blank";
+  document.body.style.overflow = "";
+}
+
+function initPaymeModal() {
+  const overlay = document.getElementById("payme-checkout");
+  if (!overlay) return;
+
+  const closeBtn = document.getElementById("payme-close");
+  if (closeBtn) closeBtn.addEventListener("click", closePaymeModal);
+
+  overlay.addEventListener("click", (e) => {
+    if (e.target === overlay) closePaymeModal();
+  });
+
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape" && !overlay.hidden) closePaymeModal();
+  });
+
+  // כפתורי upsell (למשל thankyou.html) עם data-buy="mitachat"
+  $$("[data-payme-buy]").forEach((btn) => {
+    btn.addEventListener("click", (e) => {
+      e.preventDefault();
+      const packId = btn.getAttribute("data-payme-buy") || "mitachat";
+      startPaymeCheckout(packId, $("[data-pricing-msg]"));
     });
   });
 }
@@ -390,9 +448,8 @@ function initKlaviyoForms() {
    =========================================================================== */
 document.addEventListener("DOMContentLoaded", () => {
   buildLogo();
-  buildFlip();
-  loadRemaining();
   initPricing();
+  initPaymeModal();
   initSlider();
   initFaq();
   initStickyBar();
