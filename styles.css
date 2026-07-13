@@ -967,7 +967,7 @@ details[open] .faq__q { color: var(--brass); }
   }
 }
 
-/* Form success state — no redirect; button to hamisha */
+/* Form success state — WhatsApp micro-upsell + secondary escape to hamisha */
 .lead-form.is-done .lead-form__group,
 .lead-form.is-done .lead-form__micro {
   display: none;
@@ -977,8 +977,11 @@ details[open] .faq__q { color: var(--brass); }
   display: none;
   flex-direction: column;
   align-items: center;
-  gap: 1.1rem;
-  padding-top: 0.25rem;
+  gap: 0.95rem;
+  padding: 0.5rem 0.15rem 0.15rem;
+  max-width: 26rem;
+  margin-inline: auto;
+  text-align: center;
 }
 
 .lead-form.is-done .lead-form__success {
@@ -987,9 +990,147 @@ details[open] .faq__q { color: var(--brass); }
 
 .lead-form__success-title {
   font-family: var(--display);
-  font-size: clamp(1.25rem, 4vw, 1.5rem);
+  font-size: clamp(1.2rem, 4vw, 1.5rem);
   font-weight: 700;
+  line-height: 1.35;
   color: var(--ink);
+  margin: 0;
+}
+
+.lead-form__success-hook {
+  font-family: var(--ui);
+  font-size: clamp(0.92rem, 2.8vw, 1.02rem);
+  font-weight: 300;
+  line-height: 1.65;
+  color: var(--muted);
+  margin: 0;
+  max-width: 22rem;
+}
+
+/* Primary CTA — brass glow pulse (commands attention) */
+.lead-form__success-wa {
+  position: relative;
+  z-index: 0;
+  width: 100%;
+  max-width: 22rem;
+  gap: 0.55rem;
+  min-height: 54px;
+  padding: 0.95rem 1.4rem;
+  margin-top: 0.35rem;
+  font-weight: 700;
+  font-size: clamp(0.92rem, 2.6vw, 1.02rem);
+  letter-spacing: 0.02em;
+  color: var(--bg);
+  background: linear-gradient(180deg, #D8B67A 0%, var(--brass) 55%, #B8924A 100%);
+  border: 1px solid color-mix(in srgb, var(--brass) 80%, #fff 20%);
+  border-radius: 3px;
+  box-shadow:
+    0 0 0 1px color-mix(in srgb, var(--brass) 25%, transparent),
+    0 10px 28px rgba(207, 168, 106, 0.22),
+    0 0 24px rgba(207, 168, 106, 0.28);
+  animation: wa-glow-pulse 2.4s var(--ease) infinite;
+  transition:
+    transform 0.2s var(--ease),
+    background 0.25s var(--ease),
+    box-shadow 0.25s var(--ease);
+}
+
+.lead-form__success-wa::before {
+  content: "";
+  position: absolute;
+  inset: -3px;
+  z-index: -1;
+  border-radius: 5px;
+  background: radial-gradient(
+    ellipse at center,
+    rgba(207, 168, 106, 0.45) 0%,
+    rgba(207, 168, 106, 0.12) 55%,
+    transparent 75%
+  );
+  opacity: 0.85;
+  pointer-events: none;
+  animation: wa-halo-breathe 2.4s var(--ease) infinite;
+}
+
+.lead-form__success-wa:hover {
+  background: linear-gradient(180deg, #E4C68C 0%, #DDBB7E 50%, var(--brass) 100%);
+  box-shadow:
+    0 0 0 1px color-mix(in srgb, var(--brass) 40%, transparent),
+    0 12px 32px rgba(207, 168, 106, 0.32),
+    0 0 36px rgba(207, 168, 106, 0.4);
+  animation: none;
+}
+
+.lead-form__success-wa:hover::before {
+  opacity: 1;
+  animation: none;
+}
+
+.lead-form__success-wa:active {
+  transform: translateY(1px);
+}
+
+.lead-form__success-wa-icon {
+  display: inline-flex;
+  flex-shrink: 0;
+  opacity: 0.92;
+}
+
+.lead-form__success-wa-icon svg {
+  display: block;
+}
+
+@keyframes wa-glow-pulse {
+  0%, 100% {
+    box-shadow:
+      0 0 0 1px color-mix(in srgb, var(--brass) 22%, transparent),
+      0 10px 26px rgba(207, 168, 106, 0.18),
+      0 0 18px rgba(207, 168, 106, 0.2);
+  }
+  50% {
+    box-shadow:
+      0 0 0 1px color-mix(in srgb, var(--brass) 45%, transparent),
+      0 12px 34px rgba(207, 168, 106, 0.3),
+      0 0 36px rgba(207, 168, 106, 0.42);
+  }
+}
+
+@keyframes wa-halo-breathe {
+  0%, 100% { opacity: 0.55; transform: scale(0.98); }
+  50%      { opacity: 0.95; transform: scale(1.02); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .lead-form__success-wa,
+  .lead-form__success-wa::before {
+    animation: none;
+  }
+}
+
+/* Secondary escape — muted text link (does not compete) */
+.lead-form__success-escape {
+  display: inline-block;
+  margin-top: 0.15rem;
+  padding: 0.35rem 0.25rem;
+  font-family: var(--ui);
+  font-size: 0.84rem;
+  font-weight: 400;
+  line-height: 1.5;
+  color: var(--muted-2);
+  text-decoration: underline;
+  text-decoration-color: color-mix(in srgb, var(--muted-2) 55%, transparent);
+  text-underline-offset: 0.22em;
+  transition: color 0.25s var(--ease), text-decoration-color 0.25s var(--ease);
+}
+
+.lead-form__success-escape:hover {
+  color: var(--muted);
+  text-decoration-color: var(--muted);
+}
+
+/* Popup: give success state a little room */
+.popup-content .lead-form.is-done .lead-form__success {
+  max-width: 100%;
 }
 
 /* Cards hint → form */
