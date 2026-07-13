@@ -1,0 +1,11 @@
+{
+  "version": 1,
+  "stock": 1000,
+  "initialStock": 1000,
+  "orders": [],
+  "stockLog": [],
+  "meta": {
+    "updatedAt": null,
+    "note": "Seed data. Runtime state is stored in browser localStorage (key: radud_admin_v1)."
+  }
+}
