@@ -1,0 +1,512 @@
+<!DOCTYPE html>
+<!--
+  רדוד — דף "בקרוב" / Pre-Launch
+  ----------------------------------------------------------------------------
+  מבוסס על מבנה ושפת העיצוב של index.html החי.
+  פאנל נפרד — אין תלות ברכישה / PayMe / מלאי.
+  חוויית 5 קלפים: hamisha/
+-->
+<html lang="he" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>רדוד. — מהדורה ראשונה, בקרוב</title>
+  <meta name="description" content="מהדורה ראשונה של רדוד בדרך. שריינו מקום, קבלו 5 קלפים עכשיו על המסך, והיכנסו 48 שעות לפני כולם." />
+
+  <meta property="og:title" content="רדוד. — מהדורה ראשונה, בקרוב" />
+  <meta property="og:description" content="מה היית שואל, אם לא היית מפחד מהתשובה?" />
+  <!-- PLACEHOLDER: <meta property="og:image" content="assets/og.jpg" /> -->
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Frank+Ruhl+Libre:wght@400;500;700;900&family=Heebo:wght@300;400;500;700&display=swap" rel="stylesheet" />
+
+  <link rel="stylesheet" href="styles.css?v=pre-1.1" />
+</head>
+<body>
+
+  <div class="grain" aria-hidden="true"></div>
+
+
+  <!-- ========================================================================
+       1) NAV — לוגו + שריין מקום
+       ======================================================================== -->
+  <header class="nav" aria-label="ניווט ראשי">
+    <a class="nav__home" href="#hero" aria-label="רדוד — לראש הדף">
+      <img class="logo logo--img" src="assets/logo.radud.png" alt="רדוד" width="140" height="140" />
+    </a>
+    <a class="nav__cta" href="#hero-form">שריין מקום</a>
+  </header>
+
+  <main>
+
+    <!-- ======================================================================
+         2) HERO — טופס הרשמה בפנים
+         ====================================================================== -->
+    <section class="hero" id="hero">
+
+      <p class="hero__edition">
+        <span class="hero__edition-badge">מהדורה ראשונה</span>
+        בקרוב
+      </p>
+
+      <h1 class="hero__title">מה היית שואל,<br />אם לא היית מפחד מהתשובה?</h1>
+
+      <p class="hero__subtitle">
+        60 משפטים, ב-3 דרגות עומק<br />
+        <em>שעושים סדק קטן במוח, ונשארים שם.</em>
+      </p>
+
+      <figure class="hero__product">
+        <span class="hero__halo" aria-hidden="true"></span>
+        <img src="../assetsdeck.png" alt="חפיסת רדוד" style="width: 100%; max-width: 280px; margin: 0 auto; display: block;" />
+        <span class="hero__reflection" aria-hidden="true"></span>
+      </figure>
+
+      <!-- טופס הרשמה בהירו (במקום כפתורי רכישה) -->
+      <div class="hero__form" id="hero-form">
+        <form class="lead-form" id="hero-lead-form" data-lead-form novalidate>
+          <div class="lead-form__group">
+            <label class="sr-only" for="hero-email">המייל שלך</label>
+            <input
+              type="email"
+              id="hero-email"
+              name="email"
+              class="lead-form__input"
+              placeholder="המייל שלך."
+              required
+              autocomplete="email"
+              inputmode="email"
+            />
+            <button type="submit" class="btn btn--primary lead-form__btn">שריין מקום וקבל 5 קלפים</button>
+          </div>
+          <p class="lead-form__micro">בלי ספאם. רק הקלפים, ואז שקט.</p>
+          <div class="lead-form__success" aria-live="polite">
+            <p class="lead-form__success-title">נרשמת. הקלפים שלך מוכנים.</p>
+            <a class="btn btn--primary" href="hamisha/">פתח את הקלפים</a>
+          </div>
+        </form>
+
+        <ul class="hero__offer" aria-label="מה מקבלים בהרשמה">
+          <li>5 קלפים מהחפיסה, עכשיו, על המסך</li>
+          <li>כניסה 48 שעות לפני כולם ביום ההשקה</li>
+          <li>משלוח עד הבית חינם בחלון הפתיחה</li>
+        </ul>
+      </div>
+
+    </section>
+
+    <!-- ======================================================================
+         3) הצצה לקלפים
+         ====================================================================== -->
+    <section class="cards" id="cards" aria-label="הקלפים עצמם">
+      <p class="eyebrow">המוצר, מקרוב</p>
+      <h2 class="section__title">הצצה לקלפים:</h2>
+
+      <div class="cards__gallery" data-gallery>
+        <figure class="cards__shot">
+          <button type="button" class="flip-card" data-flip aria-label="הפוך קלף — מים רדודים">
+            <span class="flip-card__inner">
+              <span class="flip-card__face flip-card__face--front">
+                <img src="../backfeaturecard.png" alt="" width="744" height="1039" draggable="false" />
+              </span>
+              <span class="flip-card__face flip-card__face--back">
+                <img src="assets/landing-sector.png" alt="תקריב קלף רדוד · מים רדודים" width="744" height="1039" draggable="false" />
+              </span>
+            </span>
+            <span class="flip-card__hint">הקש להפוך</span>
+          </button>
+        </figure>
+        <figure class="cards__shot cards__shot--mid">
+          <button type="button" class="flip-card" data-flip aria-label="הפוך קלף — מים עמוקים">
+            <span class="flip-card__inner">
+              <span class="flip-card__face flip-card__face--front">
+                <img src="../backfeaturecard.png" alt="" width="744" height="1039" draggable="false" />
+              </span>
+              <span class="flip-card__face flip-card__face--back">
+                <img src="assets/landing-sector2.png" alt="תקריב קלף רדוד · מים עמוקים" width="744" height="1039" draggable="false" />
+              </span>
+            </span>
+            <span class="flip-card__hint">הקש להפוך</span>
+          </button>
+        </figure>
+        <figure class="cards__shot">
+          <button type="button" class="flip-card" data-flip aria-label="הפוך קלף — תהום">
+            <span class="flip-card__inner">
+              <span class="flip-card__face flip-card__face--front">
+                <img src="../backfeaturecard.png" alt="" width="744" height="1039" draggable="false" />
+              </span>
+              <span class="flip-card__face flip-card__face--back">
+                <img src="assets/landing-sector3.png" alt="תקריב קלף רדוד · תהום" width="744" height="1039" draggable="false" />
+              </span>
+            </span>
+            <span class="flip-card__hint">הקש להפוך</span>
+          </button>
+        </figure>
+      </div>
+
+      <p class="cards__hint">
+        <a href="#hero-form">אלה שלושה. עוד חמישה מחכים לך אחרי ההרשמה.</a>
+      </p>
+
+      <div class="back">
+        <div class="back__visual" aria-hidden="true">
+          <span class="back__card back__card--front">הצד<br />הראשון</span>
+          <span class="back__card back__card--back">?</span>
+        </div>
+        <div class="back__text">
+          <h3 class="back__title">לחלק מהקלפים יש גב.</h3>
+          <p class="back__desc">
+            שאלה שממשיכה לחפור בדיוק איפה שחשבת שסיימת.
+            לא לכל קלף יש, ולא כתוב לאיזה.<br />
+            <em>מגלים רק כשהופכים.</em>
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ======================================================================
+         4) המסע — קרוסלה (מחליפה את העדויות)
+         ====================================================================== -->
+    <section class="journey" id="journey" aria-label="המסע">
+      <p class="eyebrow">המסע</p>
+      <h2 class="section__title">איך ערב אחד משתנה.</h2>
+
+      <div class="journey__track" data-slider role="list">
+
+        <figure class="journey__slide" role="listitem">
+          <div class="journey__visual">
+            <img src="assets/sector-slide1.png" alt="אתה מכיר את הערב הזה" loading="lazy" width="1200" height="900" />
+          </div>
+          <figcaption class="journey__caption">אתה מכיר את הערב הזה.</figcaption>
+        </figure>
+
+        <figure class="journey__slide" role="listitem">
+          <div class="journey__visual">
+            <img src="assets/sector-slide2.png" alt="כולם פה. ואף אחד לא באמת" loading="lazy" width="1200" height="900" />
+          </div>
+          <figcaption class="journey__caption">כולם פה. ואף אחד לא באמת.</figcaption>
+        </figure>
+
+        <figure class="journey__slide" role="listitem">
+          <div class="journey__visual">
+            <img src="assets/sector-slide3.png" alt="מדברים על אתמול. על שישי הקרוב. על כלום" loading="lazy" width="1200" height="900" />
+          </div>
+          <figcaption class="journey__caption">מדברים על אתמול. על שישי הקרוב. על כלום.</figcaption>
+        </figure>
+
+        <figure class="journey__slide" role="listitem">
+          <div class="journey__visual">
+            <img src="assets/sector-slide4.png" alt="ואז מישהו מניח קלף באמצע השולחן" loading="lazy" width="1200" height="900" />
+          </div>
+          <figcaption class="journey__caption">ואז מישהו מניח קלף באמצע השולחן.</figcaption>
+        </figure>
+
+        <figure class="journey__slide" role="listitem">
+          <div class="journey__visual">
+            <img src="assets/landing-sector.png" alt="קלף רדוד · משפט" loading="lazy" width="744" height="1039" />
+          </div>
+          <figcaption class="journey__caption">משפט אחד. והחדר שותק.</figcaption>
+        </figure>
+
+        <figure class="journey__slide" role="listitem">
+          <div class="journey__visual">
+            <img src="assets/sector-slide6.png" alt="ואז מישהו עונה באמת. וזה הערב שזוכרים" loading="lazy" width="1200" height="900" />
+          </div>
+          <figcaption class="journey__caption">ואז מישהו עונה באמת. וזה הערב שזוכרים.</figcaption>
+        </figure>
+
+        <figure class="journey__slide journey__slide--cta" role="listitem">
+          <div class="journey__visual">
+            <img src="../assetsdeck.png" alt="חפיסת רדוד" loading="lazy" style="object-fit: contain; padding: 1.5rem; background: #0E0E0D;" />
+          </div>
+          <figcaption class="journey__caption">
+            רדוד. עד שמנסים לעמוד.
+            <a class="btn btn--primary" href="#hero-form">שריין מקום</a>
+          </figcaption>
+        </figure>
+
+      </div>
+
+      <div class="journey__nav" aria-hidden="true">
+        <button class="journey__arrow" data-slide="prev" type="button" aria-label="הקודם">→</button>
+        <button class="journey__arrow" data-slide="next" type="button" aria-label="הבא">←</button>
+      </div>
+    </section>
+
+    <!-- ======================================================================
+         5) רגעים שצריכים סדק (4 פריטים)
+         ====================================================================== -->
+    <section class="fit" id="what" aria-label="מתי שולפים קלף">
+      <p class="eyebrow">רגעים שצריכים סדק</p>
+      <h2 class="section__title">מתי שולפים קלף.</h2>
+      <ul class="fit__list">
+        <li class="fit__item">
+          <div class="fit__text">
+            <span class="fit__lead">עם עצמך.</span>
+            פנים אל פנים מול האמיתות שהסביבה מנסה למכור לך.
+          </div>
+        </li>
+        <li class="fit__item">
+          <div class="fit__text">
+            <span class="fit__lead">עם החבר'ה.</span>
+            קלף אחד באמצע השולחן. השתיקה שאחריו שווה יותר מהשיחה שלפניו.
+          </div>
+        </li>
+        <li class="fit__item">
+          <div class="fit__text">
+            <span class="fit__lead">בדייט.</span>
+            לגלות אם מי שיושב מולך מסוגל להחזיק אמת לא נוחה.
+          </div>
+        </li>
+        <li class="fit__item">
+          <div class="fit__text">
+            <span class="fit__lead">כמתנה.</span>
+            לא לכולם. רק למי שחייב להתעורר.
+          </div>
+        </li>
+      </ul>
+    </section>
+
+    <!-- ======================================================================
+         6) שלוש דרגות עומק
+         ====================================================================== -->
+    <section class="depths" id="how" aria-label="שלוש דרגות עומק">
+      <p class="eyebrow">איך זה בנוי</p>
+      <h2 class="section__title">שלוש דרגות עומק.</h2>
+
+      <div class="depths__scale">
+        <article class="depth" data-depth="1">
+          <header class="depth__head">
+            <span class="depth__node" aria-hidden="true"></span>
+            <h3 class="depth__name">מים רדודים</h3>
+            <span class="depth__count">20 קלפים</span>
+          </header>
+          <p class="depth__desc">טבילת רגל. אמיתות לא נוחות שישאירו שריטה קלה.</p>
+        </article>
+
+        <article class="depth" data-depth="2">
+          <header class="depth__head">
+            <span class="depth__node" aria-hidden="true"></span>
+            <h3 class="depth__name">מים עמוקים</h3>
+            <span class="depth__count">22 קלפים</span>
+          </header>
+          <p class="depth__desc">כאן מפסיקים להסכים. ניסויי מחשבה שמפצלים את השולחן.</p>
+        </article>
+
+        <article class="depth" data-depth="3">
+          <header class="depth__head">
+            <span class="depth__node" aria-hidden="true"></span>
+            <h3 class="depth__name">תהום</h3>
+            <span class="depth__count">18 קלפים</span>
+          </header>
+          <p class="depth__desc">אפוריזם, ווידויים ודילמות קיום שלא חוזרים מהם אותו הדבר.</p>
+        </article>
+      </div>
+    </section>
+
+    <!-- ======================================================================
+         7) מפרט
+         ====================================================================== -->
+    <section class="spec" id="spec" aria-label="מה בקופסה">
+      <p class="eyebrow">מפרט</p>
+      <h2 class="section__title">מה בקופסה.</h2>
+
+      <dl class="spec__grid">
+        <div class="spec__row">
+          <dt>קלפים</dt>
+          <dd>60 קלפים 100% מקוריים, בלי פילרים</dd>
+        </div>
+        <div class="spec__row">
+          <dt>סוגים</dt>
+          <dd>אפוריזם · אמת לא נוחה · דילמה · ניסוי מחשבה · ווידוי · פתגם</dd>
+        </div>
+        <div class="spec__row">
+          <dt>גב</dt>
+          <dd>רק לחלק מהקלפים, ולא כתוב לאיזה.</dd>
+        </div>
+        <div class="spec__row">
+          <dt>מהדורה</dt>
+          <dd>מהדורה ראשונה · הדפסה אחת</dd>
+        </div>
+        <div class="spec__row">
+          <dt>מחיר בהשקה</dt>
+          <dd>מ-₪149</dd>
+        </div>
+        <div class="spec__row">
+          <dt>שפה</dt>
+          <dd>עברית.</dd>
+        </div>
+      </dl>
+    </section>
+
+    <!-- ======================================================================
+         8) למי עשינו את זה (מניפסט)
+         ====================================================================== -->
+    <section class="manifest" id="manifest" aria-label="למי עשינו את זה">
+      <p class="eyebrow">למי עשינו את זה</p>
+      <div class="manifest__card">
+        <p>יש אחד בכל שולחן שהשיחות הרגילות קטנות עליו.</p>
+        <p>זה שעונה "הכל טוב" ומקווה שלא יאמינו לו.</p>
+        <p>שיש לו משפטים שמחכים שנים לשולחן הנכון.</p>
+        <p>שמרגיש הכי לבד דווקא כשכולם מסביב.</p>
+        <p>חיפשנו דרך להגיד לו שראינו אותו.</p>
+        <p class="manifest__close">יצאו מזה 60 קלפים.</p>
+      </div>
+    </section>
+
+    <!-- ======================================================================
+         9) טופס שני (סוגר)
+         ====================================================================== -->
+    <section class="waitlist-close" id="waitlist" aria-label="הרשמה">
+      <h2 class="section__title">המהדורה הראשונה.<br />הרשימה נכנסת ראשונה.</h2>
+
+      <ul class="hero__offer" aria-label="מה מקבלים בהרשמה">
+        <li>5 קלפים מהחפיסה, עכשיו, על המסך</li>
+        <li>כניסה 48 שעות לפני כולם ביום ההשקה</li>
+        <li>משלוח עד הבית חינם בחלון הפתיחה</li>
+      </ul>
+
+      <form class="lead-form" id="footer-lead-form" data-lead-form novalidate>
+        <div class="lead-form__group">
+          <label class="sr-only" for="footer-email">המייל שלך</label>
+          <input
+            type="email"
+            id="footer-email"
+            name="email"
+            class="lead-form__input"
+            placeholder="המייל שלך."
+            required
+            autocomplete="email"
+            inputmode="email"
+          />
+          <button type="submit" class="btn btn--primary lead-form__btn">שריין מקום וקבל 5 קלפים</button>
+        </div>
+        <p class="lead-form__micro">בלי ספאם. רק הקלפים, ואז שקט.</p>
+        <div class="lead-form__success" aria-live="polite">
+          <p class="lead-form__success-title">נרשמת. הקלפים שלך מוכנים.</p>
+          <a class="btn btn--primary" href="hamisha/">פתח את הקלפים</a>
+        </div>
+      </form>
+    </section>
+
+    <!-- ======================================================================
+         10) FAQ מותאם ל"בקרוב"
+         ====================================================================== -->
+    <section class="faq" id="faq" aria-label="שאלות לפני שצוללים">
+      <p class="eyebrow">לפני שצוללים</p>
+      <h2 class="section__title">שאלות לפני שצוללים.</h2>
+
+      <div class="faq__list" data-faq>
+
+        <details class="faq__item">
+          <summary class="faq__q">מתי זה יוצא?</summary>
+          <div class="faq__a">
+            המהדורה הראשונה בייצור עכשיו. הנרשמים יקבלו את התאריך ראשונים, ויכנסו 48 שעות לפני כולם.
+          </div>
+        </details>
+
+        <details class="faq__item">
+          <summary class="faq__q">כמה זה יעלה?</summary>
+          <div class="faq__a">
+            מ-₪149 לחפיסה. משלוח כלול.
+          </div>
+        </details>
+
+        <details class="faq__item">
+          <summary class="faq__q">מה מקבלים בהרשמה?</summary>
+          <div class="faq__a">
+            חמישה קלפים מהחפיסה, עכשיו, על המסך. אחד רדוד, שניים עמוקים, אחד מהתהום. ואחד שתצטרך לשבת איתו רגע.
+          </div>
+        </details>
+
+        <details class="faq__item">
+          <summary class="faq__q">זה עוד קלפי שאלות לזוגות?</summary>
+          <div class="faq__a">
+            לא. לא זוגי, לא נועז, לא טריוויה. 60 טריגרים מקוריים בשלוש דרגות עומק — לשולחן, לדייט, או לבד מול עצמך.
+          </div>
+        </details>
+
+        <details class="faq__item">
+          <summary class="faq__q">למה רק 60 קלפים?</summary>
+          <div class="faq__a">
+            כי כל קלף עבר עריכה עד שנשאר רק מה שעובד. יש חפיסות עם 160 קלפים — ספרו כמה מהם תזכרו למחרת.
+          </div>
+        </details>
+
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ========================================================================
+       פס צף — מובייל: שריין מקום
+       ======================================================================== -->
+  <div class="stickybar" data-stickybar hidden>
+    <div class="stickybar__info">
+      <span class="stickybar__price">5 קלפים עכשיו</span>
+      <span class="stickybar__note">מהדורה ראשונה · בקרוב</span>
+    </div>
+    <a class="stickybar__cta" href="#hero-form">שריין מקום · 5 קלפים עכשיו</a>
+  </div>
+
+  <!-- ========================================================================
+       FOOTER
+       ======================================================================== -->
+  <footer class="footer">
+    <img class="logo logo--img logo--sm" src="assets/logo.radud.png" alt="רדוד" width="100" height="100" />
+    <p class="footer__status">
+      מהדורה ראשונה · בקרוב · <a href="#hero-form">שריין מקום</a>
+    </p>
+    <nav class="footer__links" aria-label="קישורי תחתית">
+      <a href="#">תקנון</a>
+      <a href="#">הצהרת נגישות</a>
+      <a href="#" data-email>צור קשר</a>
+      <a href="#" data-wa target="_blank" rel="noopener">וואטסאפ</a>
+    </nav>
+    <p class="footer__fine">רדוד — עד שמנסים לעמוד.</p>
+  </footer>
+
+  <!-- ========================================================================
+       פופ-אפ יציאה / הרשמה (25 שנ' או 40% גלילה)
+       ======================================================================== -->
+  <div class="popup-overlay" id="lead-popup" hidden aria-hidden="true">
+    <div class="popup-content" role="dialog" aria-labelledby="popup-title" aria-modal="true">
+      <button class="popup-close" id="popup-close" type="button" aria-label="סגור">✕</button>
+
+      <h2 class="lead-magnet__title" id="popup-title">שריין מקום. קבל 5 קלפים.</h2>
+      <p class="lead-magnet__desc">אחד רדוד, שניים עמוקים, אחד מהתהום. ואחד שתצטרך לשבת איתו רגע.</p>
+
+      <ul class="hero__offer" aria-label="מה מקבלים בהרשמה">
+        <li>5 קלפים מהחפיסה, עכשיו, על המסך</li>
+        <li>כניסה 48 שעות לפני כולם ביום ההשקה</li>
+        <li>משלוח עד הבית חינם בחלון הפתיחה</li>
+      </ul>
+
+      <form class="lead-form" id="popup-lead-form" data-lead-form novalidate>
+        <div class="lead-form__group lead-form__group--col">
+          <label class="sr-only" for="popup-email">המייל שלך</label>
+          <input
+            type="email"
+            id="popup-email"
+            name="email"
+            class="lead-form__input"
+            placeholder="המייל שלך."
+            required
+            autocomplete="email"
+            inputmode="email"
+          />
+          <button type="submit" class="btn btn--primary lead-form__btn">שריין מקום וקבל 5 קלפים</button>
+        </div>
+        <p class="lead-form__micro">בלי ספאם. רק הקלפים, ואז שקט.</p>
+        <div class="lead-form__success" aria-live="polite">
+          <p class="lead-form__success-title">נרשמת. הקלפים שלך מוכנים.</p>
+          <a class="btn btn--primary" href="hamisha/">פתח את הקלפים</a>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <script src="script.js?v=pre-1.1"></script>
+</body>
+</html>
