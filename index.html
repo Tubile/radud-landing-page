@@ -3,7 +3,7 @@
   רדוד — דף נחיתה (V2)
   ----------------------------------------------------------------------------
   Vanilla HTML/CSS/JS. בלי framework, בלי build step. מתאים ל-GitHub Pages.
-  כל מה שמשתנה לעיתים קרובות (טריגרים, וואטסאפ, מייל, API, מלאי) — ב-CONFIG בראש script.js.
+  כל מה שמשתנה לעיתים קרובות (וואטסאפ, מייל, PayMe) — ב-CONFIG בראש script.js.
   כל מקום שדורש החלפה ידנית מסומן ב-PLACEHOLDER / TODO.
 -->
 
@@ -36,8 +36,7 @@
        ======================================================================== -->
   <header class="nav" aria-label="ניווט ראשי">
     <a class="nav__home" href="#hero" aria-label="רדוד — לראש הדף">
-      <span class="logo" data-logo aria-hidden="true"></span>
-      <span class="sr-only">רדוד</span>
+      <img class="logo logo--img" src="radud-assets/logo.radud.png" alt="רדוד" width="140" height="140" />
     </a>
     <a class="nav__cta" href="#pricing">לרכישה</a>
   </header>
@@ -51,7 +50,7 @@
 
       <p class="hero__edition">
         <span class="hero__edition-badge">מהדורה מוגבלת</span>
-        1000 עותקים · <span class="hero__count" data-remaining>—</span>
+        1000 עותקים
       </p>
 
       <h1 class="hero__title">מה היית שואל,<br />אם לא היית מפחד מהתשובה?</h1>
@@ -70,14 +69,6 @@
         <span class="hero__reflection" aria-hidden="true"></span>
       </figure>
 
-      <!-- קלף אחד, על החשבון — טעימה מהמוצר בלחיצה אחת -->
-      <div class="flip" aria-label="הפכו קלף אחד">
-        <p class="flip__hint" data-flip-hint>קלף אחד, על החשבון.</p>
-        <div class="flip__row flip__row--single" data-flip-row>
-          <!-- הקלף נבנה ב-script.js (טריגר אקראי אמיתי מהחפיסה) -->
-        </div>
-      </div>
-
       <!-- קריאות לפעולה — ראשית + משנית -->
       <div class="hero__ctas">
         <a class="btn btn--primary" href="#pricing">לרכישה · מ-₪149</a>
@@ -94,16 +85,14 @@
       <h2 class="section__title">הצצה לקלפים:</h2>
 
       <div class="cards__gallery" data-gallery>
-        <!-- PLACEHOLDER: שלושה תקריבים אמיתיים של קלפים (צילום סטודיו, אותה תאורה של הרנדר).
-             החלף כל ph--card ב: <img src="assets/card-1.jpg" alt="קלף רדוד — תקריב" loading="lazy" /> -->
         <figure class="cards__shot">
-          <div class="ph ph--card"><span class="ph__label">תקריב קלף · דרגה 1</span></div>
+          <img class="cards__img" src="radud-assets/takriv klaf darga 1.png" alt="תקריב קלף רדוד · דרגה 1 — מים רדודים" loading="lazy" width="744" height="1039" />
         </figure>
         <figure class="cards__shot cards__shot--mid">
-          <div class="ph ph--card"><span class="ph__label">תקריב קלף · דרגה 2</span></div>
+          <img class="cards__img" src="radud-assets/takriv klaf darga 2.png" alt="תקריב קלף רדוד · דרגה 2 — מים עמוקים" loading="lazy" width="744" height="1039" />
         </figure>
         <figure class="cards__shot">
-          <div class="ph ph--card"><span class="ph__label">תקריב קלף · דרגה 3</span></div>
+          <img class="cards__img" src="radud-assets/takriv klaf darga 3.png" alt="תקריב קלף רדוד · דרגה 3 — תהום" loading="lazy" width="744" height="1039" />
         </figure>
       </div>
 
@@ -132,22 +121,33 @@
       <h2 class="section__title">מי שכבר נכנס למים.</h2>
 
       <div class="proof__track" data-slider role="list">
-        <!-- PLACEHOLDER: תמונות UGC + ציטוטים אמיתיים בלבד. -->
         <figure class="quote" role="listitem">
-          <div class="ph ph--ugc" role="img" aria-label="תמונת משתמש"><span class="ph__label">UGC</span></div>
+          <img class="quote__img" src="radud-assets/client-pic1.png" alt="רדוד אצל לקוח — קופסה וקלף על שולחן" loading="lazy" width="941" height="1672" />
           <blockquote>שלפנו קלף אחד בארוחה. שעתיים אחרי, עדיין דיברנו.</blockquote>
           <figcaption>— [שם אמיתי, עיר]</figcaption>
         </figure>
 
         <figure class="quote" role="listitem">
-          <div class="ph ph--ugc" role="img" aria-label="תמונת משתמש"><span class="ph__label">UGC</span></div>
+          <img class="quote__img" src="radud-assets/client-pic2.png" alt="רדוד אצל לקוח — תמונת משתמש" loading="lazy" width="941" height="1672" />
           <blockquote>קניתי כמתנה. בסוף הערב הם שאלו איפה משיגים עוד אחד.</blockquote>
           <figcaption>— [שם אמיתי, עיר]</figcaption>
         </figure>
 
         <figure class="quote" role="listitem">
-          <div class="ph ph--ugc" role="img" aria-label="תמונת משתמש"><span class="ph__label">UGC</span></div>
+          <img class="quote__img" src="radud-assets/client-pic3.png" alt="רדוד אצל לקוח — תמונת משתמש" loading="lazy" width="941" height="1672" />
           <blockquote>חשבתי שזה עוד גימיק. הקלף השלישי כבר נגע במשהו אמיתי.</blockquote>
+          <figcaption>— [שם אמיתי, עיר]</figcaption>
+        </figure>
+
+        <figure class="quote" role="listitem">
+          <img class="quote__img" src="radud-assets/client-pic4.png" alt="רדוד אצל לקוח — תמונת משתמש" loading="lazy" width="941" height="1672" />
+          <blockquote>פתחנו קלף אחד. לא סגרנו את הערב באותו מקום שבו התחלנו.</blockquote>
+          <figcaption>— [שם אמיתי, עיר]</figcaption>
+        </figure>
+
+        <figure class="quote" role="listitem">
+          <img class="quote__img" src="radud-assets/client-pic5.png" alt="רדוד אצל לקוח — תמונת משתמש" loading="lazy" width="941" height="1672" />
+          <blockquote>החפיסה הזו לא נותנת מנוחה. בדיוק בשביל זה קניתי אותה.</blockquote>
           <figcaption>— [שם אמיתי, עיר]</figcaption>
         </figure>
       </div>
@@ -320,6 +320,24 @@
           <p class="pack__price"><span class="pack__amount">₪149</span></p>
           <p class="pack__ship">משלוח לנקודת איסוף כלול</p>
           <button class="pack__cta" type="button" data-buy="single">לרכישה</button>
+          <ul class="pack__payments" aria-label="אמצעי תשלום">
+            <li>
+              <!-- ICON: bit.png — replace src when brand asset is ready -->
+              <img class="pack__pay-icon" src="radud-assets/payment-bit.svg" alt="ביט" width="56" height="28" loading="lazy" decoding="async" />
+            </li>
+            <li>
+              <!-- ICON: cards.png / visa-mastercard.png -->
+              <img class="pack__pay-icon" src="radud-assets/payment-cards.svg" alt="כרטיסי אשראי — ויזה ומאסטרקארד" width="72" height="28" loading="lazy" decoding="async" />
+            </li>
+            <li>
+              <!-- ICON: apple-pay.png -->
+              <img class="pack__pay-icon" src="radud-assets/payment-apple-pay.svg" alt="Apple Pay" width="64" height="28" loading="lazy" decoding="async" />
+            </li>
+            <li>
+              <!-- ICON: google-pay.png -->
+              <img class="pack__pay-icon" src="radud-assets/payment-google-pay.svg" alt="Google Pay" width="64" height="28" loading="lazy" decoding="async" />
+            </li>
+          </ul>
         </article>
 
         <article class="pack pack--featured" data-pack="duo" tabindex="0" role="button" aria-pressed="true">
@@ -332,6 +350,24 @@
           </p>
           <p class="pack__ship">משלוח לנקודת איסוף חינם</p>
           <button class="pack__cta" type="button" data-buy="duo">לרכישה</button>
+          <ul class="pack__payments" aria-label="אמצעי תשלום">
+            <li>
+              <!-- ICON: bit.png — replace src when brand asset is ready -->
+              <img class="pack__pay-icon" src="radud-assets/payment-bit.svg" alt="ביט" width="56" height="28" loading="lazy" decoding="async" />
+            </li>
+            <li>
+              <!-- ICON: cards.png / visa-mastercard.png -->
+              <img class="pack__pay-icon" src="radud-assets/payment-cards.svg" alt="כרטיסי אשראי — ויזה ומאסטרקארד" width="72" height="28" loading="lazy" decoding="async" />
+            </li>
+            <li>
+              <!-- ICON: apple-pay.png -->
+              <img class="pack__pay-icon" src="radud-assets/payment-apple-pay.svg" alt="Apple Pay" width="64" height="28" loading="lazy" decoding="async" />
+            </li>
+            <li>
+              <!-- ICON: google-pay.png -->
+              <img class="pack__pay-icon" src="radud-assets/payment-google-pay.svg" alt="Google Pay" width="64" height="28" loading="lazy" decoding="async" />
+            </li>
+          </ul>
         </article>
 
         <article class="pack" data-pack="trio" tabindex="0" role="button" aria-pressed="false">
@@ -343,6 +379,24 @@
           </p>
           <p class="pack__ship">משלוח עד הבית חינם</p>
           <button class="pack__cta" type="button" data-buy="trio">לרכישה</button>
+          <ul class="pack__payments" aria-label="אמצעי תשלום">
+            <li>
+              <!-- ICON: bit.png — replace src when brand asset is ready -->
+              <img class="pack__pay-icon" src="radud-assets/payment-bit.svg" alt="ביט" width="56" height="28" loading="lazy" decoding="async" />
+            </li>
+            <li>
+              <!-- ICON: cards.png / visa-mastercard.png -->
+              <img class="pack__pay-icon" src="radud-assets/payment-cards.svg" alt="כרטיסי אשראי — ויזה ומאסטרקארד" width="72" height="28" loading="lazy" decoding="async" />
+            </li>
+            <li>
+              <!-- ICON: apple-pay.png -->
+              <img class="pack__pay-icon" src="radud-assets/payment-apple-pay.svg" alt="Apple Pay" width="64" height="28" loading="lazy" decoding="async" />
+            </li>
+            <li>
+              <!-- ICON: google-pay.png -->
+              <img class="pack__pay-icon" src="radud-assets/payment-google-pay.svg" alt="Google Pay" width="64" height="28" loading="lazy" decoding="async" />
+            </li>
+          </ul>
         </article>
 
       </div>
@@ -408,7 +462,7 @@
   <div class="stickybar" data-stickybar hidden>
     <div class="stickybar__info">
       <span class="stickybar__price">מ-₪149</span>
-      <span class="stickybar__note">נותרו <span data-remaining>—</span> מתוך 1000</span>
+      <span class="stickybar__note">מהדורה מוגבלת</span>
     </div>
     <a class="stickybar__cta" href="#pricing">לרכישה</a>
   </div>
@@ -417,7 +471,7 @@
        FOOTER
        ======================================================================== -->
   <footer class="footer">
-    <span class="logo logo--sm" data-logo aria-hidden="true"></span>
+    <img class="logo logo--img logo--sm" src="radud-assets/logo.radud.png" alt="רדוד" width="100" height="100" />
     <nav class="footer__links" aria-label="קישורי תחתית">
       <a href="#">תקנון</a>
       <a href="#">הצהרת נגישות</a>
@@ -445,6 +499,31 @@
         </div>
         <p class="lead-form__micro">בלי ספאם. רק הקלפים, ואז שקט.</p>
       </form>
+    </div>
+  </div>
+
+  <!-- ========================================================================
+       PayMe checkout modal (iframe) — כבוי עד CONFIG.payme.enabled = true
+       Docs: https://docs.payme.io · keys: partners@payme.io
+       Frontend: רק payme_client_key / Payment Link. בלי secret keys.
+       ======================================================================== -->
+  <div class="popup-overlay payme-overlay" id="payme-checkout" hidden aria-hidden="true">
+    <div class="payme-modal" role="dialog" aria-modal="true" aria-labelledby="payme-title">
+      <header class="payme-modal__head">
+        <h2 class="payme-modal__title" id="payme-title">תשלום מאובטח</h2>
+        <button class="popup-close" id="payme-close" type="button" aria-label="סגור">✕</button>
+      </header>
+      <!-- iframe src מוגדר ב-JS מתוך CONFIG.payme.paymentLinks[packId] -->
+      <iframe
+        id="payme-iframe"
+        class="payme-modal__iframe"
+        title="תשלום PayMe"
+        src="about:blank"
+        allow="payment *"
+        loading="lazy"
+        referrerpolicy="no-referrer-when-downgrade"
+      ></iframe>
+      <p class="payme-modal__note">תשלום מאובטח דרך PayMe · ביט או אשראי</p>
     </div>
   </div>
   
