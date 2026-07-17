@@ -22,7 +22,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Frank+Ruhl+Libre:wght@400;500;700;900&family=Heebo:wght@300;400;500;700&display=swap" rel="stylesheet" />
 
-  <link rel="stylesheet" href="styles.css?v=pre-1.2" />
+  <link rel="stylesheet" href="css/styles.css?v=pre-1.3" />
 </head>
 <body>
 
@@ -34,7 +34,7 @@
        ======================================================================== -->
   <header class="nav" aria-label="ניווט ראשי">
     <a class="nav__home" href="#hero" aria-label="רדוד — לראש הדף">
-      <img class="logo logo--img" src="pre-launch/assets/logo.radud.png" alt="רדוד" width="140" height="140" />
+      <img class="logo logo--img" src="assets/brand/logo.radud.png" alt="רדוד" width="140" height="140" />
     </a>
     <a class="nav__cta" href="#hero-form">שריין מקום</a>
   </header>
@@ -60,7 +60,7 @@
 
       <figure class="hero__product">
         <span class="hero__halo" aria-hidden="true"></span>
-        <img src="../assetsdeck.png" alt="חפיסת רדוד" style="width: 100%; max-width: 280px; margin: 0 auto; display: block;" />
+        <img src="assets/ui/assetsdeck.png" alt="חפיסת רדוד" style="width: 100%; max-width: 280px; margin: 0 auto; display: block;" />
         <span class="hero__reflection" aria-hidden="true"></span>
       </figure>
 
@@ -117,51 +117,66 @@
     </section>
 
     <!-- ======================================================================
-         3) הצצה לקלפים
+         3) שלוש דרגות עומק — גלריית קלפים + מידע (מאוחד)
          ====================================================================== -->
-    <section class="cards" id="cards" aria-label="הקלפים עצמם">
-      <p class="eyebrow">המוצר, מקרוב</p>
-      <h2 class="section__title">הצצה לקלפים:</h2>
+    <section class="cards" id="cards" aria-label="שלוש דרגות עומק">
+      <p class="eyebrow">איך זה בנוי</p>
+      <h2 class="section__title">שלוש דרגות עומק.</h2>
 
       <div class="cards__gallery" data-gallery>
         <figure class="cards__shot">
+          <header class="cards__meta">
+            <h3 class="cards__level">מים רדודים</h3>
+            <span class="depth__count">20 קלפים</span>
+          </header>
           <button type="button" class="flip-card" data-flip aria-label="הפוך קלף — מים רדודים">
             <span class="flip-card__inner">
               <span class="flip-card__face flip-card__face--front">
-                <img src="../backfeaturecard.png" alt="" width="744" height="1039" draggable="false" />
+                <img src="assets/ui/backfeaturecard.png" alt="" width="744" height="1039" draggable="false" />
               </span>
               <span class="flip-card__face flip-card__face--back">
-                <img src="pre-launch/assets/landing-sector.png" alt="תקריב קלף רדוד · מים רדודים" width="744" height="1039" draggable="false" />
+                <img src="assets/ui/landing-sector.png" alt="תקריב קלף רדוד · מים רדודים" width="744" height="1039" draggable="false" />
               </span>
             </span>
             <span class="flip-card__hint">הקש להפוך</span>
           </button>
+          <p class="cards__desc">טבילת רגל. אמיתות לא נוחות שישאירו שריטה קלה.</p>
         </figure>
         <figure class="cards__shot cards__shot--mid">
+          <header class="cards__meta">
+            <h3 class="cards__level">מים עמוקים</h3>
+            <span class="depth__count">22 קלפים</span>
+          </header>
           <button type="button" class="flip-card" data-flip aria-label="הפוך קלף — מים עמוקים">
             <span class="flip-card__inner">
               <span class="flip-card__face flip-card__face--front">
-                <img src="../backfeaturecard.png" alt="" width="744" height="1039" draggable="false" />
+                <img src="assets/ui/backfeaturecard.png" alt="" width="744" height="1039" draggable="false" />
               </span>
               <span class="flip-card__face flip-card__face--back">
-                <img src="pre-launch/assets/landing-sector2.png" alt="תקריב קלף רדוד · מים עמוקים" width="744" height="1039" draggable="false" />
+                <img src="assets/ui/landing-sector2.png" alt="תקריב קלף רדוד · מים עמוקים" width="744" height="1039" draggable="false" />
               </span>
             </span>
             <span class="flip-card__hint">הקש להפוך</span>
           </button>
+          <p class="cards__desc">כאן מפסיקים להסכים. ניסויי מחשבה שמפצלים את השולחן.</p>
         </figure>
         <figure class="cards__shot">
+          <header class="cards__meta">
+            <h3 class="cards__level">תהום</h3>
+            <span class="depth__count">18 קלפים</span>
+          </header>
           <button type="button" class="flip-card" data-flip aria-label="הפוך קלף — תהום">
             <span class="flip-card__inner">
               <span class="flip-card__face flip-card__face--front">
-                <img src="../backfeaturecard.png" alt="" width="744" height="1039" draggable="false" />
+                <img src="assets/ui/backfeaturecard.png" alt="" width="744" height="1039" draggable="false" />
               </span>
               <span class="flip-card__face flip-card__face--back">
-                <img src="pre-launch/assets/landing-sector3.png" alt="תקריב קלף רדוד · תהום" width="744" height="1039" draggable="false" />
+                <img src="assets/ui/landing-sector3.png" alt="תקריב קלף רדוד · תהום" width="744" height="1039" draggable="false" />
               </span>
             </span>
             <span class="flip-card__hint">הקש להפוך</span>
           </button>
+          <p class="cards__desc">אפוריזם, ווידויים ודילמות קיום שלא חוזרים מהם אותו הדבר.</p>
         </figure>
       </div>
 
@@ -186,147 +201,7 @@
     </section>
 
     <!-- ======================================================================
-         4) המסע — קרוסלה (מחליפה את העדויות)
-         ====================================================================== -->
-    <section class="journey" id="journey" aria-label="המסע">
-      <p class="eyebrow">המסע</p>
-      <h2 class="section__title">איך ערב אחד משתנה.</h2>
-
-      <div class="journey__track" data-slider role="list">
-
-        <figure class="journey__slide" role="listitem">
-          <div class="journey__visual">
-            <img src="pre-launch/assets/sector-slide1.png" alt="אתה מכיר את הערב הזה" loading="lazy" width="1200" height="900" />
-          </div>
-          <figcaption class="journey__caption">אתה מכיר את הערב הזה.</figcaption>
-        </figure>
-
-        <figure class="journey__slide" role="listitem">
-          <div class="journey__visual">
-            <img src="pre-launch/assets/sector-slide2.png" alt="כולם פה. ואף אחד לא באמת" loading="lazy" width="1200" height="900" />
-          </div>
-          <figcaption class="journey__caption">כולם פה. ואף אחד לא באמת.</figcaption>
-        </figure>
-
-        <figure class="journey__slide" role="listitem">
-          <div class="journey__visual">
-            <img src="pre-launch/assets/sector-slide3.png" alt="מדברים על אתמול. על שישי הקרוב. על כלום" loading="lazy" width="1200" height="900" />
-          </div>
-          <figcaption class="journey__caption">מדברים על אתמול. על שישי הקרוב. על כלום.</figcaption>
-        </figure>
-
-        <figure class="journey__slide" role="listitem">
-          <div class="journey__visual">
-            <img src="pre-launch/assets/sector-slide4.png" alt="ואז מישהו מניח קלף באמצע השולחן" loading="lazy" width="1200" height="900" />
-          </div>
-          <figcaption class="journey__caption">ואז מישהו מניח קלף באמצע השולחן.</figcaption>
-        </figure>
-
-        <figure class="journey__slide" role="listitem">
-          <div class="journey__visual">
-            <img src="pre-launch/assets/landing-sector.png" alt="קלף רדוד · משפט" loading="lazy" width="744" height="1039" />
-          </div>
-          <figcaption class="journey__caption">משפט אחד. והחדר שותק.</figcaption>
-        </figure>
-
-        <figure class="journey__slide" role="listitem">
-          <div class="journey__visual">
-            <img src="pre-launch/assets/sector-slide6.png" alt="ואז מישהו עונה באמת. וזה הערב שזוכרים" loading="lazy" width="1200" height="900" />
-          </div>
-          <figcaption class="journey__caption">ואז מישהו עונה באמת. וזה הערב שזוכרים.</figcaption>
-        </figure>
-
-        <figure class="journey__slide journey__slide--cta" role="listitem">
-          <div class="journey__visual">
-            <img src="../assetsdeck.png" alt="חפיסת רדוד" loading="lazy" style="object-fit: contain; padding: 1.5rem; background: #0E0E0D;" />
-          </div>
-          <figcaption class="journey__caption">
-            רדוד. עד שמנסים לעמוד.
-            <a class="btn btn--primary" href="#hero-form">שריין מקום</a>
-          </figcaption>
-        </figure>
-
-      </div>
-
-      <div class="journey__nav" aria-hidden="true">
-        <button class="journey__arrow" data-slide="prev" type="button" aria-label="הקודם">→</button>
-        <button class="journey__arrow" data-slide="next" type="button" aria-label="הבא">←</button>
-      </div>
-    </section>
-
-    <!-- ======================================================================
-         5) רגעים שצריכים סדק (4 פריטים)
-         ====================================================================== -->
-    <section class="fit" id="what" aria-label="מתי שולפים קלף">
-      <p class="eyebrow">רגעים שצריכים סדק</p>
-      <h2 class="section__title">מתי שולפים קלף.</h2>
-      <ul class="fit__list">
-        <li class="fit__item">
-          <div class="fit__text">
-            <span class="fit__lead">עם עצמך.</span>
-            פנים אל פנים מול האמיתות שהסביבה מנסה למכור לך.
-          </div>
-        </li>
-        <li class="fit__item">
-          <div class="fit__text">
-            <span class="fit__lead">עם החבר'ה.</span>
-            קלף אחד באמצע השולחן. השתיקה שאחריו שווה יותר מהשיחה שלפניו.
-          </div>
-        </li>
-        <li class="fit__item">
-          <div class="fit__text">
-            <span class="fit__lead">בדייט.</span>
-            לגלות אם מי שיושב מולך מסוגל להחזיק אמת לא נוחה.
-          </div>
-        </li>
-        <li class="fit__item">
-          <div class="fit__text">
-            <span class="fit__lead">כמתנה.</span>
-            לא לכולם. רק למי שחייב להתעורר.
-          </div>
-        </li>
-      </ul>
-    </section>
-
-    <!-- ======================================================================
-         6) שלוש דרגות עומק
-         ====================================================================== -->
-    <section class="depths" id="how" aria-label="שלוש דרגות עומק">
-      <p class="eyebrow">איך זה בנוי</p>
-      <h2 class="section__title">שלוש דרגות עומק.</h2>
-
-      <div class="depths__scale">
-        <article class="depth" data-depth="1">
-          <header class="depth__head">
-            <span class="depth__node" aria-hidden="true"></span>
-            <h3 class="depth__name">מים רדודים</h3>
-            <span class="depth__count">20 קלפים</span>
-          </header>
-          <p class="depth__desc">טבילת רגל. אמיתות לא נוחות שישאירו שריטה קלה.</p>
-        </article>
-
-        <article class="depth" data-depth="2">
-          <header class="depth__head">
-            <span class="depth__node" aria-hidden="true"></span>
-            <h3 class="depth__name">מים עמוקים</h3>
-            <span class="depth__count">22 קלפים</span>
-          </header>
-          <p class="depth__desc">כאן מפסיקים להסכים. ניסויי מחשבה שמפצלים את השולחן.</p>
-        </article>
-
-        <article class="depth" data-depth="3">
-          <header class="depth__head">
-            <span class="depth__node" aria-hidden="true"></span>
-            <h3 class="depth__name">תהום</h3>
-            <span class="depth__count">18 קלפים</span>
-          </header>
-          <p class="depth__desc">אפוריזם, ווידויים ודילמות קיום שלא חוזרים מהם אותו הדבר.</p>
-        </article>
-      </div>
-    </section>
-
-    <!-- ======================================================================
-         7) מפרט
+         4) מפרט — מה בקופסה (מיד אחרי הקלפים)
          ====================================================================== -->
     <section class="spec" id="spec" aria-label="מה בקופסה">
       <p class="eyebrow">מפרט</p>
@@ -361,17 +236,132 @@
     </section>
 
     <!-- ======================================================================
-         8) למי עשינו את זה (מניפסט)
+         5) המסע — קרוסלה
+         ====================================================================== -->
+    <section class="journey" id="journey" aria-label="המסע">
+      <p class="eyebrow">המסע</p>
+      <h2 class="section__title">איך ערב אחד משתנה.</h2>
+
+      <div class="journey__track" data-slider role="list">
+
+        <figure class="journey__slide" role="listitem">
+          <div class="journey__visual">
+            <img src="assets/ui/sector-slide1.png" alt="אתה מכיר את הערב הזה" loading="lazy" width="1200" height="900" />
+          </div>
+          <figcaption class="journey__caption">אתה מכיר את הערב הזה.</figcaption>
+        </figure>
+
+        <figure class="journey__slide" role="listitem">
+          <div class="journey__visual">
+            <img src="assets/ui/sector-slide2.png" alt="כולם פה. ואף אחד לא באמת" loading="lazy" width="1200" height="900" />
+          </div>
+          <figcaption class="journey__caption">כולם פה. ואף אחד לא באמת.</figcaption>
+        </figure>
+
+        <figure class="journey__slide" role="listitem">
+          <div class="journey__visual">
+            <img src="assets/ui/sector-slide3.png" alt="מדברים על אתמול. על שישי הקרוב. על כלום" loading="lazy" width="1200" height="900" />
+          </div>
+          <figcaption class="journey__caption">מדברים על אתמול. על שישי הקרוב. על כלום.</figcaption>
+        </figure>
+
+        <figure class="journey__slide" role="listitem">
+          <div class="journey__visual">
+            <img src="assets/ui/sector-slide4.png" alt="ואז מישהו מניח קלף באמצע השולחן" loading="lazy" width="1200" height="900" />
+          </div>
+          <figcaption class="journey__caption">ואז מישהו מניח קלף באמצע השולחן.</figcaption>
+        </figure>
+
+        <figure class="journey__slide" role="listitem">
+          <div class="journey__visual">
+            <img src="assets/ui/landing-sector.png" alt="קלף רדוד · משפט" loading="lazy" width="744" height="1039" />
+          </div>
+          <figcaption class="journey__caption">משפט אחד. והחדר שותק.</figcaption>
+        </figure>
+
+        <figure class="journey__slide" role="listitem">
+          <div class="journey__visual">
+            <img src="assets/ui/sector-slide6.png" alt="ואז מישהו עונה באמת. וזה הערב שזוכרים" loading="lazy" width="1200" height="900" />
+          </div>
+          <figcaption class="journey__caption">ואז מישהו עונה באמת. וזה הערב שזוכרים.</figcaption>
+        </figure>
+
+        <figure class="journey__slide journey__slide--cta" role="listitem">
+          <div class="journey__visual">
+            <img src="assets/ui/assetsdeck.png" alt="חפיסת רדוד" loading="lazy" style="object-fit: contain; padding: 1.5rem; background: #0E0E0D;" />
+          </div>
+          <figcaption class="journey__caption">
+            רדוד. עד שמנסים לעמוד.
+            <a class="btn btn--primary" href="#hero-form">שריין מקום</a>
+          </figcaption>
+        </figure>
+
+      </div>
+
+      <div class="journey__nav" aria-hidden="true">
+        <button class="journey__arrow" data-slide="prev" type="button" aria-label="הקודם">→</button>
+        <button class="journey__arrow" data-slide="next" type="button" aria-label="הבא">←</button>
+      </div>
+    </section>
+
+    <!-- ======================================================================
+         6) רגעים שצריכים סדק (+ תמונות)
+         ====================================================================== -->
+    <section class="fit" id="what" aria-label="מתי שולפים קלף">
+      <p class="eyebrow">רגעים שצריכים סדק</p>
+      <h2 class="section__title">מתי שולפים קלף.</h2>
+      <ul class="fit__list">
+        <li class="fit__item">
+          <img class="fit__img" src="assets/ui/landing-moment-alone.png" alt="לבד מול הקלף" width="110" height="110" loading="lazy" />
+          <div class="fit__text">
+            <span class="fit__lead">עם עצמך.</span>
+            פנים אל פנים מול האמיתות שהסביבה מנסה למכור לך.
+          </div>
+        </li>
+        <li class="fit__item">
+          <img class="fit__img" src="assets/ui/landing-moment-friends.png" alt="קלף באמצע שולחן חברים" width="110" height="110" loading="lazy" />
+          <div class="fit__text">
+            <span class="fit__lead">עם החבר'ה.</span>
+            קלף אחד באמצע השולחן. השתיקה שאחריו שווה יותר מהשיחה שלפניו.
+          </div>
+        </li>
+        <li class="fit__item">
+          <img class="fit__img" src="assets/ui/landing-moment-date.png" alt="קלף בדייט" width="110" height="110" loading="lazy" />
+          <div class="fit__text">
+            <span class="fit__lead">בדייט.</span>
+            לגלות אם מי שיושב מולך מסוגל להחזיק אמת לא נוחה.
+          </div>
+        </li>
+        <li class="fit__item">
+          <img class="fit__img" src="assets/ui/landing-moment-gift.png" alt="חפיסת רדוד כמתנה" width="110" height="110" loading="lazy" />
+          <div class="fit__text">
+            <span class="fit__lead">כמתנה.</span>
+            לא לכולם. רק למי שחייב להתעורר.
+          </div>
+        </li>
+      </ul>
+    </section>
+
+    <!-- ======================================================================
+         7) למי עשינו את זה — הקלף ה-61
          ====================================================================== -->
     <section class="manifest" id="manifest" aria-label="למי עשינו את זה">
       <p class="eyebrow">למי עשינו את זה</p>
+      <p class="manifest__lede">יש קלף אחד שלא נכנס לחפיסה.</p>
       <div class="manifest__card">
-        <p>יש אחד בכל שולחן שהשיחות הרגילות קטנות עליו.</p>
-        <p>זה שעונה "הכל טוב" ומקווה שלא יאמינו לו.</p>
-        <p>שיש לו משפטים שמחכים שנים לשולחן הנכון.</p>
-        <p>שמרגיש הכי לבד דווקא כשכולם מסביב.</p>
-        <p>חיפשנו דרך להגיד לו שראינו אותו.</p>
-        <p class="manifest__close">יצאו מזה 60 קלפים.</p>
+        <p class="manifest__level">עליך</p>
+        <div class="manifest__body">
+          <p>יש אחד בכל שולחן שהשיחות הרגילות קטנות עליו.</p>
+          <p>זה שעונה "הכל טוב" ומקווה שלא יאמינו לו.</p>
+          <p>שיש לו משפטים שמחכים שנים לשולחן הנכון.</p>
+          <p>שמרגיש הכי לבד דווקא כשכולם מסביב.</p>
+          <p>חיפשנו דרך להגיד לו שראינו אותו.</p>
+          <p class="manifest__close">יצאו מזה 60 קלפים.</p>
+        </div>
+        <div class="manifest__foot" aria-hidden="true">
+          <span class="manifest__rule"></span>
+          <span class="manifest__stamp">רדוד.</span>
+        </div>
       </div>
     </section>
 
@@ -493,15 +483,12 @@
        FOOTER
        ======================================================================== -->
   <footer class="footer">
-    <img class="logo logo--img logo--sm" src="pre-launch/assets/logo.radud.png" alt="רדוד" width="100" height="100" />
+    <img class="logo logo--img logo--sm" src="assets/brand/logo.radud.png" alt="רדוד" width="100" height="100" />
     <p class="footer__status">
       מהדורה ראשונה · בקרוב · <a href="#hero-form">שריין מקום</a>
     </p>
     <nav class="footer__links" aria-label="קישורי תחתית">
-      <a href="#">תקנון</a>
-      <a href="#">הצהרת נגישות</a>
-      <a href="#" data-email>צור קשר</a>
-      <a href="#" data-wa target="_blank" rel="noopener">וואטסאפ</a>
+      <a href="https://wa.me/972559400995?text=%D7%94%D7%99%D7%99%2C%20%D7%99%D7%A9%20%D7%9C%D7%99%20%D7%A9%D7%90%D7%9C%D7%94%20%D7%A2%D7%9C%20%D7%A8%D7%93%D7%95%D7%93" data-wa target="_blank" rel="noopener">וואטסאפ</a>
     </nav>
     <p class="footer__fine">רדוד — עד שמנסים לעמוד.</p>
   </footer>
@@ -565,6 +552,6 @@
     </div>
   </div>
 
-  <script src="script.js?v=pre-1.2"></script>
+  <script src="js/script.js?v=pre-1.3"></script>
 </body>
 </html>
